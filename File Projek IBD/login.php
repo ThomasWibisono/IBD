@@ -42,10 +42,14 @@ $page_title = "Login Bruder";
             padding: 0;
             height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+            /* background gambar */
+            background: url("fic2.jpeg") no-repeat center center fixed;
+            background-size: cover;
+            
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #1e90ff, #00c6ff);
         }
         .wrapper {
             display: flex;
@@ -53,8 +57,8 @@ $page_title = "Login Bruder";
             height: 520px;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            background: rgba(255, 255, 255, 0.92); /* transparan sedikit agar background terlihat */
         }
         .left-panel {
             flex: 1.1;
@@ -130,11 +134,10 @@ $page_title = "Login Bruder";
             color: #fff;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* vertikal tengah */
-            align-items: center;     /* horizontal tengah */
-            gap: 10px; /* jarak teks dan logo */
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
             padding: 20px;
-            position: relative;
         }
         .right-section h2 {
             font-size: 32px;
@@ -143,7 +146,7 @@ $page_title = "Login Bruder";
             margin: 0;
         }
         .right-section img {
-            width: 220px; /* diperbesar */
+            width: 220px;
             height: auto;
             display: block;
         }
