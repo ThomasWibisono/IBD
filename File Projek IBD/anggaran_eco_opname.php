@@ -329,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <!-- Uang Kertas -->
                     <h4>Uang Kertas</h4>
                     <table>
-                        <tr><th>Denom</th><th>Qty</th><th>Subtotal</th></tr>
+                        <tr><th>Nominal</th><th>Jumlah</th><th>Subtotal</th></tr>
                         <?php foreach([100000,50000,20000,10000,5000,2000,1000] as $d): ?>
                         <tr>
                             <td>Rp <?=number_format($d,0,',','.')?></td>
@@ -343,7 +343,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <!-- Uang Logam -->
                     <h4>Uang Logam</h4>
                     <table>
-                        <tr><th>Denom</th><th>Qty</th><th>Subtotal</th></tr>
+                        <tr><th>Nominal</th><th>Jumlah</th><th>Subtotal</th></tr>
                         <?php foreach([1000,500,200,100] as $d): ?>
                         <tr>
                             <td>Rp <?=number_format($d,0,',','.')?></td>
