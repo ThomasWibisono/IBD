@@ -383,6 +383,21 @@ document.querySelectorAll('.kqty,.lqty').forEach(i=>i.addEventListener('input',c
                 document.getElementById("dropdownMenu").style.display = "none";
             }
         }
+
+
+        function previewImage(input) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            const img = input.nextElementSibling;
+            img.src = e.target.result;
+            img.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
 </script>
 </body>
 </html>
