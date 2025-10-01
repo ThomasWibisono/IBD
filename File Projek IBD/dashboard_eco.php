@@ -10,7 +10,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare("
-        SELECT lb.nama_bruder, db.unit_kerja, db.alamat, db.no_telp, db.email
+        SELECT lb.nama_bruder, db.unit_kerja, db.alamat, db.no_telp, db.email, db.foto
         FROM login_bruder lb
         LEFT JOIN data_bruder db ON lb.ID_bruder = db.ID_bruder
         WHERE lb.ID_bruder = ?
@@ -143,7 +143,7 @@ try {
             <a href="anggaran_eco.php">Anggaran</a>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
-            <img src="foto/thom.jpg" alt="Profile" class="profile-pic">
+            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
             </div>
