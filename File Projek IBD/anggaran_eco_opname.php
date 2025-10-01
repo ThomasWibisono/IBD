@@ -375,6 +375,15 @@ function calcAll(){
 document.getElementById('saldo_catatan').addEventListener('input',calcAll);
 document.getElementById('kas_kecil').addEventListener('input',calcAll);
 document.querySelectorAll('.kqty,.lqty').forEach(i=>i.addEventListener('input',calcAll));
+        function toggleDropdown() {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+        window.onclick = function(event) {
+            if (!event.target.closest('.profile-wrapper')) {
+                document.getElementById("dropdownMenu").style.display = "none";
+            }
+        }
 </script>
 </body>
 </html>
