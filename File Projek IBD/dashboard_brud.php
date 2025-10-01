@@ -167,7 +167,6 @@ try {
             </div>
         </div>
     </main>
-
     <script>
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
