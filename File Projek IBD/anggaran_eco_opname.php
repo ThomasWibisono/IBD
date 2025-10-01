@@ -21,7 +21,6 @@ try {
 } catch (PDOException $e) {
     die("Koneksi atau query gagal: " . $e->getMessage());
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="id">
