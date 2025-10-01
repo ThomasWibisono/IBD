@@ -95,11 +95,16 @@ try {
     <header>
         <img src="foto/logo.png" alt="Logo" class="logo">
         <nav>
-            <a href="dashboard_eco.php">Home</a>
-            <a href="anggota.php" class="active">Daftar Anggota</a>
+            <a href="dashboard_eco.php" class="active">Home</a>
+            <a href="anggota.php">Daftar Anggota</a>
             <a href="anggaran_eco.php">Anggaran</a>
         </nav>
-        <img src="foto/thom.jpg" alt="Profile" class="profile-pic" style="width:50px;height:50px;border-radius:50%;">
+        <div class="profile-wrapper" onclick="toggleDropdown()">
+            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+            <div class="dropdown" id="dropdownMenu">
+                <a href="logout.php">Logout</a>
+            </div>
+        </div>
     </header>
 
     <div class="search-box">
