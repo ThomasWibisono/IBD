@@ -44,9 +44,11 @@ try {
         ];
 
         // Tambahkan semua pos
-        $fields = ['pos_A','pos_B','pos_C','pos_D','pos_E','pos_F','pos_G','pos_H','pos_I'];
+        $fields = ['pos_A','pos_B','pos_C','pos_D','pos_E','pos_F','pos_G','pos_H','pos_I','pos_1', 'pos_2','pos_3', 'pos_4', 'pos_5', 'pos_6', 'pos_7', 'pos_8', 'pos_9',
+                'pos_10', 'pos_11', 'pos_12', 'pos_13', 'pos_14', 'pos_15', 'pos_16', 'pos_17', 'pos_18', 'pos_19',
+                'pos_20', 'pos_21', 'pos_22', 'pos_23', 'pos_24', 'pos_25', 'pos_26', 'pos_27', 'pos_28', 'pos_29',
+                'pos_30', 'pos_31', 'pos_32', 'pos_33', 'pos_34', 'pos_35', 'pos_36', 'pos_37', 'pos_38'];
         for ($i = 1; $i <= 38; $i++) $fields[] = "pos_$i";
-
         foreach ($fields as $f) {
             $params[":$f"] = $_POST[$f] ?? 0;
         }
@@ -123,10 +125,11 @@ try {
             text-decoration: none;
             font-weight: bold;
         }
-
         nav a.active {
-            background: orange;
-            color: black;
+            background: #0b75d1;
+        }
+        nav a:hover {
+            background: #0096e0;
         }
 
         /* Profile */
@@ -269,7 +272,7 @@ try {
                         <button type="submit" class="btn-simpan">Simpan</button>
                     </div>
 
-                    <table>
+<table>
                         <thead>
                         <tr>
                             <th>POS</th>
@@ -281,17 +284,37 @@ try {
                         </thead>
                         <tbody>
                         <tr>
-                            <td>A</td><td>410101</td><td>Gaji/Pendapatan Bruder</td>
+                            <td>C</td><td>410101</td><td>Gaji/Pendapatan Bruder</td>
                             <td class="input-cell"><input type="number" step="0.01" name="pos_A"></td>
                             <td>Per Bulan</td>
                         </tr>
                         <tr>
-                            <td>B</td><td>410102</td><td>Pensiun Bruder</td>
+                            <td>D</td><td>410102</td><td>Pensiun Bruder</td>
                             <td class="input-cell"><input type="number" step="0.01" name="pos_B"></td>
                             <td>Per Bulan</td>
                         </tr>
                         <tr>
-                            <td>C</td><td>430101</td><td>Hasil Kebun dan Piaraan</td>
+                            <td>E</td><td>430101</td><td>Hasil Kebun dan Piaraan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_C"></td>
+                            <td>Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>F</td><td>420101</td><td>Bunga Tabungan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_C"></td>
+                            <td>Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>G</td><td>410202</td><td>Sumbangan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_C"></td>
+                            <td>Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>H</td><td>430103</td><td>Penerimaan Lainnyan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_C"></td>
+                            <td>Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>I</td><td>610100</td><td>Penerimaan dari DP</td>
                             <td class="input-cell"><input type="number" step="0.01" name="pos_C"></td>
                             <td>Per Bulan</td>
                         </tr>
@@ -302,13 +325,192 @@ try {
                             <td>Per Bruder Per Bulan</td>
                         </tr>
                         <tr>
-                            <td>2</td><td>510201</td><td>Pakaian</td>
+                            <td>2</td><td>510201</td><td>Pakaian dan Perlengkapan Pribadi</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>3</td><td>510301</td><td>Pemeriksaan Dan Pengobatan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>4</td><td>510303</td><td>Hiburan/Rekreasi</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>5</td><td>510501</td><td>Transport Harian</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>6</td><td>520401</td><td>Studi Pribadi</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>7</td><td>510102</td><td>Bahan Bakar Dapur</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>8</td><td>510103</td><td>Perlengkapan Cuci dan Kebersihan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>9</td><td>510104</td><td>Perabot Rumah Tangga</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>10</td><td>510104</td><td>Iuran Hidup Bermasyarakat Dan Menggereja </td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>11</td><td>510105</td><td>Listrik</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>12</td><td>510401</td><td>Air</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>13</td><td>510403</td><td>Telepon Dan Internet</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>14</td><td>520201</td><td>Keperluan Ibadah</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>15</td><td>530303</td><td>Sumbangan </td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>16</td><td>540101</td><td>Insentif ART</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>17</td><td>540201</td><td>Pemeliharaan Rumah</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>18</td><td>540202</td><td>Pemeliharaan Kebun Dan Piaraan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>19</td><td>540203</td><td>Pemeliharaan Kendaraan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>20</td><td>540204</td><td>Pemeliharaan Mesin Dan Peralatan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>21</td><td>550101</td><td>Administrasi Komunitas</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>22</td><td>550105</td><td>Legal dan Perijinan </td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>23</td><td>550106</td><td>Buku, Majalah, Koran</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>24</td><td>550107</td><td>Administrasi Bank</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>25</td><td>550201</td><td>Pajak Bunga Bank</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>26</td><td>550202</td><td>Pajak Kendaraan Dan PBB</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>27</td><td>510103</td><td>Perlengkapan Cuci dan Kebersihan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>28</td><td>510103</td><td>Perlengkapan Cuci dan Kebersihan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>29</td><td>520501</td><td>Penunjang Kesehatan Lansia</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>30</td><td>520502</td><td>Pemeliharaan Rohani Lansia</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>31</td><td>520503</td><td>Kegiatan Bruder Lansia</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>32</td><td>130300</td><td>Mesin dan Peralatan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>33</td><td>130400</td><td>Perabot Rumah Tangga</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>34</td><td>520100</td><td>Transport Pertemuan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>35</td><td>520200</td><td>Perayaan Syukur</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>36</td><td>510501</td><td>Kegiatan Lansia</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>37</td><td>540501</td><td>Pemeliharaan Rumah</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>38</td><td>540300</td><td>Budget Khusus Lainnya</td>
                             <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
                             <td>Per Bruder Per Bulan</td>
                         </tr>
                         </tbody>
-                    </table>
-                </form>
+                    </table>                </form>
             </div>
         </main>
     </div>
