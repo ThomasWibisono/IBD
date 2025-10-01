@@ -8,13 +8,20 @@ if (!isset($_SESSION['ID_bruder'])) {
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=ibd_kelompok6_brd", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $stmt = $pdo->query("SELECT ID_bruder, nama_bruder, foto FROM data_bruder");
-    $bruders = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    $stmt = $pdo->prepare("
+        SELECT db.foto
+        FROM login_bruder lb
+        LEFT JOIN data_bruder db ON lb.ID_bruder = db.ID_bruder
+        WHERE lb.ID_bruder = ?
+    ");
+    $stmt->execute([$_SESSION['ID_bruder']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
+    $stmt2 = $pdo->query("SELECT ID_bruder, nama_bruder, foto FROM data_bruder");
+    $bruders = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
-    die("Koneksi gagal: " . $e->getMessage());
+    die("Koneksi atau query gagal: " . $e->getMessage());
 }
 ?>
 <!DOCTYPE html>
@@ -52,6 +59,39 @@ try {
             width: 60%;
             display: flex;
             align-items: center;
+        }
+        .profile-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .dropdown a:hover {
+            background: #f4f4f4;
         }
         .search-box input {
             flex: 1;
