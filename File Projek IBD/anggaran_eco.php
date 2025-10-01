@@ -8,6 +8,15 @@ if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=ibd_kelompok6_brd", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $pdo->prepare("
+        SELECT db.foto
+        FROM login_bruder lb
+        LEFT JOIN data_bruder db ON lb.ID_bruder = db.ID_bruder
+        WHERE lb.ID_bruder = ?
+    ");
+    $stmt->execute([$_SESSION['ID_bruder']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("
@@ -58,85 +67,118 @@ try {
     <style>
         body {
             margin: 0;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background: #f4f4f4;
-            color: #333;
+            display: flex;
+        }
+        .sidebar {
+            width: 220px;
+            background: #d32f2f;
+            color: white;
+            min-height: 100vh;
+            padding: 15px 0;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .sidebar a:hover {
+            background: #b71c1c;
+        }
+        .sidebar a.active {
+            background: yellow;
+            color: black;
+            font-weight: bold;
+        }
+        .main {
+            flex: 1;
         }
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #fff;
+            background: white;
             padding: 10px 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .logo {
             height: 60px;
         }
+
+        /* Navigation */
         nav {
             display: flex;
             gap: 15px;
         }
+
         nav a {
             padding: 10px 20px;
             border-radius: 25px;
             background: #1e90ff;
-            color: #fff;
+            color: white;
             text-decoration: none;
             font-weight: bold;
-            transition: 0.3s;
         }
+
         nav a.active {
-            background: #0b75d1;
+            background: orange;
+            color: black;
         }
-        nav a:hover {
-            background: #0096e0;
+
+        /* Profile */
+        .profile-wrapper {
+            position: relative;
+            cursor: pointer;
         }
+
         .profile-pic {
             width: 50px;
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
         }
-        .container {
-            display: flex;
-            margin-top: 10px;
-        }
-        .sidebar {
-            width: 200px;
-            background: #e74c3c;
-            color: #fff;
-            padding: 20px 0;
-        }
-        .sidebar a {
-            display: block;
-            padding: 12px 20px;
-            color: #fff;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .sidebar a.active {
-            background: yellow;
-            color: #000;
-            border-radius: 20px;
-            font-weight: bold;
-            margin: 5px;
-        }
-        .sidebar a:hover {
-            background: #c0392b;
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .content {
-            flex: 1;
-            padding: 20px;
-            background: #fff;
-            margin: 0 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
         }
-        h2 {
+
+        .dropdown a:hover {
+            background: #f4f4f4;
+        }
+        main {
+            padding: 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        h1 {
             text-align: center;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
         .table-header {
             display: flex;
@@ -181,17 +223,6 @@ try {
 </style>
 </head>
 <body>
-<header>
-    <img src="foto/logo.png" alt="Logo" class="logo">
-    <nav>
-        <a href="dashboard_eco.php">Home</a>
-        <a href="anggota.php">Daftar Anggota</a>
-        <a href="anggaran_eco.php" class="active">Anggaran</a>
-    </nav>
-    <img src="foto/thom.jpg" alt="Profile" class="profile-pic">
-</header>
-
-<div class="container">
     <div class="sidebar">
         <a href="anggaran_eco.php" class="active">Data</a>
         <a href="anggaran_eco_perkiraan.php">Perkiraan</a>
@@ -204,66 +235,83 @@ try {
         <a href="anggaran_eco_opname.php">Kas Opname</a>
     </div>
 
-    <div class="content">
-        <h2>ANGGARAN PENDAPATAN DAN BELANJA <br>KOMUNITAS FIC CANDI<br>TAHUN 2025</h2>
-
-        <form method="post">
-            <label>Pemimpin Lokal: <input type="text" name="nama_pemimpinlokal" required></label><br><br>
-            <label>Bendahara Komunitas: <input type="text" name="nama_bendaharakomunitas" required></label><br><br>
-            <label>Kota:
-                <select name="nama_kota">
-                    <option value="Jakarta">Jakarta</option>
-                    <option value="Bandung">Bandung</option>
-                    <option value="Yogyakarta">Yogyakarta</option>
-                    <option value="Semarang">Semarang</option>
-                </select>
-            </label>
-
-            <div class="table-header">
-                <button type="submit" class="btn-simpan">Simpan</button>
+    <div class="main">
+        <header>
+            <img src="foto/logo.png" alt="Logo" class="logo">
+            <nav>
+                <a href="dashboard_eco.php">Home</a>
+                <a href="anggota.php">Daftar Anggota</a>
+                <a href="anggaran_eco.php">Anggaran</a>
+            </nav>
+            <div class="profile-wrapper" onclick="toggleDropdown()">
+                <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
+                <div class="dropdown" id="dropdownMenu">
+                    <a href="logout.php">Logout</a>
+                </div>
             </div>
+        </header>
+        <main>
+            <h1>ANGGARAN PENDAPATAN DAN BELANJA <br>KOMUNITAS FIC CANDI<br>TAHUN 2025</h1>
+            <div class="card">
+                <form method="post">
+                    <label>Pemimpin Lokal: <input type="text" name="nama_pemimpinlokal" required></label><br><br>
+                    <label>Bendahara Komunitas: <input type="text" name="nama_bendaharakomunitas" required></label><br><br>
+                    <label>Kota:
+                        <select name="nama_kota">
+                            <option value="Jakarta">Jakarta</option>
+                            <option value="Bandung">Bandung</option>
+                            <option value="Yogyakarta">Yogyakarta</option>
+                            <option value="Semarang">Semarang</option>
+                        </select>
+                    </label>
 
-            <table>
-                <thead>
-                <tr>
-                    <th>POS</th>
-                    <th>KODE</th>
-                    <th>NAMA PERKIRAAN</th>
-                    <th>ANGGARAN</th>
-                    <th>KETERANGAN</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>A</td><td>410101</td><td>Gaji/Pendapatan Bruder</td>
-                    <td class="input-cell"><input type="number" step="0.01" name="pos_A"></td>
-                    <td>Per Bulan</td>
-                </tr>
-                <tr>
-                    <td>B</td><td>410102</td><td>Pensiun Bruder</td>
-                    <td class="input-cell"><input type="number" step="0.01" name="pos_B"></td>
-                    <td>Per Bulan</td>
-                </tr>
-                <tr>
-                    <td>C</td><td>430101</td><td>Hasil Kebun dan Piaraan</td>
-                    <td class="input-cell"><input type="number" step="0.01" name="pos_C"></td>
-                    <td>Per Bulan</td>
-                </tr>
-                <!-- lanjutkan sesuai kebutuhan sampai pos_38 -->
-                <tr>
-                    <td>1</td><td>510101</td><td>Makanan</td>
-                    <td class="input-cell"><input type="number" step="0.01" name="pos_1"></td>
-                    <td>Per Bruder Per Bulan</td>
-                </tr>
-                <tr>
-                    <td>2</td><td>510201</td><td>Pakaian</td>
-                    <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
-                    <td>Per Bruder Per Bulan</td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
+                    <div class="table-header">
+                        <button type="submit" class="btn-simpan">Simpan</button>
+                    </div>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>POS</th>
+                            <th>KODE</th>
+                            <th>NAMA PERKIRAAN</th>
+                            <th>ANGGARAN</th>
+                            <th>KETERANGAN</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>A</td><td>410101</td><td>Gaji/Pendapatan Bruder</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_A"></td>
+                            <td>Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>B</td><td>410102</td><td>Pensiun Bruder</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_B"></td>
+                            <td>Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>C</td><td>430101</td><td>Hasil Kebun dan Piaraan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_C"></td>
+                            <td>Per Bulan</td>
+                        </tr>
+                        <!-- lanjutkan sesuai kebutuhan sampai pos_38 -->
+                        <tr>
+                            <td>1</td><td>510101</td><td>Makanan</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_1"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>2</td><td>510201</td><td>Pakaian</td>
+                            <td class="input-cell"><input type="number" step="0.01" name="pos_2"></td>
+                            <td>Per Bruder Per Bulan</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </main>
     </div>
-</div>
+
 </body>
 </html>
