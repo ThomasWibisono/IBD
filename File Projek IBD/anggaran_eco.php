@@ -239,12 +239,12 @@ try {
         <header>
             <img src="foto/logo.png" alt="Logo" class="logo">
             <nav>
-                <a href="dashboard_eco.php">Home</a>
+                <a href="dashboard_eco.php" class="active">Home</a>
                 <a href="anggota.php">Daftar Anggota</a>
                 <a href="anggaran_eco.php">Anggaran</a>
             </nav>
             <div class="profile-wrapper" onclick="toggleDropdown()">
-                <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
+                <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
                 <div class="dropdown" id="dropdownMenu">
                     <a href="logout.php">Logout</a>
                 </div>
@@ -312,6 +312,16 @@ try {
             </div>
         </main>
     </div>
-
+    <script>
+        function toggleDropdown() {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+        window.onclick = function(event) {
+            if (!event.target.closest('.profile-wrapper')) {
+                document.getElementById("dropdownMenu").style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
