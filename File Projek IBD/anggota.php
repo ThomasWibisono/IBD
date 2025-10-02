@@ -171,6 +171,15 @@ try {
                 cards[i].style.display = name.includes(filter) ? "" : "none";
             }
         });
+        function toggleDropdown() {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+        window.onclick = function(event) {
+            if (!event.target.closest('.profile-wrapper')) {
+                document.getElementById("dropdownMenu").style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
