@@ -27,7 +27,7 @@ try {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Econom</title>
+    <title>Dashboard Bruder</title>
     <style>
         body {
             margin: 0;
@@ -35,36 +35,51 @@ try {
             background: #f4f4f4;
         }
         header {
+            position: fixed;     
+            top: 0;
+            left: 0;
+            width: 100%;          
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: white;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
+            z-index: 1000;
         }
         .logo {
             height: 60px;
+            
         }
         nav {
+            
             display: flex;
-            gap: 15px;
-        }
-        nav a {
-            padding: 10px 20px;
-            border-radius: 25px;
+            justify-content: center;
+            gap: 40px;
             background: #1e90ff;
+            padding: 10px 0;
+            border-radius: 50px;
+            width: 60%;   
+            max-width: 700px; 
+            margin: 0 auto;   
+        }
+
+        nav a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
             transition: 0.3s;
         }
+
         nav a.active {
-            background: #0b75d1;
+            background: white;
+            color: black;
+            font-weight: bold;
         }
+
         nav a:hover {
-            background: #0096e0;
+            background: rgba(255, 255, 255, 0.2);
         }
+
         .profile-wrapper {
             position: relative;
             cursor: pointer;
@@ -96,6 +111,7 @@ try {
             background: #f4f4f4;
         }
         main {
+            margin-top: 50px;
             padding: 20px;
             text-align: center;
         }
@@ -140,7 +156,7 @@ try {
         <nav>
             <a href="dashboard_eco.php" class="active">Home</a>
             <a href="anggota.php">Daftar Anggota</a>
-            <a href="anggaran_brud.php">Anggaran</a>
+            <a href="anggaran_eco.php">Anggaran</a>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
             <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
@@ -167,6 +183,7 @@ try {
             </div>
         </div>
     </main>
+
     <script>
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
