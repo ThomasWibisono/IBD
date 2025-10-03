@@ -36,35 +36,55 @@ try {
             background: #f4f4f4;
         }
         header {
+            position: fixed;     
+            top: 0;
+            left: 0;
+            width: 100%;          
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: white;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
-        .logo { height: 60px; }
-        nav { display: flex; gap: 15px; }
-        nav a {
-            padding: 10px 20px;
-            border-radius: 25px;
+        .logo {
+            height: 60px;
+            
+        }
+        nav {
+            
+            display: flex;
+            justify-content: center;
+            gap: 40px;
             background: #1e90ff;
+            padding: 10px 0;
+            border-radius: 50px;
+            width: 60%;   
+            max-width: 700px; 
+            margin: 0 auto;   
+        }
+
+        nav a {
             color: white;
             text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        nav a.active {
+            background: white;
+            color: black;
             font-weight: bold;
         }
-        nav a.active { background: #0b75d1; }
-        .search-box {
-            margin: 20px auto;
-            width: 60%;
-            display: flex;
-            align-items: center;
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
+
         .profile-wrapper {
             position: relative;
             cursor: pointer;
         }
-
         .profile-pic {
             width: 50px;
             height: 50px;
@@ -77,11 +97,10 @@ try {
             right: 0;
             top: 60px;
             background: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             border-radius: 8px;
             overflow: hidden;
         }
-
         .dropdown a {
             display: block;
             padding: 10px 20px;
@@ -89,11 +108,16 @@ try {
             text-decoration: none;
             font-size: 14px;
         }
-
         .dropdown a:hover {
             background: #f4f4f4;
         }
+        main {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+        }
         .search-box input {
+            width: 50%;
             flex: 1;
             padding: 10px;
             border-radius: 25px;
@@ -135,8 +159,8 @@ try {
     <header>
         <img src="foto/logo.png" alt="Logo" class="logo">
         <nav>
-            <a href="dashboard_eco.php" class="active">Home</a>
-            <a href="anggota.php">Daftar Anggota</a>
+            <a href="dashboard_eco.php">Home</a>
+            <a href="anggota.php"class="active">Daftar Anggota</a>
             <a href="anggaran_eco.php">Anggaran</a>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
@@ -146,20 +170,19 @@ try {
             </div>
         </div>
     </header>
-
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Cari nama Bruder...">
-    </div>
-
-    <div class="grid" id="anggotaGrid">
-        <?php foreach ($bruders as $b): ?>
-            <a href="detail_bruder.php?id=<?= $b['ID_bruder'] ?>" class="card">
-                <img src="foto/<?= htmlspecialchars($b['foto']) ?>" alt="Foto Bruder">
-                <p><?= htmlspecialchars($b['nama_bruder']) ?></p>
-            </a>
-        <?php endforeach; ?>
-    </div>
-
+    <main>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Cari nama Bruder...">
+        </div>
+        <div class="grid" id="anggotaGrid">
+            <?php foreach ($bruders as $b): ?>
+                <a href="detail_bruder.php?id=<?= $b['ID_bruder'] ?>" class="card">
+                    <img src="foto/<?= htmlspecialchars($b['foto']) ?>" alt="Foto Bruder">
+                    <p>Br. <?= htmlspecialchars($b['nama_bruder']) ?>, FIC.</p>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </main> 
     <script>
         const searchInput = document.getElementById('searchInput');
         const anggotaGrid = document.getElementById('anggotaGrid');

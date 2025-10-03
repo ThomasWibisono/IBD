@@ -139,6 +139,14 @@ try {
             font-size: 18px;
             text-align: center;
         }
+        .card.red {
+            background: #e74c3c;
+            color: #fff;
+            display: flex;           
+            justify-content: center; 
+            align-items: center;     
+            text-align: center;     
+        }
         .red {
             background: #e74c3c;
             color: #fff;
@@ -173,7 +181,7 @@ try {
         </div>
         <div class="cards">
             <div class="card red">
-                Penjelasan fungsi website
+                Website HALO FIC dibuat khusus untuk para bruder sebagai media informasi internal. Di sini, bruder dapat melihat data pribadi, unit kerja, dan informasi penting lain secara mudah serta mendukung kelancaran administrasi di lingkungan bruderan.
             </div>
             <div class="card yellow">
                 <p>Unit Kerja : <?= htmlspecialchars($user['unit_kerja']) ?></p>
