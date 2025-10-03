@@ -53,149 +53,149 @@ $page_title = "Login Bruder";
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($page_title) ?></title>
+    <title>HALO FIC</title>
     <style>
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: url("foto/fic2.jpeg") no-repeat center center fixed;
-        background-size: cover;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("foto/fic2.jpeg") no-repeat center center fixed;
+            background-size: cover;
+        }
 
-    .wrapper {
-        display: flex;
-        width: 850px;
-        height: 520px;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        background: #fff;
-    }
+        .wrapper {
+            display: flex;
+            width: 850px;
+            height: 520px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            background: #fff;
+        }
 
-    .left-panel {
-        flex: 1.1;
-        padding: 50px 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+        .left-panel {
+            flex: 1.1;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-    .left-panel h2 {
-        margin-bottom: 10px;
-        color: #1e90ff;
-        font-size: 28px;
-    }
+        .left-panel h2 {
+            margin-bottom: 10px;
+            color: #1e90ff;
+            font-size: 28px;
+        }
 
-    .left-panel p {
-        color: #555;
-        font-size: 15px;
-        margin-bottom: 30px;
-    }
+        .left-panel p {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
 
-    label {
-        display: block;
-        margin: 12px 0 6px;
-        font-weight: bold;
-        color: #333;
-        font-size: 14px;
-    }
+        label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
 
-    input[type="text"],
-    input[type="password"] {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #cce0ff;
-        border-radius: 10px;
-        font-size: 15px;
-        transition: all 0.3s;
-    }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cce0ff;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-        border-color: #1e90ff;
-        outline: none;
-        box-shadow: 0 0 6px rgba(30, 144, 255, 0.5);
-    }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #1e90ff;
+            outline: none;
+            box-shadow: 0 0 6px rgba(30, 144, 255, 0.5);
+        }
 
-    .checkbox {
-        margin: 12px 0;
-        font-size: 13px;
-        color: #333;
-    }
+        .checkbox {
+            margin: 12px 0;
+            font-size: 13px;
+            color: #333;
+        }
 
-    .checkbox input {
-        margin-right: 6px;
-    }
+        .checkbox input {
+            margin-right: 6px;
+        }
 
-    button {
-        margin-top: 18px;
-        width: 100%;
-        padding: 13px;
-        background: linear-gradient(135deg, #1e90ff, #00c6ff);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: transform 0.2s, background 0.3s;
-    }
+        button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #1e90ff, #00c6ff);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+        }
 
-    button:hover {
-        transform: translateY(-2px);
-        background: linear-gradient(135deg, #0b75d1, #0096e0);
-    }
+        button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #0b75d1, #0096e0);
+        }
 
-    .error {
-        color: #d9534f;
-        margin-bottom: 15px;
-        font-weight: bold;
-        text-align: center;
-    }
+        .error {
+            color: #d9534f;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
 
-    .right-section {
-        flex: 0.9;
-        background: #1e90ff;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        padding: 20px;
-        position: relative;
-    }
+        .right-section {
+            flex: 0.9;
+            background: #1e90ff;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;    
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            border-bottom-left-radius: 200px;
+        }
 
-    .right-section h2 {
-        font-size: 32px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin: 0;
-    }
+        .right-section h1 {
+            padding-top: 35%;
+            font-size: 42px;
+            font-weight: bold;
+            margin: 0 0 10px 0; 
+        }
 
-    .right-section img {
-        width: 220px;
-        height: auto;
-        display: block;
-    }
+        .right-section img {
+            width: 220px;
+            height: auto;
+            display: block;
+        }
 
-    .small-link {
-        display: block;
-        margin-top: 15px;
-        font-size: 13px;
-        color: #1e90ff;
-        text-decoration: none;
-        text-align: center;
-    }
+        .small-link {
+            display: block;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #1e90ff;
+            text-decoration: none;
+            text-align: center;
+        }
 
-    .small-link:hover {
-        text-decoration: underline;
-    }
+        .small-link:hover {
+            text-decoration: underline;
+        }
 </style>
 </head>
 <body>
@@ -214,7 +214,8 @@ $page_title = "Login Bruder";
             </form>
         </div>
         <div class="right-section">
-            <img src="foto/fic.png" alt="Logo FIC">
+            <h1>HALO FIC</h1>
+            <img src="foto/logo.png" alt="Logo FIC">
         </div>
     </div>
     <script>
