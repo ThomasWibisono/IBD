@@ -26,7 +26,7 @@ try {
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>PERKIRAAN</title>
+<title>EVALUASI</title>
 <style>
     body {
         margin: 0;
@@ -218,10 +218,11 @@ try {
         <nav>
             <a href="dashboard_eco.php">Home</a>
             <a href="anggota.php">Daftar Anggota</a>
-            <a href="anggaran_eco.php" class="active" >Anggaran</a>
+            <a href="anggaran_eco.php" class="active">Anggaran</a>
+
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
-            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+            <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
             </div>
@@ -230,18 +231,18 @@ try {
     <div class="container">
         <div class="sidebar">
             <a href="anggaran_eco.php">Data</a>
-            <a href="anggaran_eco_perkiraan.php" class="active">Perkiraan</a>
+            <a href="anggaran_eco_perkiraan.php">Perkiraan</a>
             <a href="anggaran_eco_kas.php">Kas Harian</a>
             <a href="anggaran_eco_bank.php">Bank</a>
             <a href="anggaran_eco_bruder.php">Bruder</a>
             <a href="anggaran_eco_lu.php">LU Komunitas</a>
-            <a href="anggaran_eco_evaluasi.php">Evaluasi</a>
+            <a href="anggaran_eco_evaluasi.php" class="active">Evaluasi</a>
             <a href="anggaran_eco_buku.php">Buku Besar</a>
             <a href="anggaran_eco_opname.php">Kas Opname</a>
         </div>
         <div class="main">
             <main>
-                <h1>KODE PERKIRAAN PEMBUKUAN<br>KOMUNITAS BRUDER FIC</h1>
+                <h1>KOMUNITAS FIC CANDI<br>EVALUASI KEUANGAN<br>BULAN JANUARI 2025</h1>
                 <div class="card">
                         
                 </div>
