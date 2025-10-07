@@ -94,7 +94,7 @@ try {
         .dropdown {
             display: none;
             position: absolute;
-            right: 0;
+            right: 40px;
             top: 60px;
             background: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -167,6 +167,7 @@ try {
             <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
+                <a href="editprofile.php">Edit Profile</a>
             </div>
         </div>
     </header>

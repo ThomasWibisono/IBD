@@ -257,6 +257,7 @@ try {
             <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
+                <a href="editprofile.php">Edit Profile</a>
             </div>
         </div>
     </header>
