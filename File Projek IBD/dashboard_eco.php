@@ -181,7 +181,7 @@ try {
         </div>
         <div class="cards">
             <div class="card red">
-                Website HALO FIC dibuat khusus untuk para bruder sebagai media informasi internal. Di sini, bruder dapat melihat data pribadi, unit kerja, dan informasi penting lain secara mudah serta mendukung kelancaran administrasi di lingkungan bruderan.
+                Website HALO FIC dibuat khusus untuk para bruder sebagai media informasi internal. Di sini, bruder dapat melihat data pribadi, unit kerja, dan informasi penting lain secara mudah serta mendukung kelancaran administrasi di lingkungan Komuitas Para Bruder FIC.
             </div>
             <div class="card yellow">
                 <p>Unit Kerja : <?= htmlspecialchars($user['unit_kerja']) ?></p>
