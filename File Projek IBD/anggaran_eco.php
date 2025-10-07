@@ -160,9 +160,15 @@ try {
             right: 0;
             top: 60px;
             background: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             border-radius: 8px;
             overflow: hidden;
+            min-width: 260px;
+            display: none;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
         }
         .dropdown a {
             display: block;
