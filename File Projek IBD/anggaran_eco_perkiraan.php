@@ -4,11 +4,13 @@ if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
     header("Location: login.php");
     exit;
 }
+
 try {
+    // 🔹 Koneksi ke database pakai PDO
     $pdo = new PDO("mysql:host=localhost;dbname=ibd_kelompok6_brd", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $nama = $_SESSION['nama_bruder'];
+    // 🔹 Ambil foto profil
     $stmt = $pdo->prepare("
         SELECT db.foto
         FROM login_bruder lb
@@ -19,7 +21,36 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
 } catch (PDOException $e) {
-    die("Koneksi atau query gagal: " . $e->getMessage());
+    die("Koneksi gagal: " . $e->getMessage());
+}
+
+// 🔹 Fungsi tampil tabel
+function tampilTabel($pdo, $kategori) {
+    echo "<h3>$kategori</h3>";
+    echo "<table>";
+    echo "<tr>
+            <th>POS</th>
+            <th>KODE PERKIRAAN</th>
+            <th>NAMA PERKIRAAN</th>
+          </tr>";
+
+    $stmt = $pdo->prepare("SELECT * FROM `2_perkiraan` WHERE posisi = ? ORDER BY ID_pos ASC");
+    $stmt->execute([$kategori]);
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($data) {
+        foreach ($data as $row) {
+            echo "<tr>
+                    <td>{$row['ID_pos']}</td>
+                    <td>{$row['kode']}</td>
+                    <td>{$row['akun']}</td>
+                  </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='3'>Tidak ada data untuk kategori ini</td></tr>";
+    }
+
+    echo "</table>";
 }
 ?>
 <!DOCTYPE html>
@@ -46,9 +77,7 @@ try {
     .logo {
         height: 60px;
     }
-
     nav {
-        
         display: flex;
         justify-content: center;
         gap: 40px;
@@ -67,7 +96,6 @@ try {
         border-radius: 20px;
         transition: 0.3s;
     }
-
     nav a.active {
         background: white;
         color: black;
@@ -76,7 +104,6 @@ try {
     nav a:hover {
         background: rgba(255, 255, 255, 0.2);
     }
-
     .profile-wrapper {
         position: relative;
         cursor: pointer;
@@ -151,65 +178,24 @@ try {
         text-align: center;
         margin: 20px 0;
     }
-    .table-header {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 8px;
-    }
     table {
         width: 100%;
         border-collapse: collapse;
-        table-layout: fixed; 
         margin-top: 10px;
     }
-
     th, td {
         border: 1px solid #ccc;
         padding: 8px;
         text-align: center;
         font-size: 14px;
-        word-wrap: break-word; 
+    }
+    th {
+        background: #f9f9f9;
     }
     .container {
         display: flex;         
         min-height: 100vh;     
     }
-    th {
-        background: #f9f9f9;
-    }
-    .input-cell input {
-        width: 100%;
-        border: none;
-        text-align: right;
-        padding: 5px;
-        outline: none;
-    }
-    .btn-simpan {
-        padding: 8px 18px;
-        background: #1e90ff;
-        color: #fff;
-        border-radius: 25px;
-        font-size: 14px;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .btn-simpan:hover {
-        background: #0b75d1;
-    }
-    .input-cell input,
-    .input-cell select {
-        padding: 2px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-    }
-            
-    th:nth-child(1), td:nth-child(1) { width: 8%; }   
-    th:nth-child(2), td:nth-child(2) { width: 12%; }  
-    th:nth-child(3), td:nth-child(3) { width: 40%; }  
-    th:nth-child(4), td:nth-child(4) { width: 20%; }  
-    th:nth-child(5), td:nth-child(5) { width: 20%; }  
 </style>
 </head>
 <body>
@@ -218,15 +204,16 @@ try {
         <nav>
             <a href="dashboard_eco.php">Home</a>
             <a href="anggota.php">Daftar Anggota</a>
-            <a href="anggaran_eco.php" class="active" >Anggaran</a>
+            <a href="anggaran_eco.php" class="active">Anggaran</a>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
-            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+            <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Foto Bruder" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
             </div>
         </div>
     </header>
+
     <div class="container">
         <div class="sidebar">
             <a href="anggaran_eco.php">Data</a>
@@ -243,11 +230,15 @@ try {
             <main>
                 <h1>KODE PERKIRAAN PEMBUKUAN<br>KOMUNITAS BRUDER FIC</h1>
                 <div class="card">
-                        
+                    <?php
+                        tampilTabel($pdo, "PENERIMAAN");
+                        tampilTabel($pdo, "PENGELUARAN");
+                    ?>
                 </div>
             </main>
         </div>
     </div>
+
     <script>
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
