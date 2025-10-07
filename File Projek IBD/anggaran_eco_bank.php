@@ -18,6 +18,7 @@ try {
     $stmt->execute([$_SESSION['ID_bruder']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
+    $banks = $pdo->query("SELECT * FROM 4_bank ORDER BY tgl_transaksi DESC")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Koneksi atau query gagal: " . $e->getMessage());
 }
@@ -31,118 +32,118 @@ try {
     html, body {
         height: 100%;
     }
-body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f4f4;
-        }
-        header {
-            position: relative;     
-            top: 0;
-            left: 0;
-            width: 100%;          
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-        }
-        .logo {
-            height: 60px;
-        }
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f4f4f4;
+    }
+    header {
+        position: relative;     
+        top: 0;
+        left: 0;
+        width: 100%;          
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+    }
+    .logo {
+        height: 60px;
+    }
 
-        nav {
-            
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            background: #1e90ff;
-            padding: 10px 0;
-            border-radius: 50px;
-            width: 60%;   
-            max-width: 700px; 
-            margin: 0 auto;   
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
+    nav {
+        
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        background: #1e90ff;
+        padding: 10px 0;
+        border-radius: 50px;
+        width: 60%;   
+        max-width: 700px; 
+        margin: 0 auto;   
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 20px;
+        transition: 0.3s;
+    }
 
-        nav a.active {
-            background: white;
-            color: black;
-            font-weight: bold;
-        }
-        nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+    nav a.active {
+        background: white;
+        color: black;
+        font-weight: bold;
+    }
+    nav a:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
 
-        .profile-wrapper {
-            position: relative;
-            cursor: pointer;
-        }
-        .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .sidebar {
-            width: 220px;
-            background: #d32f2f;
-            color: white;
-            min-height: 100vh;
-            padding: 40px 0;
-            flex-shrink: 0;
-            margin-top: 10px;
-            border-top-right-radius: 50px;
-        }
-        .sidebar a {
-            display: block;
-            padding: 12px 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .sidebar a:hover {
-            background: #b71c1c;
-        }
-        .sidebar a.active {
-            background: yellow;
-            color: black;
-            font-weight: bold;
-        }
-        .main {
-            flex: 1;
-        }
-        .dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 60px;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .dropdown a {
-            display: block;
-            padding: 10px 20px;
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .dropdown a:hover {
-            background: #f4f4f4;
-        }
-        main {
-            margin-top: 10px;
-            padding: 20px;
-            text-align: center;
-        }
+    .profile-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
+    .profile-pic {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .sidebar {
+        width: 220px;
+        background: #d32f2f;
+        color: white;
+        min-height: 100vh;
+        padding: 40px 0;
+        flex-shrink: 0;
+        margin-top: 10px;
+        border-top-right-radius: 50px;
+    }
+    .sidebar a {
+        display: block;
+        padding: 12px 20px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .sidebar a:hover {
+        background: #b71c1c;
+    }
+    .sidebar a.active {
+        background: yellow;
+        color: black;
+        font-weight: bold;
+    }
+    .main {
+        flex: 1;
+    }
+    .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .dropdown a {
+        display: block;
+        padding: 10px 20px;
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .dropdown a:hover {
+        background: #f4f4f4;
+    }
+    main {
+        margin-top: 10px;
+        padding: 20px;
+        text-align: center;
+    }
     .dropdown {
         display: none;
         position: absolute;
@@ -275,7 +276,40 @@ body {
             <main>
                 <h1>KOMUNITAS FIC CANDI<br>LAPORAN BANK HARIAN<br>BULAN JANUARI 2025</h1>
                 <div class="card">
-                        
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Tabel Bank</th>
+                            <th>Nama Bank</th>
+                            <th>No Rekening</th>
+                            <th>Atas Nama</th>
+                            <th>Tanggal Transaksi</th>
+                            <th>ID Pos</th>
+                            <th>Keterangan</th>
+                            <th>Nominal Penerimaan</th>
+                            <th>Nominal Pengeluaran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if ($banks): ?>
+                            <?php foreach ($banks as $row): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row['ID_tabel_bank']) ?></td>
+                                <td><?= htmlspecialchars($row['nama_bank']) ?></td>
+                                <td><?= htmlspecialchars($row['no_rek_bank']) ?></td>
+                                <td><?= htmlspecialchars($row['atas_nama_bank']) ?></td>
+                                <td><?= htmlspecialchars($row['tgl_transaksi']) ?></td>
+                                <td><?= htmlspecialchars($row['ID_pos']) ?></td>
+                                <td><?= htmlspecialchars($row['keterangan_bank']) ?></td>
+                                <td><?= number_format($row['nominal_penerimaan'], 2, ',', '.') ?></td>
+                                <td><?= number_format($row['nominal_pengeluaran'], 2, ',', '.') ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr><td colspan="9">Belum ada data di tabel 4_bank.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
                 </div>
             </main>
         </div>
