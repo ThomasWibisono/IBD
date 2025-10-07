@@ -263,6 +263,7 @@ try {
             <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
+                <a href="editprofile.php">Edit Profile</a>
             </div>
         </div>
     </header>

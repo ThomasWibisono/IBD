@@ -249,6 +249,7 @@ th:nth-child(7), td:nth-child(7) { width: 10%; }  /* % */
             <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
+                <a href="editprofile.php">Edit Profile</a>
             </div>
         </div>
     </header>
