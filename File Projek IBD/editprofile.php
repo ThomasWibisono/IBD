@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['ID_bruder'])) {
+if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
     header("Location: login.php");
     exit;
 }
-
+$nama = $_SESSION['nama_bruder'];
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=ibd_kelompok6_brd", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
