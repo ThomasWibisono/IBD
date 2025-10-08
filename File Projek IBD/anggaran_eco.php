@@ -160,9 +160,15 @@ try {
             right: 0;
             top: 60px;
             background: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             border-radius: 8px;
             overflow: hidden;
+            min-width: 260px;
+            display: none;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
         }
         .dropdown a {
             display: block;
@@ -243,7 +249,12 @@ try {
             border: 1px solid #ddd;
             border-radius: 6px;
         }
-              
+        form label {
+            text-align: left;
+            display: block;
+            font-weight: 500;
+        }
+        
         th:nth-child(1), td:nth-child(1) { width: 8%; }   
         th:nth-child(2), td:nth-child(2) { width: 12%; }  
         th:nth-child(3), td:nth-child(3) { width: 40%; }  
@@ -283,8 +294,8 @@ try {
                 <h1>ANGGARAN PENDAPATAN DAN BELANJA <br>KOMUNITAS FIC CANDI<br>TAHUN 2025</h1>
                 <div class="card">
                     <form method="post">
-                        <label>Pemimpin Lokal: <input type="text" name="nama_pemimpinlokal" required></label><br><br>
-                        <label>Bendahara Komunitas: <input type="text" name="nama_bendaharakomunitas" required></label><br><br>
+                        <label>Pemimpin Lokal: <input type="text" name="nama_pemimpinlokal" required></label><br>
+                        <label>Bendahara Komunitas: <input type="text" name="nama_bendaharakomunitas" required></label><br>
                         <label>Kota:
                             <select name="nama_kota">
                                 <option value="Jakarta">Jakarta</option>
@@ -293,23 +304,22 @@ try {
                                 <option value="Semarang">Semarang</option>
                             </select>
                         </label>
-
                         <div class="table-header">
                             <button type="submit" class="btn-simpan">Simpan</button>
                         </div>
                         <h2>PERSERTUJUAN BUDGET</h2>
                         <table>
                             <thead>
-                            <tr>
-                                <th>POS</th>
-                                <th>KODE</th>
-                                <th>NAMA PERKIRAAN</th>
-                                <th>ANGGARAN</th>
-                                <th>KETERANGAN</th>
-                            </tr>
-                            <tr>
-                                <th colspan="5" style="text-align:left; padding-left:20px;">PENERIMAAN :</th>
-                            </tr>
+                                <tr>
+                                    <th>POS</th>
+                                    <th>KODE</th>
+                                    <th>NAMA PERKIRAAN</th>
+                                    <th>ANGGARAN</th>
+                                    <th>KETERANGAN</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" style="text-align:left; padding-left:20px;">PENERIMAAN :</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -344,7 +354,7 @@ try {
                                 </tr>
                                 <tr>
                                     <td>I</td><td>610100</td><td>Penerimaan dari DP</td>
-                                    <<td class="input-cell"><input type="number" step="0.01" class="penerimaan"></td>
+                                    <td class="input-cell"><input type="number" step="0.01" class="penerimaan"></td>
                                     <td>Per Bulan</td>
                                 </tr>
                             </tbody>
@@ -577,7 +587,8 @@ try {
                                 <td></td>
                                 </tr>
                             </tfoot>
-                        </table>                </form>
+                        </table>                
+                    </form>
                 </div>
             </main>
         </div>

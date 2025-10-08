@@ -26,11 +26,8 @@ try {
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>BRUDER</title>
+<title>EVALUASI</title>
 <style>
-    html, body {
-        height: 100%;
-    }
     body {
         margin: 0;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -118,11 +115,6 @@ try {
     .main {
         flex: 1;
     }
-    main {
-        margin-top: 10px;
-        padding: 20px;
-        text-align: center;
-    }
     .dropdown {
         display: none;
         position: absolute;
@@ -146,15 +138,14 @@ try {
         text-decoration: none;
         font-size: 14px;
     }
-
     .dropdown a:hover {
         background: #f4f4f4;
     }
-    h1 {
+    main {
+        margin-top: 10px;
+        padding: 20px;
         text-align: center;
-        margin: 20px 0;
     }
-
     .card {
         background: white;
         padding: 20px;
@@ -162,70 +153,69 @@ try {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
     }
-    .container {
-        display: flex;         
-        min-height: 100vh;     
+    h1, h2 {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .table-header {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 8px;
     }
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 12px;
+        table-layout: fixed; 
+        margin-top: 10px;
     }
 
-    table th,
-    table td {
-        border: 1px solid #eee;
+    th, td {
+        border: 1px solid #ccc;
         padding: 8px;
         text-align: center;
+        font-size: 14px;
+        word-wrap: break-word; 
     }
-
-    /* Button */
-    .btn {
-        background: #1e90ff;
-        color: white;
+    .container {
+        display: flex;         
+        min-height: 100vh;     
+    }
+    th {
+        background: #f9f9f9;
+    }
+    .input-cell input {
+        width: 100%;
+        border: none;
+        text-align: right;
+        padding: 5px;
+        outline: none;
+    }
+    .btn-simpan {
         padding: 8px 18px;
-        border-radius: 20px;
+        background: #1e90ff;
+        color: #fff;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: bold;
         border: none;
         cursor: pointer;
+        transition: 0.3s;
     }
-
-    /* Image preview */
-    .preview-img {
-        max-width: 120px;
-        max-height: 70px;
-        border: 1px solid #ccc;
-        padding: 4px;
-        background: #fafafa;
+    .btn-simpan:hover {
+        background: #0b75d1;
     }
-
-    /* Form layout */
-    .row {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 15px;
-    }
-
-    .flex-col {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        flex: 1;
-    }
-    .row label {
-        min-width: 140px;
-        font-weight: bold;
-    }
-
-    .row input,
-    .row select {
-        padding: 6px;
+    .input-cell input,
+    .input-cell select {
+        padding: 2px;
         border: 1px solid #ddd;
         border-radius: 6px;
     }
-    .half {
-        flex: 1;
-    }
-
+            
+    th:nth-child(1), td:nth-child(1) { width: 8%; }   
+    th:nth-child(2), td:nth-child(2) { width: 12%; }  
+    th:nth-child(3), td:nth-child(3) { width: 40%; }  
+    th:nth-child(4), td:nth-child(4) { width: 20%; }  
+    th:nth-child(5), td:nth-child(5) { width: 20%; }  
 </style>
 </head>
 <body>
@@ -251,14 +241,19 @@ try {
             <a href="anggaran_eco_perkiraan.php">Perkiraan</a>
             <a href="anggaran_eco_kas.php">Kas Harian</a>
             <a href="anggaran_eco_bank.php">Bank</a>
-            <a href="anggaran_eco_bruder.php" class="active">Bruder</a>
+            <a href="anggaran_eco_bruder.php">Bruder</a>
             <a href="anggaran_eco_lu.php">LU Komunitas</a>
             <a href="anggaran_eco_evaluasi.php">Evaluasi</a>
+            <a href="anggaran_eco_buku.php" class="active">Buku Besar</a>
             <a href="anggaran_eco_opname.php">Kas Opname</a>
         </div>
         <div class="main">
             <main>
-                <h1>KOMUNITAS FIC CANDI<br>PERUBAHAN JUMLAH BRUDER<br>BULAN JANUARI 2025</h1>
+                <h1>KOMUNITAS FIC CANDI<br>LAPORAN BUKU BESAR KAS HARIAN</h1>
+                <div class="card">
+                        
+                </div>
+                <h1>KOMUNITAS FIC CANDI<br>LAPORAN BUKU BESAR BANK HARIAN</h1>
                 <div class="card">
                         
                 </div>
