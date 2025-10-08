@@ -290,7 +290,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="anggaran_eco_bruder.php">Bruder</a>
             <a href="anggaran_eco_lu.php">LU Komunitas</a>
             <a href="anggaran_eco_evaluasi.php">Evaluasi</a>
-            <a href="anggaran_eco_buku.php">Buku Besar</a>
             <a href="anggaran_eco_opname.php" class="active">Kas Opname</a>
         </div>
         <div class="main">
