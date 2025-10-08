@@ -249,7 +249,6 @@ try {
             <a href="anggaran_eco_bruder.php" class="active">Bruder</a>
             <a href="anggaran_eco_lu.php">LU Komunitas</a>
             <a href="anggaran_eco_evaluasi.php">Evaluasi</a>
-            <a href="anggaran_eco_buku.php">Buku Besar</a>
             <a href="anggaran_eco_opname.php">Kas Opname</a>
         </div>
         <div class="main">
