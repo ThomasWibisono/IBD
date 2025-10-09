@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
     header("Location: login.php");
+    echo "<script>alert('Anggaran hanya bisa diakses oleh Ekonom!'); window.location='dashboard_eco.php';</script>";
     exit;
 }
 

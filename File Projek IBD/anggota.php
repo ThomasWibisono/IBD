@@ -4,7 +4,6 @@ if (!isset($_SESSION['ID_bruder'])) {
     header("Location: login.php");
     exit;
 }
-
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=ibd_kelompok6_brd", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -19,7 +18,7 @@ try {
     $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
     $stmt2 = $pdo->query("SELECT ID_bruder, nama_bruder, foto FROM data_bruder");
     $bruders = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
+    $status = isset($_SESSION['status']) ? $_SESSION['status'] : '';
 } catch (PDOException $e) {
     die("Koneksi atau query gagal: " . $e->getMessage());
 }
@@ -166,8 +165,12 @@ try {
         <img src="foto/logo.png" alt="Logo" class="logo">
         <nav>
             <a href="dashboard_eco.php">Home</a>
-            <a href="anggota.php"class="active">Daftar Anggota</a>
-            <a href="anggaran_eco.php">Anggaran</a>
+            <a href="anggota.php" class="active">Daftar Anggota</a>
+            <?php if ($status === 'econom'): ?>
+                <a href="anggaran_eco.php">Anggaran</a>
+            <?php else: ?>
+                <a href="#" onclick="alert('Anggaran hanya bisa diakses oleh Ekonom!'); return false;">Anggaran</a>
+            <?php endif; ?>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
             <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
