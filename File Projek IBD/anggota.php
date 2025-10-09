@@ -158,6 +158,44 @@ try {
             margin: 0;
             font-weight: bold;
         }
+        .search-container {
+            display: flex;
+            justify-content: center; /* biar posisi di tengah halaman */
+            align-items: center;
+            gap: 10px; /* jarak antara input dan tombol */
+            margin: 20px 0;
+        }
+
+        #searchInput {
+            width: 400px; /* panjang search box */
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 25px; /* biar selaras sama tombol */
+            outline: none;
+        }
+
+        .btn-simpan {
+            padding: 8px 18px;
+            background: #1e90ff;
+            color: #fff;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-simpan:hover {
+            background: #0b75d1;
+        }
+
+        .btn-simpan a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -181,8 +219,13 @@ try {
         </div>
     </header>
     <main>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Cari nama Bruder...">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari nama Bruder...">
+            </div>
+            <button type="submit" class="btn-simpan">
+                <a href="tambah.php">Tambah</a>
+            </button>
         </div>
         <div class="grid" id="anggotaGrid">
             <?php foreach ($bruders as $b): ?>
