@@ -24,20 +24,23 @@ try {
     $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
 
     // simpan form
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST["action"] === "save_bruder") {
-        $stmt = $pdo->prepare("INSERT INTO `5_bruder`
-            (ID_bruder, tgl_datang_komunitas, tgl_pulang_komunitas, tgl_pergi_luarkota, tgl_pulang_luarKota, jumlah_hari, keterangan_pp)
-            VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([
-            $_POST['ID_bruder'],
-            $_POST['tgl_datang_komunitas'] ?: null,
-            $_POST['tgl_pulang_komunitas'] ?: null,
-            $_POST['tgl_pergi_luarkota'] ?: null,
-            $_POST['tgl_pulang_luarKota'] ?: null,
-            $_POST['jumlah_hari'] ?: null,
-            $_POST['keterangan_pp'] ?: null
-        ]);
-    }
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["action"] === "save_bruder") {
+    $stmt = $pdo->prepare("INSERT INTO `5_bruder`
+        (ID_bruder, tgl_datang_komunitas, tgl_pulang_komunitas, tgl_pergi_luarkota, tgl_pulang_luarKota, jumlah_hari, keterangan_pp)
+        VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([
+        $_POST['ID_bruder'] ?: null,
+        $_POST['tgl_datang_komunitas'] ?: null,
+        $_POST['tgl_pulang_komunitas'] ?: null,
+        $_POST['tgl_pergi_luarkota'] ?: null,
+        $_POST['tgl_pulang_luarKota'] ?: null,
+        $_POST['jumlah_hari'] ?: null,
+        $_POST['keterangan_pp'] ?: null
+    ]);
+    echo "success";
+    exit;
+}
+
 } catch (PDOException $e) {
     die("Koneksi atau query gagal: " . $e->getMessage());
 }
@@ -470,9 +473,7 @@ try {
             <main>
                 <h1>KOMUNITAS FIC CANDI<br>PERUBAHAN JUMLAH BRUDER<br>BULAN JANUARI 2025</h1>
                 <div class="card">
-                    <div class="table-header">
-                        <button type="submit" class="btn-simpan">Simpan</button>
-                    </div>
+                    
                         <table cellpadding="5" cellspacing="0">
                         <thead>
                             <tr>
@@ -492,22 +493,39 @@ try {
                             </tr>
                         </thead>
                         <tbody id="bruderTableBody">
-                            <tr id="addRow">
-                                <td></td>
-                                <td>
-                                    <button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button class="btn-delete">Hapus</button>
-                                </td>
-                            </tr>
-                        </tbody>
+    <?php
+    // tampilkan data dari database tabel 5_bruder
+    $stmt = $pdo->query("
+        SELECT b.*, d.nama_bruder 
+        FROM 5_bruder b
+        LEFT JOIN data_bruder d ON b.ID_bruder = d.ID_bruder
+        ORDER BY b.ID_pp ASC
+    ");
+    $no = 1;
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+        <tr>
+            <td><?= $no++ ?></td>
+            <td><?= htmlspecialchars($row['nama_bruder'] ?? '-') ?></td>
+            <td><?= htmlspecialchars($row['tgl_datang_komunitas'] ?? '-') ?></td>
+            <td><?= htmlspecialchars($row['tgl_pulang_komunitas'] ?? '-') ?></td>
+            <td><?= htmlspecialchars($row['tgl_pergi_luarkota'] ?? '-') ?></td>
+            <td><?= htmlspecialchars($row['tgl_pulang_luarKota'] ?? '-') ?></td>
+            <td><?= htmlspecialchars($row['jumlah_hari'] ?? '-') ?></td>
+            <td><?= htmlspecialchars($row['keterangan_pp'] ?? '-') ?></td>
+            <td><button class="btn-delete">Hapus</button></td>
+        </tr>
+    <?php endwhile; ?>
+
+    <!-- baris tombol tambah -->
+    <tr id="addRow">
+        <td></td>
+        <td>
+            <button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
+        </td>
+        <td colspan="7"></td>
+    </tr>
+</tbody>
+
                     </table>
                     <!-- ✅ Modal Pindahan yang benar-benar lengkap -->
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -576,9 +594,16 @@ try {
                                 </div>
 
                                 <div class="d-flex justify-content-between">
-                                <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
+    <button type="button" id="backBtn" class="btn" 
+      style="background-color:#e74c3c;color:#fff;font-weight:600;border:none;border-radius:6px;flex:1;margin-right:10px;height:40px;">
+      Kembali
+    </button>
+    <button type="submit" class="btn" 
+      style="background-color:#f1c40f;color:#000;font-weight:600;border:none;border-radius:6px;flex:1;height:40px;">
+      Simpan
+    </button>
+</div>
+
                             </form>
                             </div>
                         </div>
@@ -735,51 +760,51 @@ document.getElementById("bruderForm").addEventListener("submit", function(e) {
   })
   .then(res => res.text())
   .then(response => {
-    // ✅ Setelah sukses simpan ke DB, tampilkan di tabel
-    const namaSelect = document.getElementById("ID_bruder_select");
-    const nama = namaSelect.options[namaSelect.selectedIndex].text;
-    const tglDatang = document.getElementById("tgl_datang_komunitas").value || "-";
-    const tglPulangKom = document.getElementById("tgl_pulang_komunitas").value || "-";
-    const tglPergi = document.getElementById("tgl_pergi_luarkota").value || "-";
-    const tglPulangLuar = document.getElementById("tgl_pulang_luarKota").value || "-";
-    const jumlah = document.getElementById("jumlah_hari").value || "-";
-    const ket = document.querySelector("textarea[name='keterangan_pp']").value || "-";
+    if (response.includes("success")) {
+      alert("✅ Data berhasil disimpan!");
 
-    // hitung nomor baru
-    const tbody = document.getElementById("bruderTableBody");
-    const rowCount = tbody.querySelectorAll("tr").length;
-    const no = rowCount; // minus baris tombol plus
+      const namaSelect = document.getElementById("ID_bruder_select");
+      const nama = namaSelect.options[namaSelect.selectedIndex].text;
+      const tglDatang = document.getElementById("tgl_datang_komunitas").value || "-";
+      const tglPulangKom = document.getElementById("tgl_pulang_komunitas").value || "-";
+      const tglPergi = document.getElementById("tgl_pergi_luarkota").value || "-";
+      const tglPulangLuar = document.getElementById("tgl_pulang_luarKota").value || "-";
+      const jumlah = document.getElementById("jumlah_hari").value || "-";
+      const ket = document.querySelector("textarea[name='keterangan_pp']").value || "-";
 
-    // buat baris baru
-    const newRow = document.createElement("tr");
-    newRow.innerHTML = `
-    <td>${no}</td>
-    <td>${nama}</td>
-    <td>${tglDatang}</td>
-    <td>${tglPulangKom}</td>
-    <td>${tglPergi}</td>
-    <td>${tglPulangLuar}</td>
-    <td>${jumlah}</td>
-    <td>${ket}</td>
-    <td><button class="btn-delete btn btn-danger btn-sm">Hapus</button></td>
-  `;
+      const tbody = document.getElementById("bruderTableBody");
+      const no = tbody.querySelectorAll("tr").length; // nomor urut baru
 
-    // sisipkan sebelum tombol +
-    const addRow = document.getElementById("addRow");
-    tbody.insertBefore(newRow, addRow);
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+        <td>${no}</td>
+        <td>${nama}</td>
+        <td>${tglDatang}</td>
+        <td>${tglPulangKom}</td>
+        <td>${tglPergi}</td>
+        <td>${tglPulangLuar}</td>
+        <td>${jumlah}</td>
+        <td>${ket}</td>
+        <td><button class="btn-delete">Hapus</button></td>
+      `;
+      const addRow = document.getElementById("addRow");
+      tbody.insertBefore(newRow, addRow);
 
-    // tutup modal
-    const modalEl = document.getElementById("addModal");
-    const modal = bootstrap.Modal.getInstance(modalEl);
-    modal.hide();
+      // tutup modal
+      const modalEl = document.getElementById("addModal");
+      const modal = bootstrap.Modal.getInstance(modalEl);
+      modal.hide();
 
-    // reset form
-    e.target.reset();
-    step1.style.display = 'block';
-    step2.style.display = 'none';
+      this.reset();
+      step1.style.display = 'block';
+      step2.style.display = 'none';
+    } else {
+      alert("❌ Gagal menyimpan data: " + response);
+    }
   })
   .catch(err => console.error(err));
 });
+
 newRow.querySelector(".btn-delete").addEventListener("click", function() {
     tbody.removeChild(newRow);
     // update nomor urut setelah dihapus
