@@ -8,7 +8,6 @@ try {
     die("Koneksi gagal: " . $e->getMessage());
 }
 
-// Jika sudah login langsung ke dashboard
 if (isset($_SESSION['ID_bruder'])) {
     if ($_SESSION['status'] === 'econom') {
         header('Location: dashboard_eco.php');
@@ -46,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Mohon isi nama dan password.";
     }
 }
+
+$page_title = "Login Bruder";
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>HALO FIC</title>
     <style>
-        /* === LATAR DAN POSISI UTAMA === */
         body {
             margin: 0;
             padding: 0;
@@ -67,45 +67,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-size: cover;
         }
 
-        /* === KOTAK LOGIN TRANSPARAN === */
         .wrapper {
             display: flex;
             width: 850px;
             height: 520px;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            background: #fff;
         }
 
-        .wrapper:hover {
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        /* === PANEL KIRI (FORM LOGIN) === */
         .left-panel {
             flex: 1.1;
             padding: 50px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.3);
-            border-right: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .left-panel h2 {
             margin-bottom: 10px;
-            color: #0059ff;
-            font-size: 30px;
-            font-weight: bold;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            color: #1e90ff;
+            font-size: 28px;
         }
 
         .left-panel p {
-            color: #222;
+            color: #555;
             font-size: 15px;
             margin-bottom: 30px;
         }
@@ -113,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         label {
             display: block;
             margin: 12px 0 6px;
-            font-weight: 600;
+            font-weight: bold;
             color: #333;
             font-size: 14px;
         }
@@ -122,25 +109,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         input[type="password"] {
             width: 100%;
             padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid #cce0ff;
+            border-radius: 10px;
             font-size: 15px;
             transition: all 0.3s;
-            color: #000;
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
             border-color: #1e90ff;
             outline: none;
-            box-shadow: 0 0 10px rgba(30, 144, 255, 0.4);
+            box-shadow: 0 0 6px rgba(30, 144, 255, 0.5);
         }
 
         .checkbox {
             margin: 12px 0;
             font-size: 13px;
-            color: #000;
+            color: #333;
         }
 
         .checkbox input {
@@ -151,65 +136,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 18px;
             width: 100%;
             padding: 13px;
-            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            background: linear-gradient(135deg, #1e90ff, #00c6ff);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.3s;
+            transition: transform 0.2s, background 0.3s;
         }
 
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(30, 144, 255, 0.6);
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #0b75d1, #0096e0);
         }
 
         .error {
-            color: #ff4d4d;
+            color: #d9534f;
             margin-bottom: 15px;
             font-weight: bold;
             text-align: center;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
-        /* === PANEL KANAN (LOGO FIC) === */
         .right-section {
             flex: 0.9;
-            background: rgba(30, 144, 255, 0.25);
+            background: #1e90ff;
             color: #fff;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: flex-start;    
             align-items: center;
             padding: 20px;
             position: relative;
-            backdrop-filter: blur(25px);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom-left-radius: 200px;
         }
 
         .right-section h1 {
             padding-top: 35%;
             font-size: 42px;
             font-weight: bold;
-            margin: 0 0 10px 0;
-            color: white;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            margin: 0 0 10px 0; 
         }
 
         .right-section img {
             width: 220px;
             height: auto;
             display: block;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
         }
 
         .small-link {
             display: block;
             margin-top: 15px;
             font-size: 13px;
-            color: #0059ff;
+            color: #1e90ff;
             text-decoration: none;
             text-align: center;
         }
@@ -217,40 +196,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .small-link:hover {
             text-decoration: underline;
         }
-    </style>
+</style>
 </head>
 <body>
     <div class="wrapper">
         <div class="left-panel">
             <h2>Masuk Akun</h2>
             <p>Masukkan kode pengguna dan kata sandi untuk mengakses akun anda</p>
-            <?php if ($error): ?>
-                <p class="error"><?= htmlspecialchars($error) ?></p>
-            <?php endif; ?>
+            <?php if ($error): ?><p class="error"><?= htmlspecialchars($error) ?></p><?php endif; ?>
             <form method="post" action="">
                 <label for="nama_bruder">Pengguna</label>
                 <input type="text" id="nama_bruder" name="nama_bruder" required>
-
                 <label for="password">Kata Sandi</label>
                 <input type="password" id="password" name="password" required>
-
-                <div class="checkbox">
-                    <input type="checkbox" onclick="togglePassword()"> Tampilkan sandi
-                </div>
+                <div class="checkbox"><input type="checkbox" onclick="togglePassword()"> Tampilkan sandi</div>
                 <button type="submit">Masuk Akun</button>
             </form>
         </div>
-
         <div class="right-section">
             <h1>HALO FIC</h1>
             <img src="foto/logo.png" alt="Logo FIC">
         </div>
     </div>
-
     <script>
         function togglePassword() {
-            let pass = document.getElementById("password");
-            pass.type = (pass.type === "password") ? "text" : "password";
+            let pass=document.getElementById("password");
+            pass.type=(pass.type==="password")?"text":"password";
         }
     </script>
 </body>
