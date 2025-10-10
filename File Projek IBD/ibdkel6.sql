@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2025 at 11:05 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 30 Sep 2025 pada 18.23
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 
 DELIMITER $$
 --
--- Procedures
+-- Prosedur
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `bank_detail` (IN `komunitas_id` INT, IN `periode` DATE)   BEGIN
   SELECT * FROM 4_bank
@@ -107,7 +107,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `1_data`
+-- Struktur dari tabel `1_data`
 --
 
 CREATE TABLE `1_data` (
@@ -167,7 +167,7 @@ CREATE TABLE `1_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `1_data`
+-- Dumping data untuk tabel `1_data`
 --
 
 INSERT INTO `1_data` (`id_anggaran`, `nama_pemimpinlokal`, `nama_bendaharakomunitas`, `nama_kota`, `pos_A`, `pos_B`, `pos_C`, `pos_D`, `pos_E`, `pos_F`, `pos_G`, `pos_H`, `pos_I`, `pos_1`, `pos_2`, `pos_3`, `pos_4`, `pos_5`, `pos_6`, `pos_7`, `pos_8`, `pos_9`, `pos_10`, `pos_11`, `pos_12`, `pos_13`, `pos_14`, `pos_15`, `pos_16`, `pos_17`, `pos_18`, `pos_19`, `pos_20`, `pos_21`, `pos_22`, `pos_23`, `pos_24`, `pos_25`, `pos_26`, `pos_27`, `pos_28`, `pos_29`, `pos_30`, `pos_31`, `pos_32`, `pos_33`, `pos_34`, `pos_35`, `pos_36`, `pos_37`, `pos_38`, `jumlah_penerimaan`, `jumlah_beban`) VALUES
@@ -178,7 +178,7 @@ INSERT INTO `1_data` (`id_anggaran`, `nama_pemimpinlokal`, `nama_bendaharakomuni
 (5, 'uy', 'tr', 'Jakarta', 0.00, 525.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00);
 
 --
--- Triggers `1_data`
+-- Trigger `1_data`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_1data_before_ins` BEFORE INSERT ON `1_data` FOR EACH ROW BEGIN
@@ -226,7 +226,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `2_perkiraan`
+-- Struktur dari tabel `2_perkiraan`
 --
 
 CREATE TABLE `2_perkiraan` (
@@ -237,7 +237,7 @@ CREATE TABLE `2_perkiraan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `2_perkiraan`
+-- Dumping data untuk tabel `2_perkiraan`
 --
 
 INSERT INTO `2_perkiraan` (`ID_pos`, `kode`, `akun`, `posisi`) VALUES
@@ -282,20 +282,20 @@ INSERT INTO `2_perkiraan` (`ID_pos`, `kode`, `akun`, `posisi`) VALUES
 ('7', '510102', 'Bahan Bakar Dapur', 'Pengeluaran'),
 ('8', '510103', 'Perlengkapan Cuci dan Kebersihan', 'Pengeluaran'),
 ('9', '510104', 'Perabot Rumah Tangga', 'Pengeluaran'),
-('A', '110100', 'Kas', 'PENERIMAAN'),
-('B', '110301', 'Bank', 'PENERIMAAN'),
-('C', '410101', 'Gaji/Pendapatan Bruder', 'PENERIMAAN'),
-('D', '410102', 'Pensiun Bruder', 'PENERIMAAN'),
-('E', '430101', 'Hasil Kebun Dan Piaraan', 'PENERIMAAN'),
-('F', '420101', 'Bunga Tabungan', 'PENERIMAAN'),
-('G', '410202', 'Sumbangan', 'PENERIMAAN'),
-('H', '430103', 'Penerimaan Lainnya', 'PENERIMAAN'),
-('I', '610100', 'Penerimaan dari DP', 'PENERIMAAN');
+('A', '110100', 'Kas', 'Pemasukan'),
+('B', '110301', 'Bank', 'Pemasukan'),
+('C', '410101', 'Gaji/Pendapatan Bruder', 'Pemasukan'),
+('D', '410102', 'Pensiun Bruder', 'Pemasukan'),
+('E', '430101', 'Hasil Kebun Dan Piaraan', 'Pemasukan'),
+('F', '420101', 'Bunga Tabungan', 'Pemasukan'),
+('G', '410202', 'Sumbangan', 'Pemasukan'),
+('H', '430103', 'Penerimaan Lainnya', 'Pemasukan'),
+('I', '610100', 'Penerimaan dari DP', 'Pemasukan');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `3_kas_harian`
+-- Struktur dari tabel `3_kas_harian`
 --
 
 CREATE TABLE `3_kas_harian` (
@@ -308,7 +308,7 @@ CREATE TABLE `3_kas_harian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `3_kas_harian`
+-- Dumping data untuk tabel `3_kas_harian`
 --
 
 INSERT INTO `3_kas_harian` (`ID_kas_harian`, `tgl_kas_harian`, `ID_pos`, `keterangan_kas`, `ID_bruder`, `nominal`) VALUES
@@ -318,7 +318,7 @@ INSERT INTO `3_kas_harian` (`ID_kas_harian`, `tgl_kas_harian`, `ID_pos`, `ketera
 (25, '2025-01-07', '12', 'Bayar air PDAM', 3, 500000.00);
 
 --
--- Triggers `3_kas_harian`
+-- Trigger `3_kas_harian`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_kas_harian_ad` AFTER DELETE ON `3_kas_harian` FOR EACH ROW BEGIN
@@ -350,7 +350,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `4_bank`
+-- Struktur dari tabel `4_bank`
 --
 
 CREATE TABLE `4_bank` (
@@ -366,7 +366,7 @@ CREATE TABLE `4_bank` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `4_bank`
+-- Dumping data untuk tabel `4_bank`
 --
 
 INSERT INTO `4_bank` (`ID_tabel_bank`, `nama_bank`, `no_rek_bank`, `atas_nama_bank`, `tgl_transaksi`, `ID_pos`, `keterangan_bank`, `nominal_penerimaan`, `nominal_pengeluaran`) VALUES
@@ -376,7 +376,7 @@ INSERT INTO `4_bank` (`ID_tabel_bank`, `nama_bank`, `no_rek_bank`, `atas_nama_ba
 ('I1', 'Bank BCA', '1234567890', 'Agustinus Suparno', '2025-01-05', 'I', 'Transfer dari DP', 5000000.00, 0.00);
 
 --
--- Triggers `4_bank`
+-- Trigger `4_bank`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_bank_ad` AFTER DELETE ON `4_bank` FOR EACH ROW BEGIN
@@ -409,7 +409,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `5_bruder`
+-- Struktur dari tabel `5_bruder`
 --
 
 CREATE TABLE `5_bruder` (
@@ -424,16 +424,14 @@ CREATE TABLE `5_bruder` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `5_bruder`
+-- Dumping data untuk tabel `5_bruder`
 --
 
 INSERT INTO `5_bruder` (`ID_pp`, `ID_bruder`, `tgl_datang_komunitas`, `tgl_pulang_komunitas`, `tgl_pergi_luarkota`, `tgl_pulang_luarKota`, `jumlah_hari`, `keterangan_pp`) VALUES
-(1, 1, '2025-01-01', '2025-01-15', NULL, NULL, 14, 'Komunitas Magelang'),
-(2, 2, '2025-04-23', '2025-04-25', NULL, NULL, 2, '-'),
-(3, 3, '2025-04-23', '2025-04-25', NULL, NULL, 2, '-');
+(1, 1, '2025-01-01', '2025-01-15', NULL, NULL, 14, 'Komunitas Magelang');
 
 --
--- Triggers `5_bruder`
+-- Trigger `5_bruder`
 --
 DELIMITER $$
 CREATE TRIGGER `trg_hitungan_hari_bruder` BEFORE INSERT ON `5_bruder` FOR EACH ROW BEGIN
@@ -457,7 +455,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `6_lu_komunitas`
+-- Struktur dari tabel `6_lu_komunitas`
 --
 
 CREATE TABLE `6_lu_komunitas` (
@@ -470,7 +468,7 @@ CREATE TABLE `6_lu_komunitas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `6_lu_komunitas`
+-- Dumping data untuk tabel `6_lu_komunitas`
 --
 
 INSERT INTO `6_lu_komunitas` (`id_lu`, `id_anggaran`, `id_pos`, `tgl_transaksi`, `nominal_pemasukan`, `nominal_pengeluaran`) VALUES
@@ -486,7 +484,7 @@ INSERT INTO `6_lu_komunitas` (`id_lu`, `id_anggaran`, `id_pos`, `tgl_transaksi`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `7_evaluasi`
+-- Struktur dari tabel `7_evaluasi`
 --
 
 CREATE TABLE `7_evaluasi` (
@@ -503,42 +501,23 @@ CREATE TABLE `7_evaluasi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `8_kas_opname`
+-- Struktur dari tabel `8_kas_opname`
 --
 
 CREATE TABLE `8_kas_opname` (
-  `id` int(11) NOT NULL,
-  `hari` varchar(20) DEFAULT NULL,
-  `tanggal` date DEFAULT NULL,
-  `waktu` time DEFAULT NULL,
-  `tempat` varchar(50) DEFAULT NULL,
-  `lokasi` varchar(255) DEFAULT NULL,
-  `saldo_catatan` decimal(15,2) DEFAULT NULL,
-  `kas_kecil` decimal(15,2) DEFAULT NULL,
-  `saldo_bendahara` decimal(15,2) DEFAULT NULL,
-  `jumlah_hasil` decimal(15,2) DEFAULT NULL,
-  `selisih` decimal(15,2) DEFAULT NULL,
-  `pemimpin_nama` varchar(100) DEFAULT NULL,
-  `pemimpin_ttd` longblob DEFAULT NULL,
-  `bendahara_nama` varchar(100) DEFAULT NULL,
-  `bendahara_ttd` longblob DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id_opname` int(11) NOT NULL,
+  `uang_kertas` decimal(15,2) DEFAULT 0.00,
+  `uang_logam` decimal(15,2) DEFAULT 0.00,
+  `total_riil` decimal(15,2) DEFAULT 0.00,
+  `catatan_sistem` decimal(15,2) DEFAULT 0.00,
+  `selisih` decimal(15,2) DEFAULT 0.00,
+  `tgl_opname` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `8_kas_opname`
---
-
-INSERT INTO `8_kas_opname` (`id`, `hari`, `tanggal`, `waktu`, `tempat`, `lokasi`, `saldo_catatan`, `kas_kecil`, `saldo_bendahara`, `jumlah_hasil`, `selisih`, `pemimpin_nama`, `pemimpin_ttd`, `bendahara_nama`, `bendahara_ttd`, `created_at`) VALUES
-(1, 'Rabu', '2025-10-01', '10:20:00', 'Candi', 'Go', 1200000.00, 150000.00, 1.35, 1.09, 260.00, 'lel', 0x313735393238393135325f70656d696d70696e5f74686f6d2e6a7067, 'lol', 0x313735393238393135325f62656e6461686172615f6b68696d2e6a7067, '2025-10-01 03:25:52'),
-(2, 'Rabu', '2025-10-01', '10:20:00', 'Candi', 'Go', 1200000.00, 150000.00, 1.35, 1.09, 260.00, 'lel', 0x313735393238393337375f70656d696d70696e5f74686f6d2e6a7067, 'lol', 0x313735393238393337375f62656e6461686172615f6b68696d2e6a7067, '2025-10-01 03:29:37'),
-(3, 'Rabu', '2025-10-01', '10:20:00', 'Candi', 'Go', 1200000.00, 150000.00, 1.35, 1.09, 260.00, 'lel', 0x313735393238393439375f70656d696d70696e5f74686f6d2e6a7067, 'lol', 0x313735393238393439375f62656e6461686172615f6b68696d2e6a7067, '2025-10-01 03:31:37'),
-(4, 'Senin', '0000-00-00', '00:00:00', 'Candi', '', 0.00, 0.00, 0.00, 0.00, 0.00, '', 0x313735393238393537365f70656d696d70696e5f6669632e706e67, '', NULL, '2025-10-01 03:32:56');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_bruder`
+-- Struktur dari tabel `data_bruder`
 --
 
 CREATE TABLE `data_bruder` (
@@ -559,20 +538,18 @@ CREATE TABLE `data_bruder` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `data_bruder`
+-- Dumping data untuk tabel `data_bruder`
 --
 
 INSERT INTO `data_bruder` (`ID_bruder`, `nama_bruder`, `gambar_bruder`, `ttl_bruder`, `alamat_bruder`, `tahun_masuk_postulan`, `tahun_prasetia_pertama`, `tahun_kaul_kekal`, `riwayat_tugas`, `unit_kerja`, `alamat`, `no_telp`, `email`, `foto`) VALUES
-(1, 'Bruder Thomas', 'thomas.jpg', '1999-11-21', 'Komunitas Bruder FIC, Semarang', '2017', '2018', '2019', 'Pernah bertugas di Muntilan dan Semarang (2021-sekarang)', 'Ekonomi', 'Jl. Pawiyatan Luhur, Semarang', '0852-9012-7455', 'thomas@gmail.com', 'IMG_1212.JPG'),
-(2, 'Bruder Frith', 'frith.jpg', '1987-03-21', 'Komunitas Bruder FIC, Yogyakarta', '2005', '2008', '2014', 'Pernah bertugas di Medan (2009-2014), Bandung (2014-2020), dan Yogyakarta (2020-sekarang)', 'Bruder', 'Jl. Banyumanik, Semarang', '0838-3890-5802', 'frit@gmail.com', 'frit.jpg'),
-(3, 'Bruder Khim', 'khim.jpg', '1992-11-02', 'Komunitas Bruder FIC, Jakarta', '2010', '2013', '2019', 'Pernah bertugas di Jakarta (2013-2018), Makassar (2018-2022), dan Jakarta (2022-sekarang)', 'Bruder', 'Jl. Kartini, Semarang', '0878-1579-4900', 'khim@gmail.com', 'khim.jpg'),
-(4, 'Bruder Hieronimus Wisnu', '1760086560_Pasfoto-010.jpg', '1998-07-09', 'Jl. Senopati Yogyakarta', '2016', '2020', '2024', 'Pamong SMA Van Lith Muntilan ', 'Komunitas Yogyakarta', 'Jl. Senopati Yogyakarta', '085740676693', 'hironimus@gmail.com', '1760086560_Pasfoto-010.jpg'),
-(5, 'Bruder Riyanto', '1760086777_Pasfoto-003.jpg', '1998-06-11', 'Jl. Sedayu no 1 Bantul', '2017', '2019', '2023', 'Asrama Van Lith Muntilan', 'Asrama PL Sedayu', 'Jl. Sedayu no 1 Bantul', '085740676656', 'riyanto@gmail.com', '1760086777_Pasfoto-003.jpg');
+(1, 'Bruder Thomas FIC', 'thomas.jpg', '1999-11-21', 'Komunitas Bruder FIC, Semarang', '2017', '2018', '2019', 'Pernah bertugas di Muntilan dan Semarang (2021-sekarang)', 'Ekonomi', 'Jl. Pawiyatan Luhur, Semarang', '0852-9012-7455', 'thomas@gmail.com', 'thom.jpg'),
+(2, 'Bruder Frith FIC', 'frith.jpg', '1987-03-21', 'Komunitas Bruder FIC, Yogyakarta', '2005', '2008', '2014', 'Pernah bertugas di Medan (2009-2014), Bandung (2014-2020), dan Yogyakarta (2020-sekarang)', 'Bruder', 'Jl. Banyumanik, Semarang', '0838-3890-5802', 'frit@gmail.com', 'frit.jpg'),
+(3, 'Bruder Khim FIC', 'khim.jpg', '1992-11-02', 'Komunitas Bruder FIC, Jakarta', '2010', '2013', '2019', 'Pernah bertugas di Jakarta (2013-2018), Makassar (2018-2022), dan Jakarta (2022-sekarang)', 'Bruder', 'Jl. Kartini, Semarang', '0878-1579-4900', 'khim@gmail.com', 'khim.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_bruder`
+-- Struktur dari tabel `login_bruder`
 --
 
 CREATE TABLE `login_bruder` (
@@ -583,19 +560,17 @@ CREATE TABLE `login_bruder` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `login_bruder`
+-- Dumping data untuk tabel `login_bruder`
 --
 
 INSERT INTO `login_bruder` (`ID_bruder`, `nama_bruder`, `password_bruder`, `status`) VALUES
 (1, 'Thomas', 'thom1', 'econom'),
-(2, 'Frith', 'frith1', 'bruder'),
-(4, 'Br. Hieronimus Wisnu', '$2y$10$pk2nO.wQQpFtXzpnKAHpmOyIqWnKq7UAfbo96.NQlbiAjRMbvopmK', 'bruder'),
-(5, 'Br. Riyanto', '$2y$10$RgtuJ2elg6bSRMv32jire.2OgtCeA.fXhnfmdzZ3NAi4MITZPEWVu', 'bruder');
+(2, 'Frith', 'frith1', 'bruder');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tabel_komunitas`
+-- Struktur dari tabel `tabel_komunitas`
 --
 
 CREATE TABLE `tabel_komunitas` (
@@ -608,19 +583,19 @@ CREATE TABLE `tabel_komunitas` (
 --
 
 --
--- Indexes for table `1_data`
+-- Indeks untuk tabel `1_data`
 --
 ALTER TABLE `1_data`
   ADD PRIMARY KEY (`id_anggaran`);
 
 --
--- Indexes for table `2_perkiraan`
+-- Indeks untuk tabel `2_perkiraan`
 --
 ALTER TABLE `2_perkiraan`
   ADD PRIMARY KEY (`ID_pos`);
 
 --
--- Indexes for table `3_kas_harian`
+-- Indeks untuk tabel `3_kas_harian`
 --
 ALTER TABLE `3_kas_harian`
   ADD PRIMARY KEY (`ID_kas_harian`),
@@ -628,140 +603,140 @@ ALTER TABLE `3_kas_harian`
   ADD KEY `3_kas_harian_fk_bruder` (`ID_bruder`);
 
 --
--- Indexes for table `4_bank`
+-- Indeks untuk tabel `4_bank`
 --
 ALTER TABLE `4_bank`
   ADD PRIMARY KEY (`ID_tabel_bank`),
   ADD KEY `4_bank_fk_perkiraan` (`ID_pos`);
 
 --
--- Indexes for table `5_bruder`
+-- Indeks untuk tabel `5_bruder`
 --
 ALTER TABLE `5_bruder`
   ADD PRIMARY KEY (`ID_pp`),
   ADD KEY `ID_bruder` (`ID_bruder`);
 
 --
--- Indexes for table `6_lu_komunitas`
+-- Indeks untuk tabel `6_lu_komunitas`
 --
 ALTER TABLE `6_lu_komunitas`
   ADD PRIMARY KEY (`id_lu`);
 
 --
--- Indexes for table `7_evaluasi`
+-- Indeks untuk tabel `7_evaluasi`
 --
 ALTER TABLE `7_evaluasi`
   ADD PRIMARY KEY (`id_eval`),
   ADD KEY `fk_evaluasi_pos` (`id_pos`);
 
 --
--- Indexes for table `8_kas_opname`
+-- Indeks untuk tabel `8_kas_opname`
 --
 ALTER TABLE `8_kas_opname`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_opname`);
 
 --
--- Indexes for table `data_bruder`
+-- Indeks untuk tabel `data_bruder`
 --
 ALTER TABLE `data_bruder`
   ADD PRIMARY KEY (`ID_bruder`);
 
 --
--- Indexes for table `login_bruder`
+-- Indeks untuk tabel `login_bruder`
 --
 ALTER TABLE `login_bruder`
   ADD PRIMARY KEY (`ID_bruder`);
 
 --
--- Indexes for table `tabel_komunitas`
+-- Indeks untuk tabel `tabel_komunitas`
 --
 ALTER TABLE `tabel_komunitas`
   ADD PRIMARY KEY (`nama_komunitas`,`ID_bruder`),
   ADD KEY `ID_bruder` (`ID_bruder`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `1_data`
+-- AUTO_INCREMENT untuk tabel `1_data`
 --
 ALTER TABLE `1_data`
   MODIFY `id_anggaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `3_kas_harian`
+-- AUTO_INCREMENT untuk tabel `3_kas_harian`
 --
 ALTER TABLE `3_kas_harian`
   MODIFY `ID_kas_harian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `5_bruder`
+-- AUTO_INCREMENT untuk tabel `5_bruder`
 --
 ALTER TABLE `5_bruder`
-  MODIFY `ID_pp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_pp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `6_lu_komunitas`
+-- AUTO_INCREMENT untuk tabel `6_lu_komunitas`
 --
 ALTER TABLE `6_lu_komunitas`
   MODIFY `id_lu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `7_evaluasi`
+-- AUTO_INCREMENT untuk tabel `7_evaluasi`
 --
 ALTER TABLE `7_evaluasi`
   MODIFY `id_eval` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `8_kas_opname`
+-- AUTO_INCREMENT untuk tabel `8_kas_opname`
 --
 ALTER TABLE `8_kas_opname`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_opname` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `data_bruder`
+-- AUTO_INCREMENT untuk tabel `data_bruder`
 --
 ALTER TABLE `data_bruder`
-  MODIFY `ID_bruder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_bruder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `3_kas_harian`
+-- Ketidakleluasaan untuk tabel `3_kas_harian`
 --
 ALTER TABLE `3_kas_harian`
   ADD CONSTRAINT `3_kas_harian_fk_bruder` FOREIGN KEY (`ID_bruder`) REFERENCES `data_bruder` (`ID_bruder`),
   ADD CONSTRAINT `3_kas_harian_fk_perkiraan` FOREIGN KEY (`ID_pos`) REFERENCES `2_perkiraan` (`ID_pos`);
 
 --
--- Constraints for table `4_bank`
+-- Ketidakleluasaan untuk tabel `4_bank`
 --
 ALTER TABLE `4_bank`
   ADD CONSTRAINT `4_bank_fk_perkiraan` FOREIGN KEY (`ID_pos`) REFERENCES `2_perkiraan` (`ID_pos`);
 
 --
--- Constraints for table `5_bruder`
+-- Ketidakleluasaan untuk tabel `5_bruder`
 --
 ALTER TABLE `5_bruder`
   ADD CONSTRAINT `5_bruder_ibfk_1` FOREIGN KEY (`ID_bruder`) REFERENCES `data_bruder` (`ID_bruder`);
 
 --
--- Constraints for table `7_evaluasi`
+-- Ketidakleluasaan untuk tabel `7_evaluasi`
 --
 ALTER TABLE `7_evaluasi`
   ADD CONSTRAINT `fk_evaluasi_pos` FOREIGN KEY (`id_pos`) REFERENCES `2_perkiraan` (`ID_pos`);
 
 --
--- Constraints for table `login_bruder`
+-- Ketidakleluasaan untuk tabel `login_bruder`
 --
 ALTER TABLE `login_bruder`
   ADD CONSTRAINT `login_bruder_ibfk_1` FOREIGN KEY (`ID_bruder`) REFERENCES `data_bruder` (`ID_bruder`);
 
 --
--- Constraints for table `tabel_komunitas`
+-- Ketidakleluasaan untuk tabel `tabel_komunitas`
 --
 ALTER TABLE `tabel_komunitas`
   ADD CONSTRAINT `tabel_komunitas_ibfk_1` FOREIGN KEY (`ID_bruder`) REFERENCES `data_bruder` (`ID_bruder`);
