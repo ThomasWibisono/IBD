@@ -28,173 +28,147 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Daftar Anggota</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f4f4;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            color: #333;
         }
         header {
-            position: fixed;     
-            top: 0;
-            left: 0;
-            width: 100%;          
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 10px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: sticky;
+            top: 0;
             z-index: 1000;
         }
         .logo {
-            height: 60px;
-            
+            height: 50px;
         }
         nav {
-            
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            background: #1e90ff;
-            padding: 10px 0;
-            border-radius: 50px;
-            width: 60%;   
-            max-width: 700px; 
-            margin: 0 auto;   
+            gap: 30px;
         }
-
         nav a {
-            color: white;
+            color: #1e90ff;
+            font-weight: 600;
             text-decoration: none;
-            font-weight: 500;
             padding: 8px 16px;
             border-radius: 20px;
-            transition: 0.3s;
+            transition: background 0.3s;
         }
-
         nav a.active {
-            background: white;
-            color: black;
-            font-weight: bold;
+            background: #1e90ff;
+            color: white;
         }
-
         nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: #d0eaff;
         }
-
         .profile-wrapper {
             position: relative;
             cursor: pointer;
         }
         .profile-pic {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #1e90ff;
         }
         .dropdown {
-            display: none;
             position: absolute;
-            right: 0;
             top: 60px;
+            right: 0;
             background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
             overflow: hidden;
-            min-width: 260px;
             display: none;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
+            flex-direction: column;
+            min-width: 180px;
         }
         .dropdown a {
-            display: block;
-            padding: 10px 20px;
+            padding: 12px 20px;
             color: #333;
             text-decoration: none;
             font-size: 14px;
         }
         .dropdown a:hover {
-            background: #f4f4f4;
+            background: #f0f0f0;
         }
         main {
-            margin-top: 50px;
-            padding: 20px;
-            text-align: center;
-        }
-        .search-box input {
-            width: 50%;
-            flex: 1;
-            padding: 10px;
-            border-radius: 25px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .card {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .card:hover {
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .card img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-        .card p {
-            margin: 0;
-            font-weight: bold;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
         }
         .search-container {
             display: flex;
-            justify-content: center; /* biar posisi di tengah halaman */
-            align-items: center;
-            gap: 10px; /* jarak antara input dan tombol */
-            margin: 20px 0;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
         }
-
         #searchInput {
-            width: 400px; /* panjang search box */
-            padding: 8px 12px;
-            font-size: 14px;
+            width: 350px;
+            padding: 10px 20px;
+            border-radius: 30px;
             border: 1px solid #ccc;
-            border-radius: 25px; /* biar selaras sama tombol */
-            outline: none;
+            font-size: 15px;
         }
-
         .btn-simpan {
-            padding: 8px 18px;
-            background: #1e90ff;
-            color: #fff;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: bold;
+            background: linear-gradient(to right, #1e90ff, #00bcd4);
             border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background 0.3s;
         }
-
         .btn-simpan:hover {
-            background: #0b75d1;
+            background: linear-gradient(to right, #00bcd4, #1e90ff);
         }
-
         .btn-simpan a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid #1e90ff;
+        }
+        .card p {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1e90ff;
         }
     </style>
 </head>
@@ -211,7 +185,7 @@ try {
             <?php endif; ?>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
-            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+            <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Foto Bruder" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="logout.php">Logout</a>
                 <a href="editprofile.php">Edit Profile</a>
@@ -220,12 +194,8 @@ try {
     </header>
     <main>
         <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Cari nama Bruder...">
-            </div>
-            <button type="submit" class="btn-simpan">
-                <a href="tambah.php">Tambah</a>
-            </button>
+            <input type="text" id="searchInput" placeholder="Cari nama Bruder...">
+            <button class="btn-simpan"><a href="tambah.php">Tambah</a></button>
         </div>
         <div class="grid" id="anggotaGrid">
             <?php foreach ($bruders as $b): ?>
@@ -235,7 +205,7 @@ try {
                 </a>
             <?php endforeach; ?>
         </div>
-    </main> 
+    </main>
     <script>
         const searchInput = document.getElementById('searchInput');
         const anggotaGrid = document.getElementById('anggotaGrid');
@@ -244,12 +214,14 @@ try {
             let cards = anggotaGrid.getElementsByTagName('a');
             for (let i = 0; i < cards.length; i++) {
                 let name = cards[i].querySelector("p").textContent.toLowerCase();
-                cards[i].style.display = name.includes(filter) ? "" : "none";
+                cards[i].style.display = name.includes(filter) ? "block" : "none";
+                cards[i].style.transition = "opacity 0.3s ease";
+                cards[i].style.opacity = name.includes(filter) ? "1" : "0";
             }
         });
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         }
         window.onclick = function(event) {
             if (!event.target.closest('.profile-wrapper')) {
