@@ -44,10 +44,13 @@ try {
         exit;
     }
     $stmt = $pdo->query("
-    SELECT * FROM `3_kas_harian` 
-    ORDER BY tgl_kas_harian ASC
+    SELECT kh.*, p.kode, p.akun
+    FROM `3_kas_harian` kh
+    LEFT JOIN `2_perkiraan` p ON kh.ID_pos = p.ID_pos
+    ORDER BY kh.tgl_kas_harian ASC
 ");
 $transaksi = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 // Hitung total pemasukan dan pengeluaran
 $stmt = $pdo->query("
@@ -60,7 +63,8 @@ $totals = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $total_masuk = $totals['total_masuk'] ?? 0;
 $total_keluar = $totals['total_keluar'] ?? 0;
-
+$stmt = $pdo->query("SELECT ID_pos, kode, akun FROM `2_perkiraan` ORDER BY ID_pos ASC");
+$perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Koneksi atau query gagal: " . $e->getMessage());
 }
@@ -308,7 +312,14 @@ $total_keluar = $totals['total_keluar'] ?? 0;
     .btn-close:hover {
         color: #e74c3c;
     }
-
+    .btn-delete{
+        padding: 3px 6px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
     /* ====== STEP 1 ====== */
     #step1 p {
         margin-bottom: 10px;
@@ -488,8 +499,6 @@ $total_keluar = $totals['total_keluar'] ?? 0;
                     <div class="table-header">
                         <button type="submit" class="btn-simpan">Simpan</button>
                     </div>
-                    </form>
-
                         <table>
                             <thead>
                                 <tr>
@@ -501,6 +510,7 @@ $total_keluar = $totals['total_keluar'] ?? 0;
                                     <th>Reff</th>
                                     <th>Penerimaan</th>
                                     <th>Pengeluaran</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -515,6 +525,9 @@ $total_keluar = $totals['total_keluar'] ?? 0;
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td>
+                                <button class="btn-delete">Hapus</button>
+                                </td>
                             </tr>
                             <?php foreach ($transaksi as $t): ?>
                             <tr>
@@ -523,9 +536,10 @@ $total_keluar = $totals['total_keluar'] ?? 0;
                                 <td><?= htmlspecialchars($t['kode'] ?? '') ?></td> <!-- kode perkiraan -->
                                 <td><?= htmlspecialchars($t['akun'] ?? '') ?></td> <!-- akun -->
                                 <td><?= htmlspecialchars($t['keterangan_kas']) ?></td>
-                                <td></td> <!-- Reff, kosong dulu -->
+                                <td></td> 
                                 <td><?= $t['nominal'] >= 0 ? number_format($t['nominal'], 2, ',', '.') : '' ?></td>
                                 <td><?= $t['nominal'] < 0 ? number_format(abs($t['nominal']), 2, ',', '.') : '' ?></td>
+                                <td><button class="btn-delete">Hapus</button></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -534,20 +548,21 @@ $total_keluar = $totals['total_keluar'] ?? 0;
                             <td colspan="6" style="text-align:center; font-weight:bold;">JUMLAH SEMUA</td>
                             <td><?= number_format($total_masuk,2,',','.') ?></td>
                             <td><?= number_format($total_keluar,2,',','.') ?></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td colspan="6" style="text-align:center; font-weight:bold;">JUMLAH</td>
                             <td><?= number_format($total_masuk,2,',','.') ?></td>
                             <td><?= number_format($total_keluar,2,',','.') ?></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td colspan="6" style="text-align:center; font-weight:bold;">SALDO</td>
                             <td colspan="2"><?= number_format($total_masuk - $total_keluar,2,',','.') ?></td>
+                            <td></td>
                         </tr>
-                    </tfoot>
-                        </table>
-                    </form>
-                
+                         </tfoot>
+                        </table>                
                 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -632,71 +647,117 @@ $total_keluar = $totals['total_keluar'] ?? 0;
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// === HANDLE STEP BUTTONS ===
-const step1 = document.getElementById('step1');
-const step2 = document.getElementById('step2');
-const btnIncome = document.getElementById('btnIncome');
-const btnExpense = document.getElementById('btnExpense');
-const txType = document.getElementById('txType');
-const backBtn = document.getElementById('backBtn');
-const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
+document.addEventListener('DOMContentLoaded', function() {
+  // === HANDLE STEP BUTTONS ===
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  const btnIncome = document.getElementById('btnIncome');
+  const btnExpense = document.getElementById('btnExpense');
+  const txType = document.getElementById('txType');
+  const backBtn = document.getElementById('backBtn');
+  const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
 
-btnIncome.addEventListener('click', () => {
-  txType.value = 'in';
-  showStep2('in');
-});
+  btnIncome.addEventListener('click', () => {
+    txType.value = 'in';
+    showStep2('in');
+  });
 
-btnExpense.addEventListener('click', () => {
-  txType.value = 'out';
-  showStep2('out');
-});
+  btnExpense.addEventListener('click', () => {
+    txType.value = 'out';
+    showStep2('out');
+  });
 
-function showStep2(type) {
-  step1.style.display = 'none';
-  step2.style.display = 'block';
-  const submitBtn = document.querySelector('#txForm button[type="submit"]');
-  submitBtn.classList.remove('btn-primary', 'btn-danger');
-  submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
-}
-
-backBtn.addEventListener('click', () => {
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-});
-
-document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-  document.getElementById('txForm')?.reset();
-  txType.value = 'in';
-});
-
-document.getElementById('openAdd').addEventListener('click', () => {
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-  document.getElementById('txForm')?.reset();
-  txType.value = 'in';
-});
-
-// === DROPDOWN PROFILE HANDLER ===
-function toggleDropdown() {
-  let menu = document.getElementById("dropdownMenu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-
-window.onclick = function(event) {
-  if (!event.target.closest('.profile-wrapper')) {
-    document.getElementById("dropdownMenu").style.display = "none";
+  function showStep2(type) {
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+    const submitBtn = document.querySelector('#txForm button[type="submit"]');
+    submitBtn.classList.remove('btn-primary', 'btn-danger');
+    submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
   }
-};
-// === CEGAH ENTER DI FORM AGAR TAK SUBMIT ===
-document.querySelectorAll('form').forEach(f => {
-  f.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      e.target.blur();
+
+  backBtn.addEventListener('click', () => {
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+  });
+
+  document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+    document.getElementById('txForm')?.reset();
+    txType.value = 'in';
+  });
+
+  // === DROPDOWN PROFILE HANDLER ===
+  window.toggleDropdown = function() {
+    let menu = document.getElementById("dropdownMenu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  }
+
+  window.onclick = function(event) {
+    if (!event.target.closest('.profile-wrapper')) {
+      document.getElementById("dropdownMenu").style.display = "none";
+    }
+  };
+
+  // === CEGAH ENTER DI FORM AGAR TAK SUBMIT ===
+  document.querySelectorAll('form').forEach(f => {
+    f.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        e.target.blur();
+      }
+    });
+  });
+
+  // === HANDLE DELETE BUTTON (event delegation) ===
+  document.addEventListener('click', function (e) {
+    console.log('klik terdeteksi:', e.target);
+
+    if (e.target.classList.contains('btn-delete')) {
+      console.log('tombol hapus diklik!');
+      const row = e.target.closest('tr');
+
+      // pastikan baris + tidak bisa dihapus
+      if (row.querySelector('.btn-plus')) {
+        alert('Baris ini tidak bisa dihapus.');
+        return;
+      }
+
+      if (confirm('Yakin ingin menghapus baris ini?')) {
+        row.remove();
+      }
     }
   });
+});
+// === HAPUS DATA DARI DATABASE & TABEL ===
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn-delete')) {
+    const row = e.target.closest('tr');
+    const id = row.dataset.id;
+
+    if (!id) {
+      alert('ID transaksi tidak ditemukan.');
+      return;
+    }
+
+    if (confirm('Yakin mau hapus data ini?')) {
+      fetch('hapus_transaksi.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'id=' + encodeURIComponent(id)
+      })
+      .then(res => res.text())
+      .then(result => {
+        if (result.trim() === 'success') {
+          row.remove();
+          alert('✅ Data berhasil dihapus.');
+        } else {
+          alert('❌ Gagal menghapus data: ' + result);
+        }
+      })
+      .catch(err => alert('Terjadi kesalahan: ' + err));
+    }
+  }
 });
 </script>
 </body>

@@ -59,7 +59,14 @@ try {
         // redirect supaya form tidak submit ulang (PRG)
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
-    }
+    }$stmt = $pdo->query("
+    SELECT kh.*, p.kode, p.akun
+    FROM `3_kas_harian` kh
+    LEFT JOIN `2_perkiraan` p ON kh.ID_pos = p.ID_pos
+    ORDER BY kh.tgl_kas_harian ASC
+");
+$transaksi = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
     // Ambil data bank dengan join ke 2_perkiraan untuk kode & akun (hindari N+1 query)
     $banks = $pdo->query("
@@ -469,6 +476,14 @@ foreach ($banks as $b) {
     .half {
         flex: 1;
     }
+    .btn-delete{
+        padding: 3px 6px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -544,6 +559,7 @@ foreach ($banks as $b) {
                                     <th>Keterangan</th>
                                     <th>Penerimaan</th>
                                     <th>Pengeluaran</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -553,15 +569,14 @@ foreach ($banks as $b) {
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
                                     <td contenteditable="true" id="saldoAwalIn" style="background:#fff8dc;">0</td>
                                     <td contenteditable="true" id="saldoAwalOut" style="background:#fff8dc;">0</td>
+                                    <td></td>
                                 </tr>
-                            </tbody>
-                            <tbody>
-                                <tr>
+                                
+                                <tr id="fixedRow">
                                     <td>
-                                        <button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
+                                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
                                     </td>
                                     <td></td>
                                     <td></td>
@@ -569,28 +584,34 @@ foreach ($banks as $b) {
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td>
+                                        <button class="btn-delete">Hapus</button>
+                                    </td>
                                 </tr>
+                                
                             </tbody>
                             <tfoot>
                                 <tr>
-                                <td colspan="6" style="text-align:center; font-weight:bold;">JUMLAH SEMUA</td>
+                                <td colspan="5" style="text-align:center; font-weight:bold;">JUMLAH SEMUA</td>
                                 <td><span id="total">0</span></td>
                                 <td><span id="total">0</span></td>
+                                <td></td>
                                 </tr>
                             </tfoot>
                             <tfoot>
                                 <tr>
-                                <td colspan="6" style="text-align:center; font-weight:bold;">JUMLAH</td>
+                                <td colspan="5" style="text-align:center; font-weight:bold;">JUMLAH</td>
                                 <td><span id="total">0</span></td>
                                 <td><span id="total">0</span></td>
+                                <td></td>
                                 </tr>
                             </tfoot>
                             <tfoot>
                                 <tr>
-                                <td colspan="6" style="text-align:center; font-weight:bold;">SALDO</td>
+                                <td colspan="5" style="text-align:center; font-weight:bold;">SALDO</td>
                                 <td><span id="total">0</span></td>
                                 <td><span id="total">0</span></td>
+                                <td></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -679,181 +700,153 @@ foreach ($banks as $b) {
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById('txForm').addEventListener('submit', function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", function() {
 
-  const formData = new FormData(this);
-  const type = formData.get('type');
-  const tgl = formData.get('tgl_transaksi');
-  const pos = document.querySelector('#ID_pos_select option:checked').textContent;
-  const ket = formData.get('keterangan_bank');
-  const nominal = parseFloat(formData.get('nominal') || 0);
+  // === SUBMIT FORM ===
+  document.getElementById('txForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
 
-  // buat baris baru
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td>${tgl}</td>
-    <td>${pos.split(' - ')[0]}</td>
-    <td>${pos.split(' - ')[1]}</td>
-    <td>${pos.split(' - ')[2]}</td>
-    <td>${ket}</td>
-    <td>${type === 'in' ? nominal.toLocaleString() : ''}</td>
-    <td>${type === 'out' ? nominal.toLocaleString() : ''}</td>
-  `;
-  
-  document.getElementById('tableBody').appendChild(tr);
-  updateTotals();
+    const res = await fetch('', { method: 'POST', body: formData });
 
-  const modal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
-  modal.hide();
-  this.reset();
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-});
+    if (res.ok) {
+      // tambahkan baris ke tabel
+      const tgl = formData.get('tgl_transaksi');
+      const pos = document.querySelector('#ID_pos_select option:checked').textContent;
+      const ket = formData.get('keterangan_bank');
+      const nominal = parseFloat(formData.get('nominal')) || 0;
+      const type = formData.get('type');
 
-// === PERHITUNGAN SALDO ===
-function updateTotals() {
-  let totalIn = 0, totalOut = 0;
-  const rows = document.querySelectorAll('#tableBody tr');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${tgl}</td>
+        <td>${pos.split(' - ')[0]}</td>
+        <td>${pos.split(' - ')[1]}</td>
+        <td>${pos.split(' - ')[2]}</td>
+        <td>${ket}</td>
+        <td>${type === 'in' ? nominal.toLocaleString() : ''}</td>
+        <td>${type === 'out' ? nominal.toLocaleString() : ''}</td>
+        <td><button class="btn btn-danger btn-sm btn-delete">Hapus</button></td>
+      `;
+      document.getElementById('tableBody').appendChild(tr);
 
-  rows.forEach((row, idx) => {
-    if (idx === 0) return; // skip saldo awal
-    const inCell = row.cells[6];
-    const outCell = row.cells[7];
-    totalIn += parseFloat(inCell.textContent.replace(/,/g, '')) || 0;
-    totalOut += parseFloat(outCell.textContent.replace(/,/g, '')) || 0;
+      // tutup modal setelah simpan
+      const modal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
+      modal.hide();
+    }
   });
 
-  // ambil saldo awal (editable)
-  const saldoAwalIn = parseFloat(document.getElementById('saldoAwalIn').textContent.replace(/,/g, '')) || 0;
-  const saldoAwalOut = parseFloat(document.getElementById('saldoAwalOut').textContent.replace(/,/g, '')) || 0;
+  // === PERHITUNGAN SALDO ===
+  function updateTotals() {
+    let totalIn = 0, totalOut = 0;
+    const rows = document.querySelectorAll('#tableBody tr');
 
-  // update Jumlah
-  document.querySelectorAll('tfoot tr:nth-child(1) td span')[0].textContent = totalIn.toLocaleString();
-  document.querySelectorAll('tfoot tr:nth-child(1) td span')[1].textContent = totalOut.toLocaleString();
-
-  // update Saldo
-  const saldoIn = totalIn + saldoAwalIn;
-  const saldoOut = totalOut + saldoAwalOut;
-  document.querySelectorAll('tfoot tr:nth-child(2) td span')[0].textContent = saldoIn.toLocaleString();
-  document.querySelectorAll('tfoot tr:nth-child(2) td span')[1].textContent = saldoOut.toLocaleString();
-
-  // update Saldo Akhir
-  const akhir = saldoIn - saldoOut;
-  document.querySelectorAll('tfoot tr:nth-child(3) td span')[0].textContent = akhir.toLocaleString();
-  document.querySelectorAll('tfoot tr:nth-child(3) td span')[1].textContent = '';
-}
-
-// === DOUBLE CLICK UNTUK EDIT KOLOM ===
-document.getElementById('tableBody').addEventListener('dblclick', function(e) {
-  const cell = e.target;
-  if (cell.tagName === 'TD' && cell.cellIndex >= 4 && cell.cellIndex <= 7) {
-    const oldVal = cell.textContent.trim();
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = oldVal;
-    input.style.width = '100%';
-    cell.textContent = '';
-    cell.appendChild(input);
-    input.focus();
-
-    input.addEventListener('blur', () => {
-      cell.textContent = input.value;
-      updateTotals();
+    rows.forEach((row, idx) => {
+      if (idx === 0) return; // skip saldo awal
+      const inCell = row.cells[6];
+      const outCell = row.cells[7];
+      totalIn += parseFloat(inCell.textContent.replace(/,/g, '')) || 0;
+      totalOut += parseFloat(outCell.textContent.replace(/,/g, '')) || 0;
     });
+
+    const saldoAwalIn = parseFloat(document.getElementById('saldoAwalIn').textContent.replace(/,/g, '')) || 0;
+    const saldoAwalOut = parseFloat(document.getElementById('saldoAwalOut').textContent.replace(/,/g, '')) || 0;
+
+    document.querySelectorAll('tfoot tr:nth-child(1) td span')[0].textContent = totalIn.toLocaleString();
+    document.querySelectorAll('tfoot tr:nth-child(1) td span')[1].textContent = totalOut.toLocaleString();
+
+    const saldoIn = totalIn + saldoAwalIn;
+    const saldoOut = totalOut + saldoAwalOut;
+    document.querySelectorAll('tfoot tr:nth-child(2) td span')[0].textContent = saldoIn.toLocaleString();
+    document.querySelectorAll('tfoot tr:nth-child(2) td span')[1].textContent = saldoOut.toLocaleString();
+
+    const akhir = saldoIn - saldoOut;
+    document.querySelectorAll('tfoot tr:nth-child(3) td span')[0].textContent = akhir.toLocaleString();
+    document.querySelectorAll('tfoot tr:nth-child(3) td span')[1].textContent = '';
+  }
+
+  // === DOUBLE CLICK EDIT ===
+  document.getElementById('tableBody').addEventListener('dblclick', function(e) {
+    const cell = e.target;
+    if (cell.tagName === 'TD' && cell.cellIndex >= 4 && cell.cellIndex <= 7) {
+      const oldVal = cell.textContent.trim();
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = oldVal;
+      input.style.width = '100%';
+      cell.textContent = '';
+      cell.appendChild(input);
+      input.focus();
+      input.addEventListener('blur', () => {
+        cell.textContent = input.value;
+        updateTotals();
+      });
+    }
+  });
+
+  // === HANDLE STEP BUTTONS ===
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  const btnIncome = document.getElementById('btnIncome');
+  const btnExpense = document.getElementById('btnExpense');
+  const txType = document.getElementById('txType');
+  const backBtn = document.getElementById('backBtn');
+  const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
+
+  btnIncome.addEventListener('click', () => {
+    txType.value = 'in';
+    showStep2('in');
+  });
+  btnExpense.addEventListener('click', () => {
+    txType.value = 'out';
+    showStep2('out');
+  });
+
+  function showStep2(type) {
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+    const submitBtn = document.querySelector('#txForm button[type="submit"]');
+    submitBtn.classList.remove('btn-primary', 'btn-danger');
+    submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
+  }
+
+  backBtn.addEventListener('click', () => {
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+  });
+
+  document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+    document.getElementById('txForm')?.reset();
+    txType.value = 'in';
+  });
+
+  // === CEGAH ENTER SUBMIT OTOMATIS ===
+  document.querySelectorAll('form').forEach(f => {
+    f.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        e.target.blur();
+      }
+    });
+  });
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn-delete')) {
+    const row = e.target.closest('tr');
+
+    // ✅ Jangan hapus baris paten
+    if (row.id === 'fixedRow') {
+      alert('Baris ini tidak bisa dihapus!');
+      return;
+    }
+
+    if (confirm('Yakin mau hapus baris ini?')) {
+      row.remove();
+    }
   }
 });
 
-// === HANDLE STEP BUTTONS ===
-const step1 = document.getElementById('step1');
-const step2 = document.getElementById('step2');
-const btnIncome = document.getElementById('btnIncome');
-const btnExpense = document.getElementById('btnExpense');
-const txType = document.getElementById('txType');
-const backBtn = document.getElementById('backBtn');
-const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
-
-btnIncome.addEventListener('click', () => {
-  txType.value = 'in';
-  showStep2('in');
-});
-
-btnExpense.addEventListener('click', () => {
-  txType.value = 'out';
-  showStep2('out');
-});
-
-function showStep2(type) {
-  step1.style.display = 'none';
-  step2.style.display = 'block';
-  const submitBtn = document.querySelector('#txForm button[type="submit"]');
-  submitBtn.classList.remove('btn-primary', 'btn-danger');
-  submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
-}
-
-backBtn.addEventListener('click', () => {
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-});
-
-document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-  document.getElementById('txForm')?.reset();
-  txType.value = 'in';
-});
-
-document.getElementById('openAdd').addEventListener('click', () => {
-  step2.style.display = 'none';
-  step1.style.display = 'block';
-  document.getElementById('txForm')?.reset();
-  txType.value = 'in';
-});
-
-// === DROPDOWN PROFILE HANDLER ===
-function toggleDropdown() {
-  let menu = document.getElementById("dropdownMenu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-
-window.onclick = function(event) {
-  if (!event.target.closest('.profile-wrapper')) {
-    document.getElementById("dropdownMenu").style.display = "none";
-  }
-};
-
-// === SALDO AWAL EDITABLE ===
-document.querySelectorAll('#saldoAwalIn, #saldoAwalOut').forEach(cell => {
-  cell.style.cursor = 'text';
-
-  cell.addEventListener('input', updateTotals);
-
-  cell.addEventListener('blur', () => {
-    let val = cell.textContent.trim();
-    if (val === '') val = '0';
-    val = val.replace(/[^\d.,-]/g, '').replace(/,/g, '');
-    let num = parseFloat(val);
-    if (isNaN(num)) num = 0;
-    cell.textContent = num.toLocaleString('id-ID');
-    updateTotals();
-  });
-
-  cell.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      cell.blur();
-    }
-  });
-});
-
-// === CEGAH ENTER DI FORM AGAR TAK SUBMIT ===
-document.querySelectorAll('form').forEach(f => {
-  f.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      e.target.blur();
-    }
-  });
 });
 </script>
 </body>
