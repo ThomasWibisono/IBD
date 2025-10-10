@@ -145,6 +145,10 @@ try {
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 25px;
         }
+        .grid a {
+            text-decoration: none;
+            color: inherit;
+        }
         .card {
             background: white;
             border-radius: 15px;
@@ -169,6 +173,7 @@ try {
             font-weight: 600;
             font-size: 16px;
             color: #1e90ff;
+            text-decoration: none;
         }
     </style>
 </head>
