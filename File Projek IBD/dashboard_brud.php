@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'bruder') {
+if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
     header("Location: login.php");
     exit;
 }
@@ -26,189 +26,272 @@ try {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard Bruder</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f4f4;
-        }
-        header {
-            position: fixed;     
-            top: 0;
-            left: 0;
-            width: 100%;          
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-        }
-        .logo {
-            height: 60px;
-            
-        }
+<meta charset="UTF-8">
+<title>Dashboard Econom</title>
+
+<!-- Font Quicksand -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Quicksand', sans-serif;
+        background: linear-gradient(135deg, #89f7fe, #66a6ff);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header {
+        position: fixed;
+        top: 20px;
+        width: 90%;
+        max-width: 1200px;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        padding: 10px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .logo {
+        height: 60px;
+    }
+
+    nav {
+        display: flex;
+        gap: 25px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 15px;
+        transition: 0.3s;
+        background: rgba(255,255,255,0.15);
+    }
+
+    nav a:hover, nav a.active {
+        background: white;
+        color: #1e90ff;
+    }
+
+    .profile-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .profile-pic {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        transition: 0.3s;
+    }
+
+    .profile-pic:hover {
+        transform: scale(1.1);
+    }
+
+    .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 70px;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        border-radius: 12px;
+        overflow: hidden;
+        min-width: 180px;
+    }
+
+    .dropdown a {
+        display: block;
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .dropdown a:hover {
+        background: #f0f0f0;
+    }
+
+    main {
+        margin-top: 130px;
+        width: 90%;
+        max-width: 1200px;
+        color: white;
+    }
+
+    .welcome {
+        font-size: 28px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .banner {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .banner img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+    }
+
+    /* --- Bagian Dua Kolom --- */
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    .card.glass {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border-radius: 25px;
+        padding: 30px;
+        color: #fff;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        font-family: 'Quicksand', sans-serif;
+        transition: all 0.35s ease;
+        position: relative;
+    }
+
+    .card.glass:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+
+    .card.glass.left {
+        background: linear-gradient(135deg, rgba(120,160,255,0.35), rgba(80,120,255,0.3));
+        text-align: justify;
+        font-size: 17px;
+    }
+
+    .card.glass.left h2 {
+        font-weight: 700;
+        font-size: 22px;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .card.glass.right {
+        background: linear-gradient(135deg, rgba(160,255,230,0.35), rgba(90,220,200,0.3));
+        color: #002b3d;
+    }
+
+    .card.glass.right h3 {
+        margin-bottom: 15px;
+        color: #004e64;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .card.glass.right p {
+        margin: 6px 0;
+        font-weight: 500;
+    }
+
+    footer {
+        margin-top: 40px;
+        text-align: center;
+        color: white;
+        opacity: 0.8;
+        font-size: 14px;
+    }
+
+    @media(max-width: 768px) {
         nav {
-            
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            background: #1e90ff;
-            padding: 10px 0;
-            border-radius: 50px;
-            width: 60%;   
-            max-width: 700px; 
-            margin: 0 auto;   
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-
-        nav a.active {
-            background: white;
-            color: black;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .profile-wrapper {
-            position: relative;
-            cursor: pointer;
-        }
-        .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 60px;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            min-width: 260px;
-            display: none;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-        }
-        .dropdown a {
-            display: block;
-            padding: 10px 20px;
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .dropdown a:hover {
-            background: #f4f4f4;
-        }
-        main {
-            margin-top: 50px;
-            padding: 20px;
-            text-align: center;
-        }
-        .welcome {
-            font-size: 22px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        .banner img {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
+            gap: 10px;
         }
         .cards {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
         }
         .card {
-            flex: 1;
-            border-radius: 10px;
-            padding: 30px;
-            font-size: 18px;
-            text-align: center;
+            width: 90%;
         }
-        .card.red {
-            background: #e74c3c;
-            color: #fff;
-            display: flex;           
-            justify-content: center; 
-            align-items: center;     
-            text-align: center;      
-        }
-        .red {
-            background: #e74c3c;
-            color: #fff;
-        }
-        .yellow {
-            background: #f1c40f;
-            color: #000;
-            text-align: left;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <header>
-        <img src="foto/logo.png" alt="Logo" class="logo">
-        <nav>
-            <a href="dashboard_eco.php" class="active">Home</a>
-            <a href="anggota.php">Daftar Anggota</a>
-            <a href="anggaran_eco.php">Anggaran</a>
-        </nav>
-        <div class="profile-wrapper" onclick="toggleDropdown()">
-            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
-            <div class="dropdown" id="dropdownMenu">
-                <a href="logout.php">Logout</a>
-                <a href="editprofile.php">Edit Profile</a>
-            </div>
-        </div>
-    </header>
 
-    <main>
-        <p class="welcome">Selamat Datang Br. <?= htmlspecialchars($nama) ?>!</p>
-        <div class="banner">
-            <img src="foto/fic2.jpeg" alt="Banner">
+<header>
+    <img src="foto/logo.png" alt="Logo" class="logo">
+    <nav>
+        <a href="dashboard_eco.php" class="active">Home</a>
+        <a href="anggota.php">Anggota</a>
+        <a href="anggaran_eco.php">Anggaran</a>
+    </nav>
+    <div class="profile-wrapper" onclick="toggleDropdown()">
+        <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+        <div class="dropdown" id="dropdownMenu">
+            <a href="editprofile.php">Edit Profile</a>
+            <a href="logout.php">Logout</a>
         </div>
-        <div class="cards">
-            <div class="card red">
-                Website HALO FIC dibuat khusus untuk para bruder sebagai media informasi internal. Di sini, bruder dapat melihat data pribadi, unit kerja, dan informasi penting lain secara mudah serta mendukung kelancaran administrasi di lingkungan bruderan.
-            </div>
-            <div class="card yellow">
-                <p>Unit Kerja : <?= htmlspecialchars($user['unit_kerja']) ?></p>
-                <p>Alamat : <?= htmlspecialchars($user['alamat']) ?></p>
-                <p>No telp : <?= htmlspecialchars($user['no_telp']) ?></p>
-                <p>Email : <?= htmlspecialchars($user['email']) ?></p>
-            </div>
-        </div>
-    </main>
+    </div>
+</header>
 
-    <script>
-        function toggleDropdown() {
-            let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+<main>
+    <p class="welcome">Selamat Datang, Br. <?= htmlspecialchars($nama) ?> 👋</p>
+    <div class="banner">
+        <img src="foto/fic2.jpeg" alt="Banner">
+    </div>
+
+    <div class="cards">
+        <!-- Kolom Kiri -->
+        <div class="card glass left">
+            <h2><b>HALO FIC</b></h2>
+            <p>
+                adalah platform khusus bagi para Bruder FIC untuk mengakses data pribadi, unit kerja, dan informasi internal komunitas
+                secara mudah, aman, dan efisien.
+            </p>
+        </div>
+
+        <!-- Kolom Kanan -->
+        <div class="card glass right">
+            <h3>📋 Informasi Bruder</h3>
+            <p><b>Unit Kerja:</b> <?= htmlspecialchars($user['unit_kerja']) ?></p>
+            <p><b>Alamat:</b> <?= htmlspecialchars($user['alamat']) ?></p>
+            <p><b>No. Telepon:</b> <?= htmlspecialchars($user['no_telp']) ?></p>
+            <p><b>Email:</b> <?= htmlspecialchars($user['email']) ?></p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
+
+<script>
+    function toggleDropdown() {
+        let menu = document.getElementById("dropdownMenu");
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+    window.onclick = function(event) {
+        if (!event.target.closest('.profile-wrapper')) {
+            document.getElementById("dropdownMenu").style.display = "none";
         }
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-wrapper')) {
-                document.getElementById("dropdownMenu").style.display = "none";
-            }
-        }
-    </script>
+    }
+</script>
+
 </body>
 </html>
