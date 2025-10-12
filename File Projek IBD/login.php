@@ -9,11 +9,7 @@ try {
 }
 
 if (isset($_SESSION['ID_bruder'])) {
-    if ($_SESSION['status'] === 'econom') {
-        header('Location: dashboard_eco.php');
-    } else {
-        header('Location: dashboard_brud.php');
-    }
+    header('Location: dashboard_eco.php');
     exit;
 }
 
@@ -32,11 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['nama_bruder'] = $user['nama_bruder'];
             $_SESSION['status'] = $user['status'];
 
-            if ($user['status'] === 'econom') {
-                header('Location: dashboard_eco.php');
-            } else {
-                header('Location: dashboard_brud.php');
-            }
+            header('Location: dashboard_eco.php');
             exit;
         } else {
             $error = "Nama Bruder atau password salah.";

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
+if (!isset($_SESSION['ID_bruder'])) {
     header("Location: login.php");
     exit;
 }
@@ -218,7 +218,11 @@ try {
     <nav>
         <a href="dashboard_eco.php" class="active">Home</a>
         <a href="anggota.php">Anggota</a>
-        <a href="anggaran_eco.php">Anggaran</a>
+        <?php if ($_SESSION['status'] === 'econom'): ?>
+            <a href="anggaran_eco.php">Anggaran</a>
+        <?php else: ?>
+            <a href="#" onclick="alert('Anggaran hanya bisa diakses oleh Ekonom!'); return false;">Anggaran</a>
+        <?php endif; ?>
     </nav>
     <div class="profile-wrapper" onclick="toggleDropdown()">
         <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">

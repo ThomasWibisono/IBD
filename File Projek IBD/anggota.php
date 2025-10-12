@@ -201,7 +201,7 @@ try {
         <nav>
             <a href="dashboard_eco.php">Home</a>
             <a href="anggota.php" class="active">Anggota</a>
-            <?php if ($status === 'econom'): ?>
+            <?php if ($_SESSION['status'] === 'econom'): ?>
                 <a href="anggaran_eco.php">Anggaran</a>
             <?php else: ?>
                 <a href="#" onclick="alert('Anggaran hanya bisa diakses oleh Ekonom!'); return false;">Anggaran</a>
