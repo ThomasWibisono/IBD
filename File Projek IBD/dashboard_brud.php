@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
+if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'bruder') {
     header("Location: login.php");
     exit;
 }
@@ -27,7 +27,7 @@ try {
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Econom</title>
+<title>Dashboard Bruder</title>
 
 <!-- Font Quicksand -->
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
