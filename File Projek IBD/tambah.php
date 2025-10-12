@@ -80,10 +80,15 @@ $status = isset($_SESSION['status']) ? $_SESSION['status'] : '';
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Tambah Anggota Baru</title>
+<meta charset="UTF-8">
+<title>Tambah Anggota Baru</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
@@ -218,7 +223,7 @@ $status = isset($_SESSION['status']) ? $_SESSION['status'] : '';
     <img src="foto/logo.png" alt="Logo" class="logo">
     <nav>
         <a href="dashboard_eco.php">Home</a>
-        <a href="anggota.php" class="active">Daftar Anggota</a>
+        <a href="anggota.php" class="active">Anggota</a>
         <?php if ($status === 'econom'): ?>
             <a href="anggaran_eco.php">Anggaran</a>
         <?php else: ?>
