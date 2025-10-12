@@ -94,229 +94,253 @@ foreach ($banks as $b) {
 <head>
 <meta charset="UTF-8">
 <title>BANK</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
+    /* ===== Global Reset ===== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body {
-    margin: 0;
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(180deg, #b6e0fe, #d9f3ff); /* gradasi biru kalem */
-}
-/* Header */
-header {
-    position: relative;     
-    top: 0;
-    left: 0;
-    width: 100%;          
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-}
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
+        color: #333;
+    }
 
-/* Logo */
-.logo {
-    height: 60px;
-}
+    /* ===== Header / Navbar ===== */
+    header {
+        background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        padding: 12px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-radius: 25px;
+        margin: 20px auto;
+        width: 90%;
+    }
 
-/* Navbar */
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    background: rgba(255, 255, 255, 0.7); /* transparan lembut */
-    padding: 10px 0;
-    border-radius: 50px;
-    width: 60%;   
-    max-width: 700px; 
-    margin: 0 auto;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(15px);
-}
+    .logo {
+        height: 60px;
+    }
 
-/* Link navbar */
-nav a {
-    color: #004b8d;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
+    nav {
+        display: flex;
+        gap: 25px;
+    }
 
-/* Halaman aktif */
-nav a.active {
-    background: white;
-    color: #007bff;
-    font-weight: 600;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
+    nav a {
+        color: #0077ff;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 10px 22px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
 
-/* Hover */
-nav a:hover {
-    background: rgba(255, 255, 255, 0.4);
-    color: #0056b3;
-}
+    nav a.active {
+        background: white;
+        color: #0077ff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-/* Profil */
-.profile-wrapper {
-    position: relative;
-    cursor: pointer;
-}
-.profile-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
+    nav a:hover {
+        background: rgba(255,255,255,0.8);
+        color: #004fa3;
+    }
 
-/* Sidebar */
-.sidebar {
-    width: 220px;
-    background: linear-gradient(180deg, #4facfe, #00f2fe); /* biru muda lembut */
-    color: white;
-    min-height: 100vh;
-    padding: 40px 0;
-    flex-shrink: 0;
-    margin-top: 10px;
-    border-top-right-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
+    /* ===== Profil & Dropdown ===== */
+    .profile-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
 
-.sidebar a {
-    display: block;
-    padding: 12px 20px;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
+    .profile-pic {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #0077ff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
 
-.sidebar a:hover {
-    background: rgba(255,255,255,0.2);
-}
+    .dropdown {
+        position: absolute;
+        top: 65px;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        display: none;
+        flex-direction: column;
+        min-width: 180px;
+    }
 
-.sidebar a.active {
-    background: white;
-    color: #004b8d;
-    font-weight: bold;
-}
+    .dropdown a {
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
 
-/* Main content */
-.main {
-    flex: 1;
-}
+    .dropdown a:hover {
+        background: #e0f3ff;
+    }
 
-/* Dropdown */
-.dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 60px;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    min-width: 260px;
-    padding: 0 10px;
-}
-.dropdown a {
-    display: block;
-    padding: 10px 20px;
-    color: #333;
-    text-decoration: none;
-    font-size: 14px;
-}
-.dropdown a:hover {
-    background: #f4f4f4;
-}
+    /* ===== Main Section ===== */
+    main {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: auto;
+        text-align: center;
+    }
 
-/* Main content area */
-main {
-    margin-top: 10px;
-    padding: 20px;
-    text-align: center;
-}
+    /* Sidebar */
+    .sidebar {
+        width: 220px;
+        background: linear-gradient(180deg, #4facfe, #00f2fe); /* biru muda lembut */
+        color: white;
+        min-height: 100vh;
+        padding: 40px 0;
+        flex-shrink: 0;
+        margin-top: 10px;
+        border-top-right-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
-/* Card */
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
+    .sidebar a {
+        display: block;
+        padding: 12px 20px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
 
-/* Judul */
-h1, h2 {
-    text-align: center;
-    margin: 20px 0;
-    color: #003366;
-}
+    .sidebar a:hover {
+        background: rgba(255,255,255,0.2);
+    }
 
-/* Table */
-.table-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 8px;
-}
+    .sidebar a.active {
+        background: white;
+        color: #004b8d;
+        font-weight: bold;
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; 
-    margin-top: 10px;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
+    /* Main content */
+    .main {
+        flex: 1;
+    }
 
-th, td {
-    border: 1px solid #e0e0e0;
-    padding: 8px;
-    text-align: center;
-    font-size: 14px;
-    word-wrap: break-word; 
-}
+    /* Dropdown */
+    .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        min-width: 260px;
+        padding: 0 10px;
+    }
+    .dropdown a {
+        display: block;
+        padding: 10px 20px;
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .dropdown a:hover {
+        background: #f4f4f4;
+    }
 
-th {
-    background: #f9fbff;
-    color: #004b8d;
-}
+    /* Card */
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
 
-/* Input cell */
-.input-cell input {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    text-align: right;
-    padding: 5px;
-    outline: none;
-}
+    /* Judul */
+    h1, h2 {
+        text-align: center;
+        margin: 20px 0;
+        color: #003366;
+    }
 
-/* Tombol simpan */
-.btn-simpan {
-    padding: 8px 18px;
-    background: linear-gradient(90deg, #007bff, #00c6ff);
-    color: #fff;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
+    /* Table */
+    .table-header {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 8px;
+    }
 
-.btn-simpan:hover {
-    background: linear-gradient(90deg, #0062cc, #0099ff);
-}
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; 
+        margin-top: 10px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
 
-/* Container utama */
-.container {
-    display: flex;         
-    min-height: 100vh;     
-}
+    th, td {
+        border: 1px solid #e0e0e0;
+        padding: 8px;
+        text-align: center;
+        font-size: 14px;
+        word-wrap: break-word; 
+    }
+
+    th {
+        background: #f9fbff;
+        color: #004b8d;
+    }
+
+    /* Input cell */
+    .input-cell input {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        text-align: right;
+        padding: 5px;
+        outline: none;
+    }
+
+    /* Tombol simpan */
+    .btn-simpan {
+        padding: 8px 18px;
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        color: #fff;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-simpan:hover {
+        background: linear-gradient(90deg, #0062cc, #0099ff);
+    }
+
+    /* Container utama */
+    .container {
+        display: flex;         
+        min-height: 100vh;     
+    }
     /* ====== MODAL WRAPPER ====== */
     .modal {
         display: none;
@@ -336,7 +360,7 @@ th {
     .modal-content {
         background: white;
         border-radius: 12px;
-        padding: 20px 24px;
+        padding: 20px 50px;
         max-width: 500px;
         width: 90%;
         box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -346,7 +370,6 @@ th {
     /* ====== HEADER ====== */
     .modal-header {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         margin-bottom: 12px;
         border-bottom: 2px solid #eee;
@@ -380,6 +403,7 @@ th {
     }
     #btnIncome,
     #btnExpense {
+        font-family: 'Poppins', sans-serif;
         flex: 1;
         padding: 10px;
         font-weight: 600;
@@ -479,12 +503,38 @@ th {
     }
 
     /* Simpan = kuning */
+   /* === STEP 2 BUTTONS (Bootstrap version styled to match your theme) === */
+    #step2 .btn {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        border-radius: 30px;
+        padding: 12px 40px;
+        min-width: 150px; /* 🔹 Samain lebar tombol */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    /* Tombol Kembali */
+    #step2 .btn-secondary {
+        background: linear-gradient(to right, #e74c3c, #f09292ff);
+        color: white;
+        border: 1px solid #bcdfff;
+    }
+    #step2 .btn-secondary:hover {
+        background-color: #e74c3c;
+        transform: translateY(-2px);
+    }
+
+    /* Tombol Simpan */
     #step2 .btn-primary {
-        background-color: #f1c40f;
-        color: #000;
+        background: linear-gradient(to right, #f1c40f, #ecdd9eff);
+        border: none;
+        color: white;
     }
     #step2 .btn-primary:hover {
-        background-color: #d4ac0d;
+        background-color: #f1c40f;
+        transform: translateY(-2px);
     }
     .row {
     display: flex;
@@ -512,6 +562,7 @@ th {
         flex: 1;
     }
     .btn-delete{
+        font-family: 'Poppins', sans-serif;
         padding: 3px 6px;
         background: #e74c3c;
         color: white;
@@ -526,7 +577,7 @@ th {
         <img src="foto/logo.png" alt="Logo" class="logo">
         <nav>
             <a href="dashboard_eco.php">Home</a>
-            <a href="anggota.php">Daftar Anggota</a>
+            <a href="anggota.php">Anggota</a>
             <a href="anggaran_eco.php" class="active" >Anggaran</a>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
@@ -737,15 +788,24 @@ th {
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
+  const txForm = document.getElementById('txForm');
+  const tableBody = document.getElementById('tableBody');
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  const txType = document.getElementById('txType');
+  const btnIncome = document.getElementById('btnIncome');
+  const btnExpense = document.getElementById('btnExpense');
+  const backBtn = document.getElementById('backBtn');
+  const addModalEl = document.getElementById('addModal');
+  const addModal = new bootstrap.Modal(addModalEl, { keyboard: true });
+
   // === SUBMIT FORM ===
-  document.getElementById('txForm').addEventListener('submit', async function (e) {
+  txForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
-
     const res = await fetch('', { method: 'POST', body: formData });
 
     if (res.ok) {
-      // tambahkan baris ke tabel
       const tgl = formData.get('tgl_transaksi');
       const pos = document.querySelector('#ID_pos_select option:checked').textContent;
       const ket = formData.get('keterangan_bank');
@@ -763,98 +823,97 @@ document.addEventListener("DOMContentLoaded", function() {
         <td>${type === 'out' ? nominal.toLocaleString() : ''}</td>
         <td><button class="btn btn-danger btn-sm btn-delete">Hapus</button></td>
       `;
-      document.getElementById('tableBody').appendChild(tr);
+      tableBody.appendChild(tr);
 
-      // tutup modal setelah simpan
-      const modal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
-      modal.hide();
+      updateTotals();
+      addModal.hide();
+      txForm.reset();
+      showStep(1);
     }
   });
 
-  // === PERHITUNGAN SALDO ===
+  // === PERHITUNGAN TOTAL DAN SALDO ===
   function updateTotals() {
     let totalIn = 0, totalOut = 0;
-    const rows = document.querySelectorAll('#tableBody tr');
 
-    rows.forEach((row, idx) => {
-      if (idx === 0) return; // skip saldo awal
-      const inCell = row.cells[6];
-      const outCell = row.cells[7];
-      totalIn += parseFloat(inCell.textContent.replace(/,/g, '')) || 0;
-      totalOut += parseFloat(outCell.textContent.replace(/,/g, '')) || 0;
+    tableBody.querySelectorAll('tr').forEach(row => {
+      if (row.id === 'fixedRow') return;
+      const inVal = parseFloat(row.cells[5]?.textContent.replace(/,/g, '')) || 0;
+      const outVal = parseFloat(row.cells[6]?.textContent.replace(/,/g, '')) || 0;
+      totalIn += inVal;
+      totalOut += outVal;
     });
 
-    const saldoAwalIn = parseFloat(document.getElementById('saldoAwalIn').textContent.replace(/,/g, '')) || 0;
-    const saldoAwalOut = parseFloat(document.getElementById('saldoAwalOut').textContent.replace(/,/g, '')) || 0;
+    const saldoAwalIn = parseFloat(document.getElementById('saldoAwalIn')?.textContent.replace(/,/g, '')) || 0;
+    const saldoAwalOut = parseFloat(document.getElementById('saldoAwalOut')?.textContent.replace(/,/g, '')) || 0;
 
-    document.querySelectorAll('tfoot tr:nth-child(1) td span')[0].textContent = totalIn.toLocaleString();
-    document.querySelectorAll('tfoot tr:nth-child(1) td span')[1].textContent = totalOut.toLocaleString();
+    const [totalInEl, totalOutEl] = document.querySelectorAll('tfoot tr:nth-child(1) td span');
+    const [saldoInEl, saldoOutEl] = document.querySelectorAll('tfoot tr:nth-child(2) td span');
+    const [akhirInEl, akhirOutEl] = document.querySelectorAll('tfoot tr:nth-child(3) td span');
+
+    totalInEl.textContent = totalIn.toLocaleString();
+    totalOutEl.textContent = totalOut.toLocaleString();
 
     const saldoIn = totalIn + saldoAwalIn;
     const saldoOut = totalOut + saldoAwalOut;
-    document.querySelectorAll('tfoot tr:nth-child(2) td span')[0].textContent = saldoIn.toLocaleString();
-    document.querySelectorAll('tfoot tr:nth-child(2) td span')[1].textContent = saldoOut.toLocaleString();
 
-    const akhir = saldoIn - saldoOut;
-    document.querySelectorAll('tfoot tr:nth-child(3) td span')[0].textContent = akhir.toLocaleString();
-    document.querySelectorAll('tfoot tr:nth-child(3) td span')[1].textContent = '';
+    saldoInEl.textContent = saldoIn.toLocaleString();
+    saldoOutEl.textContent = saldoOut.toLocaleString();
+
+    akhirInEl.textContent = (saldoIn - saldoOut).toLocaleString();
+    akhirOutEl.textContent = '';
   }
 
   // === DOUBLE CLICK EDIT ===
-  document.getElementById('tableBody').addEventListener('dblclick', function(e) {
+  tableBody.addEventListener('dblclick', e => {
     const cell = e.target;
-    if (cell.tagName === 'TD' && cell.cellIndex >= 4 && cell.cellIndex <= 7) {
-      const oldVal = cell.textContent.trim();
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.value = oldVal;
-      input.style.width = '100%';
-      cell.textContent = '';
-      cell.appendChild(input);
-      input.focus();
-      input.addEventListener('blur', () => {
-        cell.textContent = input.value;
-        updateTotals();
-      });
-    }
+    if (cell.tagName !== 'TD' || cell.cellIndex < 4 || cell.cellIndex > 7) return;
+
+    const oldVal = cell.textContent.trim();
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = oldVal;
+    input.style.width = '100%';
+    cell.textContent = '';
+    cell.appendChild(input);
+    input.focus();
+
+    input.addEventListener('blur', () => {
+      cell.textContent = input.value;
+      updateTotals();
+    });
   });
 
   // === HANDLE STEP BUTTONS ===
-  const step1 = document.getElementById('step1');
-  const step2 = document.getElementById('step2');
-  const btnIncome = document.getElementById('btnIncome');
-  const btnExpense = document.getElementById('btnExpense');
-  const txType = document.getElementById('txType');
-  const backBtn = document.getElementById('backBtn');
-  const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
-
   btnIncome.addEventListener('click', () => {
     txType.value = 'in';
-    showStep2('in');
+    showStep(2, 'in');
   });
+
   btnExpense.addEventListener('click', () => {
     txType.value = 'out';
-    showStep2('out');
+    showStep(2, 'out');
   });
 
-  function showStep2(type) {
-    step1.style.display = 'none';
-    step2.style.display = 'block';
-    const submitBtn = document.querySelector('#txForm button[type="submit"]');
-    submitBtn.classList.remove('btn-primary', 'btn-danger');
-    submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
+  backBtn.addEventListener('click', () => showStep(1));
+
+  function showStep(step, type = null) {
+    if (step === 1) {
+      step2.style.display = 'none';
+      step1.style.display = 'block';
+    } else {
+      step1.style.display = 'none';
+      step2.style.display = 'block';
+      const submitBtn = txForm.querySelector('button[type="submit"]');
+      submitBtn.className = `btn ${type === 'in' ? 'btn-primary' : 'btn-danger'}`;
+      submitBtn.className = `btn ${type === 'out' ? 'btn-primary' : 'btn-danger'}`;
+    }
   }
 
-  backBtn.addEventListener('click', () => {
-    step2.style.display = 'none';
-    step1.style.display = 'block';
-  });
-
-  document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
-    step2.style.display = 'none';
-    step1.style.display = 'block';
-    document.getElementById('txForm')?.reset();
-    txType.value = 'in';
+  // === RESET MODAL SAAT DITUTUP ===
+  addModalEl.addEventListener('hidden.bs.modal', () => {
+    txForm.reset();
+    showStep(1);
   });
 
   // === CEGAH ENTER SUBMIT OTOMATIS ===
@@ -866,21 +925,18 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   });
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('btn-delete')) {
-    const row = e.target.closest('tr');
 
-    // ✅ Jangan hapus baris paten
-    if (row.id === 'fixedRow') {
-      alert('Baris ini tidak bisa dihapus!');
-      return;
+  // === HAPUS BARIS ===
+  document.addEventListener('click', e => {
+    if (e.target.classList.contains('btn-delete')) {
+      const row = e.target.closest('tr');
+      if (row.id === 'fixedRow') return alert('Baris ini tidak bisa dihapus!');
+      if (confirm('Yakin mau hapus baris ini?')) {
+        row.remove();
+        updateTotals();
+      }
     }
-
-    if (confirm('Yakin mau hapus baris ini?')) {
-      row.remove();
-    }
-  }
-});
+  });
 
 });
 </script>

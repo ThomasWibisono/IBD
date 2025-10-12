@@ -82,131 +82,137 @@ $status = isset($_SESSION['status']) ? $_SESSION['status'] : '';
 <head>
     <meta charset="UTF-8">
     <title>Tambah Anggota Baru</title>
-    <style>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
+            color: #333;
         }
+        /* ===== Header / Navbar ===== */
         header {
-            width: 100%;          
+            background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            padding: 12px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-radius: 25px;
+            margin: 20px auto;
+            width: 90%;
         }
-        .logo {
-            height: 60px;
-        }
+        .logo { height: 60px; }
         nav {
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            background: #1e90ff;
-            padding: 10px 0;
-            border-radius: 50px;
-            width: 60%;   
-            max-width: 700px; 
-            margin: 0 auto;   
+            gap: 25px;
         }
         nav a {
-            color: white;
+            color: #0077ff;
+            font-weight: 600;
             text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
+            padding: 10px 22px;
             border-radius: 20px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
         nav a.active {
             background: white;
-            color: black;
-            font-weight: bold;
+            color: #0077ff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,0.8);
+            color: #004fa3;
         }
-        .profile-wrapper {
-            position: relative;
-            cursor: pointer;
-        }
+
+        /* ===== Profil & Dropdown ===== */
+        .profile-wrapper { position: relative; cursor: pointer; }
         .profile-pic {
-            width: 50px;
-            height: 50px;
+            width: 48px; height: 48px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #0077ff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .dropdown {
-            display: none;
             position: absolute;
-            right: 0;
-            top: 60px;
+            top: 65px; right: 0;
             background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            min-width: 260px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 10px;
             display: none;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
+            flex-direction: column;
+            min-width: 180px;
         }
         .dropdown a {
-            display: block;
-            padding: 10px 20px;
+            padding: 12px 20px;
             color: #333;
             text-decoration: none;
             font-size: 14px;
+            transition: background 0.3s;
         }
-        .dropdown a:hover {
-            background: #f4f4f4;
-        }
+        .dropdown a:hover { background: #e0f3ff; }
+
+        /* ===== Main Section ===== */
         main {
-            margin-top: 50px;
-            padding: 20px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        h2 {
             text-align: center;
+            margin-bottom: 25px;
+            color: #0077ff;
         }
-        .btn-simpan {
-            padding: 8px 18px;
-            background: #1e90ff;
-            color: #fff;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-simpan:hover {
-            background: #0b75d1;
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
         }
         .form-tambah {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-        .form-group {
-            width: 80%;
-            text-align: left;
+            gap: 18px;
         }
         .form-group label {
-            font-weight: bold;
+            font-weight: 600;
+            color: #004fa3;
+            margin-bottom: 6px;
             display: block;
-            margin-bottom: 5px;
         }
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 8px;
-            border-radius: 10px;
+            padding: 10px 15px;
+            border-radius: 15px;
             border: 1px solid #ccc;
-            font-size: 14px;
-            box-sizing: border-box;
+            font-size: 15px;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
-    </style>
-</head>
+
+        /* ===== Button ===== */
+        .btn-simpan {
+            background: linear-gradient(to right, #007bff, #00c3ff);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: background 0.3s;
+            width: 160px;
+            align-self: center;
+        }
+        .btn-simpan:hover {
+            background: linear-gradient(to right, #00c3ff, #007bff);
+        }
+    </style></head>
 <body>
 <header>
     <img src="foto/logo.png" alt="Logo" class="logo">

@@ -27,234 +27,257 @@ try {
 <head>
 <meta charset="UTF-8">
 <title>EVALUASI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-     body {
-    margin: 0;
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(180deg, #b6e0fe, #d9f3ff); /* gradasi biru kalem */
-}
-/* Header */
-header {
-    position: relative;     
-    top: 0;
-    left: 0;
-    width: 100%;          
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-/* Logo */
-.logo {
-    height: 60px;
-}
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
+        color: #333;
+    }
 
-/* Navbar */
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    background: rgba(255, 255, 255, 0.7); /* transparan lembut */
-    padding: 10px 0;
-    border-radius: 50px;
-    width: 60%;   
-    max-width: 700px; 
-    margin: 0 auto;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(15px);
-}
+    /* ===== Header / Navbar ===== */
+    header {
+        background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        padding: 12px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-radius: 25px;
+        margin: 20px auto;
+        width: 90%;
+    }
 
-/* Link navbar */
-nav a {
-    color: #004b8d;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
+    .logo {
+        height: 60px;
+    }
 
-/* Halaman aktif */
-nav a.active {
-    background: white;
-    color: #007bff;
-    font-weight: 600;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
+    nav {
+        display: flex;
+        gap: 25px;
+    }
 
-/* Hover */
-nav a:hover {
-    background: rgba(255, 255, 255, 0.4);
-    color: #0056b3;
-}
+    nav a {
+        color: #0077ff;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 10px 22px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
 
-/* Profil */
-.profile-wrapper {
-    position: relative;
-    cursor: pointer;
-}
-.profile-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
+    nav a.active {
+        background: white;
+        color: #0077ff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
+    nav a:hover {
+        background: rgba(255,255,255,0.8);
+        color: #004fa3;
+    }
+
+    /* ===== Profil & Dropdown ===== */
+    .profile-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .profile-pic {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #0077ff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 65px;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        display: none;
+        flex-direction: column;
+        min-width: 180px;
+    }
+
+    .dropdown a {
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+
+    .dropdown a:hover {
+        background: #e0f3ff;
+    }
+
+    /* ===== Main Section ===== */
+    main {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: auto;
+        text-align: center;
+    }
 /* Sidebar */
-.sidebar {
-    width: 220px;
-    background: linear-gradient(180deg, #4facfe, #00f2fe); /* biru muda lembut */
-    color: white;
-    min-height: 100vh;
-    padding: 40px 0;
-    flex-shrink: 0;
-    margin-top: 10px;
-    border-top-right-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
+    .sidebar {
+        width: 220px;
+        background: linear-gradient(180deg, #4facfe, #00f2fe); /* biru muda lembut */
+        color: white;
+        min-height: 100vh;
+        padding: 40px 0;
+        flex-shrink: 0;
+        margin-top: 10px;
+        border-top-right-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
-.sidebar a {
-    display: block;
-    padding: 12px 20px;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
+    .sidebar a {
+        display: block;
+        padding: 12px 20px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
 
-.sidebar a:hover {
-    background: rgba(255,255,255,0.2);
-}
+    .sidebar a:hover {
+        background: rgba(255,255,255,0.2);
+    }
 
-.sidebar a.active {
-    background: white;
-    color: #004b8d;
-    font-weight: bold;
-}
+    .sidebar a.active {
+        background: white;
+        color: #004b8d;
+        font-weight: bold;
+    }
 
-/* Main content */
-.main {
-    flex: 1;
-}
-/* Dropdown */
-.dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 60px;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    min-width: 260px;
-    padding: 0 10px;
-}
-.dropdown a {
-    display: block;
-    padding: 10px 20px;
-    color: #333;
-    text-decoration: none;
-    font-size: 14px;
-}
-.dropdown a:hover {
-    background: #f4f4f4;
-}
+    /* Main content */
+    .main {
+        flex: 1;
+    }
+    /* Dropdown */
+    .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        min-width: 260px;
+        padding: 0 10px;
+    }
+    .dropdown a {
+        display: block;
+        padding: 10px 20px;
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .dropdown a:hover {
+        background: #f4f4f4;
+    }
 
-/* Main content area */
-main {
-    margin-top: 10px;
-    padding: 20px;
-    text-align: center;
-}
+    /* Card */
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
 
-/* Card */
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
+    /* Judul */
+    h1, h2 {
+        text-align: center;
+        margin: 20px 0;
+        color: #003366;
+    }
 
-/* Judul */
-h1, h2 {
-    text-align: center;
-    margin: 20px 0;
-    color: #003366;
-}
+    /* Table */
+    .table-header {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 8px;
+    }
 
-/* Table */
-.table-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 8px;
-}
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; 
+        margin-top: 10px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; 
-    margin-top: 10px;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
+    th, td {
+        border: 1px solid #e0e0e0;
+        padding: 8px;
+        text-align: center;
+        font-size: 14px;
+        word-wrap: break-word; 
+    }
 
-th, td {
-    border: 1px solid #e0e0e0;
-    padding: 8px;
-    text-align: center;
-    font-size: 14px;
-    word-wrap: break-word; 
-}
+    th {
+        background: #f9fbff;
+        color: #004b8d;
+    }
 
-th {
-    background: #f9fbff;
-    color: #004b8d;
-}
+    /* Input cell */
+    .input-cell input {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        text-align: right;
+        padding: 5px;
+        outline: none;
+    }
 
-/* Input cell */
-.input-cell input {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    text-align: right;
-    padding: 5px;
-    outline: none;
-}
+    /* Tombol simpan */
+    .btn-simpan {
+        padding: 8px 18px;
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        color: #fff;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-/* Tombol simpan */
-.btn-simpan {
-    padding: 8px 18px;
-    background: linear-gradient(90deg, #007bff, #00c6ff);
-    color: #fff;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
+    .btn-simpan:hover {
+        background: linear-gradient(90deg, #0062cc, #0099ff);
+    }
 
-.btn-simpan:hover {
-    background: linear-gradient(90deg, #0062cc, #0099ff);
-}
+    /* Container utama */
+    .container {
+        display: flex;         
+        min-height: 100vh;     
+    }
 
-/* Container utama */
-.container {
-    display: flex;         
-    min-height: 100vh;     
-}
-
-/* Kolom tabel */
-th:nth-child(1), td:nth-child(1) { width: 8%; }   
-th:nth-child(2), td:nth-child(2) { width: 12%; }  
-th:nth-child(3), td:nth-child(3) { width: 40%; }  
-th:nth-child(4), td:nth-child(4) { width: 20%; }  
-th:nth-child(5), td:nth-child(5) { width: 20%; }  
+    /* Kolom tabel */
+    th:nth-child(1), td:nth-child(1) { width: 8%; }   
+    th:nth-child(2), td:nth-child(2) { width: 12%; }  
+    th:nth-child(3), td:nth-child(3) { width: 40%; }  
+    th:nth-child(4), td:nth-child(4) { width: 20%; }  
+    th:nth-child(5), td:nth-child(5) { width: 20%; }  
     table {
     width: 100%;
     border-collapse: collapse;
@@ -286,7 +309,7 @@ th:nth-child(7), td:nth-child(7) { width: 10%; }  /* % */
         <img src="foto/logo.png" alt="Logo" class="logo">
         <nav>
             <a href="dashboard_eco.php">Home</a>
-            <a href="anggota.php">Daftar Anggota</a>
+            <a href="anggota.php">Anggota</a>
             <a href="anggaran_eco.php" class="active">Anggaran</a>
 
         </nav>
