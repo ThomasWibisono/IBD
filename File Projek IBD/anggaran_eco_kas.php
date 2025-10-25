@@ -618,18 +618,19 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
                             </tr>
                             <?php foreach ($transaksi as $t): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($t['tgl_kas_harian']) ?></td>
-                                <td><?= htmlspecialchars($t['ID_pos']) ?></td>
-                                <td><?= htmlspecialchars($t['kode'] ?? '') ?></td> <!-- kode perkiraan -->
-                                <td><?= htmlspecialchars($t['akun'] ?? '') ?></td> <!-- akun -->
-                                <td><?= htmlspecialchars($t['keterangan_kas']) ?></td>
-                                <td></td> 
-                                <td><?= $t['nominal'] >= 0 ? number_format($t['nominal'], 2, ',', '.') : '' ?></td>
-                                <td><?= $t['nominal'] < 0 ? number_format(abs($t['nominal']), 2, ',', '.') : '' ?></td>
-                                <td><button class="btn-delete">Hapus</button></td>
-                            </tr>
-                            <?php endforeach; ?>
+<tr data-id="<?= htmlspecialchars($t['ID_kas_harian']) ?>">
+    <td><?= htmlspecialchars($t['tgl_kas_harian']) ?></td>
+    <td><?= htmlspecialchars($t['ID_pos']) ?></td>
+    <td><?= htmlspecialchars($t['kode'] ?? '') ?></td>
+    <td><?= htmlspecialchars($t['akun'] ?? '') ?></td>
+    <td><?= htmlspecialchars($t['keterangan_kas']) ?></td>
+    <td></td>
+    <td><?= $t['nominal'] >= 0 ? number_format($t['nominal'], 2, ',', '.') : '' ?></td>
+    <td><?= $t['nominal'] < 0 ? number_format(abs($t['nominal']), 2, ',', '.') : '' ?></td>
+    <td><button class="btn-delete">Hapus</button></td>
+</tr>
+<?php endforeach; ?>
+
                         </tbody>
                         <tfoot>
                         <tr>
@@ -836,6 +837,7 @@ document.addEventListener('click', function (e) {
       })
       .then(res => res.text())
       .then(result => {
+        console.log('Response:', result);
         if (result.trim() === 'success') {
           row.remove();
           alert('✅ Data berhasil dihapus.');
@@ -847,6 +849,7 @@ document.addEventListener('click', function (e) {
     }
   }
 });
+
 </script>
 </body>
 </html>
