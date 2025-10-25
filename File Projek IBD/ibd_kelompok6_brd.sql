@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2025 at 11:05 AM
+-- Generation Time: Oct 25, 2025 at 02:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -315,7 +315,8 @@ INSERT INTO `3_kas_harian` (`ID_kas_harian`, `tgl_kas_harian`, `ID_pos`, `ketera
 (21, '2025-09-01', 'A', 'Saldo Awal', 1, 30000000.00),
 (23, '2025-01-05', '5', 'Transport harian ke pasar', 1, 100000.00),
 (24, '2025-01-06', '11', 'Bayar listrik bulan Januari', 2, 750000.00),
-(25, '2025-01-07', '12', 'Bayar air PDAM', 3, 500000.00);
+(25, '2025-01-07', '12', 'Bayar air PDAM', 3, 500000.00),
+(27, '2025-10-25', '15', 'sumbangan', 1, 1000000.00);
 
 --
 -- Triggers `3_kas_harian`
@@ -346,6 +347,62 @@ CREATE TRIGGER `trg_kas_harian_au` AFTER UPDATE ON `3_kas_harian` FOR EACH ROW B
 END
 $$
 DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `trg_kas_harian_riwayat_delete` AFTER DELETE ON `3_kas_harian` FOR EACH ROW BEGIN
+    DECLARE v_nama_pengguna VARCHAR(100);
+
+    -- ambil nama dari login_bruder sesuai ID_bruder yang sedang login
+    SELECT nama_bruder INTO v_nama_pengguna
+    FROM login_bruder
+    WHERE ID_bruder = OLD.ID_bruder;
+
+    -- simpan data yang dihapus ke tabel riwayat
+    INSERT INTO `3_kas_harian_riwayat` (
+        ID_kas_harian,
+        tgl_kas_harian,
+        ID_pos,
+        keterangan_kas,
+        ID_bruder,
+        nominal,
+        nama_pengguna
+    )
+    VALUES (
+        OLD.ID_kas_harian,
+        OLD.tgl_kas_harian,
+        OLD.ID_pos,
+        OLD.keterangan_kas,
+        OLD.ID_bruder,
+        OLD.nominal,
+        v_nama_pengguna
+    );
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `3_kas_harian_riwayat`
+--
+
+CREATE TABLE `3_kas_harian_riwayat` (
+  `ID_riwayat` int(11) NOT NULL,
+  `ID_kas_harian` int(11) DEFAULT NULL,
+  `tgl_kas_harian` date DEFAULT NULL,
+  `ID_pos` varchar(5) DEFAULT NULL,
+  `keterangan_kas` text DEFAULT NULL,
+  `ID_bruder` int(11) DEFAULT NULL,
+  `nominal` decimal(15,2) DEFAULT NULL,
+  `tanggal_penghapusan` datetime DEFAULT current_timestamp(),
+  `nama_pengguna` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `3_kas_harian_riwayat`
+--
+
+INSERT INTO `3_kas_harian_riwayat` (`ID_riwayat`, `ID_kas_harian`, `tgl_kas_harian`, `ID_pos`, `keterangan_kas`, `ID_bruder`, `nominal`, `tanggal_penghapusan`, `nama_pengguna`) VALUES
+(1, 26, '2025-10-25', '24', 'administrasi', 1, 100000.00, '2025-10-25 07:12:02', 'Thomas');
 
 -- --------------------------------------------------------
 
@@ -428,9 +485,7 @@ CREATE TABLE `5_bruder` (
 --
 
 INSERT INTO `5_bruder` (`ID_pp`, `ID_bruder`, `tgl_datang_komunitas`, `tgl_pulang_komunitas`, `tgl_pergi_luarkota`, `tgl_pulang_luarKota`, `jumlah_hari`, `keterangan_pp`) VALUES
-(1, 1, '2025-01-01', '2025-01-15', NULL, NULL, 14, 'Komunitas Magelang'),
-(2, 2, '2025-04-23', '2025-04-25', NULL, NULL, 2, '-'),
-(3, 3, '2025-04-23', '2025-04-25', NULL, NULL, 2, '-');
+(1, 1, '2025-01-01', '2025-01-15', NULL, NULL, 14, 'Komunitas Magelang');
 
 --
 -- Triggers `5_bruder`
@@ -481,7 +536,8 @@ INSERT INTO `6_lu_komunitas` (`id_lu`, `id_anggaran`, `id_pos`, `tgl_transaksi`,
 (7, 0, '12', '2025-01-01', 500000.00, 0.00),
 (8, 0, 'I', '2025-01-01', 5000000.00, 0.00),
 (9, 0, 'C', '2025-01-01', 3000000.00, 0.00),
-(10, 0, '28', '2025-01-01', 0.00, 2000000.00);
+(10, 0, '28', '2025-01-01', 0.00, 2000000.00),
+(12, 0, '15', NULL, 1000000.00, 0.00);
 
 -- --------------------------------------------------------
 
@@ -563,11 +619,9 @@ CREATE TABLE `data_bruder` (
 --
 
 INSERT INTO `data_bruder` (`ID_bruder`, `nama_bruder`, `gambar_bruder`, `ttl_bruder`, `alamat_bruder`, `tahun_masuk_postulan`, `tahun_prasetia_pertama`, `tahun_kaul_kekal`, `riwayat_tugas`, `unit_kerja`, `alamat`, `no_telp`, `email`, `foto`) VALUES
-(1, 'Bruder Thomas', 'thomas.jpg', '1999-11-21', 'Komunitas Bruder FIC, Semarang', '2017', '2018', '2019', 'Pernah bertugas di Muntilan dan Semarang (2021-sekarang)', 'Ekonomi', 'Jl. Pawiyatan Luhur, Semarang', '0852-9012-7455', 'thomas@gmail.com', 'IMG_1212.JPG'),
-(2, 'Bruder Frith', 'frith.jpg', '1987-03-21', 'Komunitas Bruder FIC, Yogyakarta', '2005', '2008', '2014', 'Pernah bertugas di Medan (2009-2014), Bandung (2014-2020), dan Yogyakarta (2020-sekarang)', 'Bruder', 'Jl. Banyumanik, Semarang', '0838-3890-5802', 'frit@gmail.com', 'frit.jpg'),
-(3, 'Bruder Khim', 'khim.jpg', '1992-11-02', 'Komunitas Bruder FIC, Jakarta', '2010', '2013', '2019', 'Pernah bertugas di Jakarta (2013-2018), Makassar (2018-2022), dan Jakarta (2022-sekarang)', 'Bruder', 'Jl. Kartini, Semarang', '0878-1579-4900', 'khim@gmail.com', 'khim.jpg'),
-(4, 'Bruder Hieronimus Wisnu', '1760086560_Pasfoto-010.jpg', '1998-07-09', 'Jl. Senopati Yogyakarta', '2016', '2020', '2024', 'Pamong SMA Van Lith Muntilan ', 'Komunitas Yogyakarta', 'Jl. Senopati Yogyakarta', '085740676693', 'hironimus@gmail.com', '1760086560_Pasfoto-010.jpg'),
-(5, 'Bruder Riyanto', '1760086777_Pasfoto-003.jpg', '1998-06-11', 'Jl. Sedayu no 1 Bantul', '2017', '2019', '2023', 'Asrama Van Lith Muntilan', 'Asrama PL Sedayu', 'Jl. Sedayu no 1 Bantul', '085740676656', 'riyanto@gmail.com', '1760086777_Pasfoto-003.jpg');
+(1, 'Bruder Thomas FIC', 'thomas.jpg', '1999-11-21', 'Komunitas Bruder FIC, Semarang', '2017', '2018', '2019', 'Pernah bertugas di Muntilan dan Semarang (2021-sekarang)', 'Ekonomi', 'Jl. Pawiyatan Luhur, Semarang', '0852-9012-7455', 'thomas@gmail.com', 'thom.jpg'),
+(2, 'Bruder Frith FIC', 'frith.jpg', '1987-03-21', 'Komunitas Bruder FIC, Yogyakarta', '2005', '2008', '2014', 'Pernah bertugas di Medan (2009-2014), Bandung (2014-2020), dan Yogyakarta (2020-sekarang)', 'Bruder', 'Jl. Banyumanik, Semarang', '0838-3890-5802', 'frit@gmail.com', 'frit.jpg'),
+(3, 'Bruder Khim FIC', 'khim.jpg', '1992-11-02', 'Komunitas Bruder FIC, Jakarta', '2010', '2013', '2019', 'Pernah bertugas di Jakarta (2013-2018), Makassar (2018-2022), dan Jakarta (2022-sekarang)', 'Bruder', 'Jl. Kartini, Semarang', '0878-1579-4900', 'khim@gmail.com', 'khim.jpg');
 
 -- --------------------------------------------------------
 
@@ -588,9 +642,7 @@ CREATE TABLE `login_bruder` (
 
 INSERT INTO `login_bruder` (`ID_bruder`, `nama_bruder`, `password_bruder`, `status`) VALUES
 (1, 'Thomas', 'thom1', 'econom'),
-(2, 'Frith', 'frith1', 'bruder'),
-(4, 'Br. Hieronimus Wisnu', '$2y$10$pk2nO.wQQpFtXzpnKAHpmOyIqWnKq7UAfbo96.NQlbiAjRMbvopmK', 'bruder'),
-(5, 'Br. Riyanto', '$2y$10$RgtuJ2elg6bSRMv32jire.2OgtCeA.fXhnfmdzZ3NAi4MITZPEWVu', 'bruder');
+(2, 'Frith', 'frith1', 'bruder');
 
 -- --------------------------------------------------------
 
@@ -626,6 +678,12 @@ ALTER TABLE `3_kas_harian`
   ADD PRIMARY KEY (`ID_kas_harian`),
   ADD KEY `3_kas_harian_fk_perkiraan` (`ID_pos`),
   ADD KEY `3_kas_harian_fk_bruder` (`ID_bruder`);
+
+--
+-- Indexes for table `3_kas_harian_riwayat`
+--
+ALTER TABLE `3_kas_harian_riwayat`
+  ADD PRIMARY KEY (`ID_riwayat`);
 
 --
 -- Indexes for table `4_bank`
@@ -693,19 +751,25 @@ ALTER TABLE `1_data`
 -- AUTO_INCREMENT for table `3_kas_harian`
 --
 ALTER TABLE `3_kas_harian`
-  MODIFY `ID_kas_harian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID_kas_harian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `3_kas_harian_riwayat`
+--
+ALTER TABLE `3_kas_harian_riwayat`
+  MODIFY `ID_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `5_bruder`
 --
 ALTER TABLE `5_bruder`
-  MODIFY `ID_pp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_pp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `6_lu_komunitas`
 --
 ALTER TABLE `6_lu_komunitas`
-  MODIFY `id_lu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_lu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `7_evaluasi`
@@ -723,7 +787,7 @@ ALTER TABLE `8_kas_opname`
 -- AUTO_INCREMENT for table `data_bruder`
 --
 ALTER TABLE `data_bruder`
-  MODIFY `ID_bruder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_bruder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
