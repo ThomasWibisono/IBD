@@ -649,31 +649,59 @@ foreach ($banks as $b) {
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
-                                <tr>
-                                    <td>01/01/2025</td>
-                                    <td style="text-align:left;">Saldo Awal</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td contenteditable="true" id="saldoAwalIn" style="background:#fff8dc;">0</td>
-                                    <td contenteditable="true" id="saldoAwalOut" style="background:#fff8dc;">0</td>
-                                    <td></td>
-                                </tr>
-                                
-                                <tr id="fixedRow">
-                                    <td>
-                                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn-delete">Hapus</button>
-                                    </td>
-                                </tr>
+                                <tbody id="tableBody">
+
+    <!-- SALDO AWAL -->
+    <tr>
+        <td></td>
+        <td style="text-align:left; font-weight:bold;">Saldo Awal</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="right"><?= number_format($total_in, 2, ',', '.') ?></td>
+        <td align="right"><?= number_format($total_out, 2, ',', '.') ?></td>
+        <td></td>
+    </tr>
+
+    <!-- LOOP DATA BANK -->
+    <?php if (!empty($banks)): ?>
+        <?php foreach ($banks as $b): ?>
+        <tr>
+            <td><?= htmlspecialchars(date('d/m/Y', strtotime($b['tgl_transaksi']))) ?></td>
+            <td><?= htmlspecialchars($b['ID_pos']) ?></td>
+            <td><?= htmlspecialchars($b['kode_perkiraan']) ?></td>
+            <td><?= htmlspecialchars($b['akun_perkiraan']) ?></td>
+            <td><?= htmlspecialchars($b['keterangan_bank']) ?></td>
+            <td align="right"><?= number_format($b['nominal_penerimaan'], 2, ',', '.') ?></td>
+            <td align="right"><?= number_format($b['nominal_pengeluaran'], 2, ',', '.') ?></td>
+            <td>
+                <button 
+    onclick="if (confirm('Yakin ingin hapus transaksi ini?')) { 
+        window.location.href='hapus_bank.php?id=<?= $b['ID_tabel_bank'] ?>'; 
+    }"
+    class="btn-delete">
+    Hapus
+</button>
+
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+    <tr>
+        <td colspan="8" align="center">Belum ada data</td>
+    </tr>
+    <?php endif; ?>
+
+    <!-- BARIS TAMBAH + -->
+    <tr id="fixedRow">
+        <td>
+            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
+        </td>
+        <td colspan="7"></td>
+    </tr>
+
+</tbody>
+
                                 
                             </tbody>
                             <tfoot>

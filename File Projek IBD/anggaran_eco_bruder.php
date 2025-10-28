@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
@@ -38,10 +39,28 @@ try {
             $_POST['keterangan_pp'] ?: null
         ]);
     }
+    // ambil data dari tabel 5_bruder + nama dari data_bruder
+$stmt = $pdo->query("
+    SELECT 
+        b.ID_pp,
+        db.nama_bruder,
+        b.tgl_datang_komunitas,
+        b.tgl_pulang_komunitas,
+        b.tgl_pergi_luarkota,
+        b.tgl_pulang_luarKota,
+        b.jumlah_hari,
+        b.keterangan_pp
+    FROM `5_bruder` b
+    LEFT JOIN data_bruder db ON b.ID_bruder = db.ID_bruder
+    ORDER BY b.ID_pp DESC
+");
+$data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Koneksi atau query gagal: " . $e->getMessage());
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -579,22 +598,38 @@ try {
                             </tr>
                         </thead>
                         <tbody id="bruderTableBody">
-                            <tr id="addRow">
-                                <td></td>
-                                <td>
-                                    <button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button class="btn-delete">Hapus</button>
-                                </td>
-                            </tr>
-                        </tbody>
+<?php if (!empty($data_bruder_tabel)): ?>
+    <?php foreach ($data_bruder_tabel as $index => $row): ?>
+    <tr>
+        <td><?= $index + 1 ?></td>
+        <td><?= htmlspecialchars($row['nama_bruder']) ?></td>
+        <td><?= $row['tgl_datang_komunitas'] ?: '-' ?></td>
+        <td><?= $row['tgl_pulang_komunitas'] ?: '-' ?></td>
+        <td><?= $row['tgl_pergi_luarkota'] ?: '-' ?></td>
+        <td><?= $row['tgl_pulang_luarKota'] ?: '-' ?></td>
+        <td><?= $row['jumlah_hari'] ?></td>
+        <td><?= htmlspecialchars($row['keterangan_pp']) ?></td>
+        <td>
+  <button class="btn-delete" data-id="<?= $row['ID_pp'] ?>">Hapus</button>
+</td>
+
+    </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+    <tr><td colspan="9">Belum ada data Bruder</td></tr>
+<?php endif; ?>
+
+<!-- Baris tambah data -->
+<tr id="addRow">
+    <td></td>
+    <td>
+        <button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
+    </td>
+    <td colspan="6"></td>
+    <td><button class="btn-delete">Hapus</button></td>
+</tr>
+</tbody>
+
                     </table>
                     <!-- ✅ Modal Pindahan yang benar-benar lengkap -->
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -855,6 +890,15 @@ document.getElementById("bruderForm").addEventListener("submit", function(e) {
     const addRow = document.getElementById("addRow");
     tbody.insertBefore(newRow, addRow);
 
+    // tambahkan event hapus untuk baris baru
+newRow.querySelector(".btn-delete").addEventListener("click", function() {
+  if (confirm("Yakin ingin menghapus baris ini (belum tersimpan)?")) {
+    tbody.removeChild(newRow);
+    Array.from(tbody.querySelectorAll("tr")).forEach((tr, idx) => {
+      if (tr.id !== "addRow") tr.cells[0].textContent = idx + 1;
+    });
+  }
+});
     // tutup modal
     const modalEl = document.getElementById("addModal");
     const modal = bootstrap.Modal.getInstance(modalEl);
@@ -867,15 +911,7 @@ document.getElementById("bruderForm").addEventListener("submit", function(e) {
   })
   .catch(err => console.error(err));
 });
-newRow.querySelector(".btn-delete").addEventListener("click", function() {
-    tbody.removeChild(newRow);
-    // update nomor urut setelah dihapus
-    Array.from(tbody.querySelectorAll("tr")).forEach((tr, idx) => {
-        if (tr.id !== "addRow") {
-            tr.cells[0].textContent = idx + 1;
-        }
-    });
-});
+
 
 // ==================== Dropdown Profile ====================
 function toggleDropdown() {
@@ -887,6 +923,39 @@ window.onclick = function(event) {
     document.getElementById("dropdownMenu").style.display = "none";
   }
 }
+// ==================== Hapus Data Bruder ====================
+function aktifkanTombolHapus() {
+  const tombolHapus = document.querySelectorAll('.btn-delete');
+  console.log("Tombol hapus ditemukan:", tombolHapus.length); // debug
+  
+  tombolHapus.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      if (!id) return alert("⚠️ ID data tidak ditemukan!");
+
+      if (confirm("Yakin ingin menghapus data ini?")) {
+        fetch("hapus_bruder.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: "id_pp=" + encodeURIComponent(id)
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success") {
+            alert("✅ Data berhasil dihapus dan disimpan ke tabel riwayat!");
+            location.reload();
+          } else {
+            alert("❌ " + data.message);
+          }
+        })
+        .catch(err => alert("Terjadi kesalahan: " + err));
+      }
+    });
+  });
+}
+// ✅ panggil fungsinya setelah halaman siap
+document.addEventListener('DOMContentLoaded', aktifkanTombolHapus);
+
 
 </script>
 </body>
