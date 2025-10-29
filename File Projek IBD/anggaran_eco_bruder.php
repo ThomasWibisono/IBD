@@ -598,38 +598,34 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </tr>
                         </thead>
                         <tbody id="bruderTableBody">
-<?php if (!empty($data_bruder_tabel)): ?>
-    <?php foreach ($data_bruder_tabel as $index => $row): ?>
-    <tr>
-        <td><?= $index + 1 ?></td>
-        <td><?= htmlspecialchars($row['nama_bruder']) ?></td>
-        <td><?= $row['tgl_datang_komunitas'] ?: '-' ?></td>
-        <td><?= $row['tgl_pulang_komunitas'] ?: '-' ?></td>
-        <td><?= $row['tgl_pergi_luarkota'] ?: '-' ?></td>
-        <td><?= $row['tgl_pulang_luarKota'] ?: '-' ?></td>
-        <td><?= $row['jumlah_hari'] ?></td>
-        <td><?= htmlspecialchars($row['keterangan_pp']) ?></td>
-        <td>
-  <button class="btn-delete" data-id="<?= $row['ID_pp'] ?>">Hapus</button>
-</td>
+                            <?php if (!empty($data_bruder_tabel)): ?>
+                                <?php foreach ($data_bruder_tabel as $index => $row): ?>
+                                <tr>
+                                    <td><?= $index + 1 ?></td>
+                                    <td><?= htmlspecialchars($row['nama_bruder']) ?></td>
+                                    <td><?= $row['tgl_datang_komunitas'] ?: '-' ?></td>
+                                    <td><?= $row['tgl_pulang_komunitas'] ?: '-' ?></td>
+                                    <td><?= $row['tgl_pergi_luarkota'] ?: '-' ?></td>
+                                    <td><?= $row['tgl_pulang_luarKota'] ?: '-' ?></td>
+                                    <td><?= $row['jumlah_hari'] ?></td>
+                                    <td><?= htmlspecialchars($row['keterangan_pp']) ?></td>
+                                    <td>
+                                     <button class="btn-delete" data-id="<?= $row['ID_pp'] ?>">Hapus</button>
+                                    </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr><td colspan="9">Belum ada data Bruder</td></tr>
+                        <?php endif; ?>
 
-    </tr>
-    <?php endforeach; ?>
-<?php else: ?>
-    <tr><td colspan="9">Belum ada data Bruder</td></tr>
-<?php endif; ?>
-
-<!-- Baris tambah data -->
-<tr id="addRow">
-    <td></td>
-    <td>
-        <button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
-    </td>
-    <td colspan="6"></td>
-    <td><button class="btn-delete">Hapus</button></td>
-</tr>
-</tbody>
-
+                        <!-- Baris tambah data -->
+                        <tr id="addRow">
+                            <td><button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button></td>
+                            <td></td>
+                            <td colspan="6"></td>
+                            <td><button class="btn-delete">Hapus</button></td>
+                        </tr>
+                        </tbody>
                     </table>
                     <!-- ✅ Modal Pindahan yang benar-benar lengkap -->
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -656,35 +652,31 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <input type="hidden" name="type" id="txType" value="">
 
                                 <div class="mb-2">
-                                <label class="form-label">Nama Bruder</label>
-                                <select name="ID_bruder" id="ID_bruder_select" class="form-select" required>
-                                    <option value="">-- Pilih Bruder --</option>
-                                    <?php foreach ($data_bruder as $b): ?>
-                                    <option value="<?= htmlspecialchars($b['ID_bruder']) ?>">
-                                        <?= htmlspecialchars($b['nama_bruder']) ?>
-                                    </option>
-                                    <?php endforeach; ?>
-                                </select>
+                                    <label class="form-label">Nama Bruder</label>
+                                    <select name="ID_bruder" id="ID_bruder_select" class="form-select" required>
+                                        <option value="">-- Pilih Bruder --</option>
+                                        <?php foreach ($data_bruder as $b): ?>
+                                        <option value="<?= htmlspecialchars($b['ID_bruder']) ?>">
+                                            <?= htmlspecialchars($b['nama_bruder']) ?>
+                                        </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
-
                                 <div class="mb-2">
-                                <label class="form-label">Tanggal Datang Komunitas</label>
-                                <input type="date" name="tgl_datang_komunitas" id="tgl_datang_komunitas" class="form-control">
+                                    <label class="form-label">Tanggal Datang Komunitas</label>
+                                    <input type="date" name="tgl_datang_komunitas" id="tgl_datang_komunitas" class="form-control">
                                 </div>
-
                                 <div class="mb-2">
-                                <label class="form-label">Tanggal Pulang Komunitas</label>
-                                <input type="date" name="tgl_pulang_komunitas" id="tgl_pulang_komunitas" class="form-control">
+                                    <label class="form-label">Tanggal Pulang Komunitas</label>
+                                    <input type="date" name="tgl_pulang_komunitas" id="tgl_pulang_komunitas" class="form-control">
                                 </div>
-
                                 <div class="mb-2">
-                                <label class="form-label">Tanggal Pergi Luar Kota</label>
-                                <input type="date" name="tgl_pergi_luarkota" id="tgl_pergi_luarkota" class="form-control">
+                                    <label class="form-label">Tanggal Pergi Luar Kota</label>
+                                    <input type="date" name="tgl_pergi_luarkota" id="tgl_pergi_luarkota" class="form-control">
                                 </div>
-
                                 <div class="mb-2">
-                                <label class="form-label">Tanggal Pulang Luar Kota</label>
-                                <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarKota" class="form-control">
+                                    <label class="form-label">Tanggal Pulang Luar Kota</label>
+                                    <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarKota" class="form-control">
                                 </div>
 
                                 <div class="mb-2">
@@ -703,10 +695,27 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </form>
                             </div>
+
                         </div>
                         </div> <!-- tutup .modal-content -->
                     </div> <!-- tutup .modal-dialog -->
                     </div> <!-- tutup .modal -->
+                    <div class="row">
+                    <div class="flex-col half">
+                        <label>Pemimpin Komunitas:</label>
+                        <input type="file" name="pemimpin_ttd" accept="image/*" onchange="previewImage(this, 'pemimpinPreview')"><br>
+                        <img id="pemimpinPreview" class="preview-img" style="display:none"><br>
+                        <input type="text" name="pemimpin_nama" placeholder="Nama Pemimpin">
+                    </div>
+
+                    <!-- Bendahara -->
+                    <div class="flex-col half">
+                        <label>Bendahara Komunitas:</label>
+                        <input type="file" name="bendahara_ttd" accept="image/*" onchange="previewImage(this, 'bendaharaPreview')"><br>
+                        <img id="bendaharaPreview" class="preview-img" style="display:none"><br>
+                        <input type="text" name="bendahara_nama" placeholder="Nama Bendahara">
+                    </div>
+                </div>
             </main>
         </div>
     </div>
