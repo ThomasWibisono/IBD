@@ -244,6 +244,42 @@ try {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
     }
+    /* ===== Form Sejajar Rapi ===== */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px; /* jarak antar baris */
+    }
+
+    form .form-row {
+        display: flex;
+        align-items: center;
+    }
+
+    form .form-row label {
+        width: 180px; /* lebar label tetap */
+        font-weight: 500;
+        font-size: 14px;
+        color: #004b8d;
+    }
+
+    form .form-row input,
+    form .form-row select {
+    flex: 1; /* input mengisi sisa ruang */
+    max-width: 250px; /* tapi tidak terlalu panjang */
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    }
+
+    form .form-row input:focus,
+    form .form-row select:focus {
+    border-color: #0077ff;
+    box-shadow: 0 0 6px rgba(0, 119, 255, 0.3);
+    }
 
     /* Judul */
     h1, h2 {
@@ -356,16 +392,23 @@ try {
                 <h1>ANGGARAN PENDAPATAN DAN BELANJA <br>KOMUNITAS FIC CANDI<br>TAHUN 2025</h1>
                 <div class="card">
                     <form method="post">
-                        <label>Pemimpin Lokal: <input type="text" name="nama_pemimpinlokal" required></label><br>
-                        <label>Bendahara Komunitas: <input type="text" name="nama_bendaharakomunitas" required></label><br>
-                        <label>Kota:
+                        <div class="form-row">
+                            <label>Pemimpin Lokal:</label>
+                            <input type="text" name="nama_pemimpinlokal" required>
+                        </div>
+                        <div class="form-row">
+                            <label>Bendahara Komunitas:</label>
+                            <input type="text" name="nama_bendaharakomunitas" required>
+                        </div>
+                        <div class="form-row">
+                            <label>Kota:</label>
                             <select name="nama_kota">
-                                <option value="Jakarta">Jakarta</option>
-                                <option value="Bandung">Bandung</option>
-                                <option value="Yogyakarta">Yogyakarta</option>
-                                <option value="Semarang">Semarang</option>
+                            <option value="Jakarta">Jakarta</option>
+                            <option value="Bandung">Bandung</option>
+                            <option value="Yogyakarta">Yogyakarta</option>
+                            <option value="Semarang">Semarang</option>
                             </select>
-                        </label>
+                        </div>
                         <div class="table-header">
                             <button type="submit" class="btn-simpan">Simpan</button>
                         </div>

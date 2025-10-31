@@ -249,7 +249,45 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
         margin: 20px 0;
         color: #003366;
     }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      /* jarak antar baris */
+    }
 
+    form .form-row {
+      display: flex;
+      align-items: center;
+    }
+
+    form .form-row label {
+      width: 180px;
+      /* lebar label tetap */
+      font-weight: 500;
+      font-size: 14px;
+      color: #004b8d;
+    }
+
+    form .form-row input,
+    form .form-row select {
+      flex: 1;
+      /* input mengisi sisa ruang */
+      max-width: 250px;
+      /* tapi tidak terlalu panjang */
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    form .form-row input:focus,
+    form .form-row select:focus {
+      border-color: #0077ff;
+      box-shadow: 0 0 6px rgba(0, 119, 255, 0.3);
+    }
     /* Table */
     .table-header {
         display: flex;
@@ -363,7 +401,17 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
     .btn-close:hover {
         color: #e74c3c;
     }
-
+    .custom-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10;
+    }
     /* ====== STEP 1 ====== */
     #step1 p {
         margin-bottom: 10px;
@@ -576,9 +624,28 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <main>
                 <h1>KOMUNITAS FIC CANDI<br>PERUBAHAN JUMLAH BRUDER<br>BULAN JANUARI 2025</h1>
                 <div class="card">
+                    <form method="post">
+                    <div class="form-row">
+                        <label>Pemimpin Lokal:</label>
+                        <input type="text" name="nama_pemimpinlokal" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Bendahara Komunitas:</label>
+                        <input type="text" name="nama_bendaharakomunitas" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Kota:</label>
+                        <select name="nama_kota">
+                        <option value="Jakarta">Jakarta</option>
+                        <option value="Bandung">Bandung</option>
+                        <option value="Yogyakarta">Yogyakarta</option>
+                        <option value="Semarang">Semarang</option>
+                        </select>
+                    </div>
                     <div class="table-header">
                         <button type="submit" class="btn-simpan">Simpan</button>
                     </div>
+                    <h2>PERSERTUJUAN BUDGET</h2>
                         <table cellpadding="5" cellspacing="0">
                         <thead>
                             <tr>
@@ -629,76 +696,76 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </table>
                     <!-- ✅ Modal Pindahan yang benar-benar lengkap -->
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addModalLabel">Tambah Data Bruder</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup">X</button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- STEP 1 -->
-                            <div id="step1">
-                            <p>Pilih jenis transaksi:</p>
-                            <div class="d-flex gap-2">
-                                <button id="btnIncome" class="btn btn-warning flex-fill">Tanggal Penambahan</button>
-                                <button id="btnExpense" class="btn btn-danger flex-fill">Tanggal Pengurangan</button>
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Tutup">X</button>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">Tambah Data Bruder</h5>
                             </div>
+                            <div class="modal-body">
+                                <!-- STEP 1 -->
+                                <div id="step1">
+                                <p>Pilih jenis transaksi:</p>
+                                <div class="d-flex gap-2">
+                                    <button id="btnIncome" class="btn btn-warning flex-fill">Tanggal Penambahan</button>
+                                    <button id="btnExpense" class="flex-fill">Tanggal Pengurangan</button>
+                                </div>
+                                </div>
+
+                                <!-- STEP 2 -->
+                                <div id="step2" style="display:none;">
+                                <form id="bruderForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+                                    <input type="hidden" name="action" value="save_bruder">
+                                    <input type="hidden" name="type" id="txType" value="">
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Nama Bruder</label>
+                                        <select name="ID_bruder" id="ID_bruder_select" class="form-select" required>
+                                            <option value="">-- Pilih Bruder --</option>
+                                            <?php foreach ($data_bruder as $b): ?>
+                                            <option value="<?= htmlspecialchars($b['ID_bruder']) ?>">
+                                                <?= htmlspecialchars($b['nama_bruder']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Datang Komunitas</label>
+                                        <input type="date" name="tgl_datang_komunitas" id="tgl_datang_komunitas" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Pulang Komunitas</label>
+                                        <input type="date" name="tgl_pulang_komunitas" id="tgl_pulang_komunitas" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Pergi Luar Kota</label>
+                                        <input type="date" name="tgl_pergi_luarkota" id="tgl_pergi_luarkota" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Pulang Luar Kota</label>
+                                        <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarKota" class="form-control">
+                                    </div>
+
+                                    <div class="mb-2">
+                                    <label class="form-label">Jumlah Hari</label>
+                                    <input type="number" name="jumlah_hari" id="jumlah_hari" class="form-control" readonly>
+                                    </div>
+
+                                    <div class="mb-2">
+                                    <label class="form-label">Keterangan</label>
+                                    <textarea name="keterangan_pp" class="form-control" rows="2" placeholder="Tulis keterangan..."></textarea>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                    <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+                                </div>
+
                             </div>
-
-                            <!-- STEP 2 -->
-                            <div id="step2" style="display:none;">
-                            <form id="bruderForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-                                <input type="hidden" name="action" value="save_bruder">
-                                <input type="hidden" name="type" id="txType" value="">
-
-                                <div class="mb-2">
-                                    <label class="form-label">Nama Bruder</label>
-                                    <select name="ID_bruder" id="ID_bruder_select" class="form-select" required>
-                                        <option value="">-- Pilih Bruder --</option>
-                                        <?php foreach ($data_bruder as $b): ?>
-                                        <option value="<?= htmlspecialchars($b['ID_bruder']) ?>">
-                                            <?= htmlspecialchars($b['nama_bruder']) ?>
-                                        </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Tanggal Datang Komunitas</label>
-                                    <input type="date" name="tgl_datang_komunitas" id="tgl_datang_komunitas" class="form-control">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Tanggal Pulang Komunitas</label>
-                                    <input type="date" name="tgl_pulang_komunitas" id="tgl_pulang_komunitas" class="form-control">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Tanggal Pergi Luar Kota</label>
-                                    <input type="date" name="tgl_pergi_luarkota" id="tgl_pergi_luarkota" class="form-control">
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Tanggal Pulang Luar Kota</label>
-                                    <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarKota" class="form-control">
-                                </div>
-
-                                <div class="mb-2">
-                                <label class="form-label">Jumlah Hari</label>
-                                <input type="number" name="jumlah_hari" id="jumlah_hari" class="form-control" readonly>
-                                </div>
-
-                                <div class="mb-2">
-                                <label class="form-label">Keterangan</label>
-                                <textarea name="keterangan_pp" class="form-control" rows="2" placeholder="Tulis keterangan..."></textarea>
-                                </div>
-
-                                <div class="d-flex justify-content-between">
-                                <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                            </div>
-
-                        </div>
-                        </div> <!-- tutup .modal-content -->
-                    </div> <!-- tutup .modal-dialog -->
+                            </div> <!-- tutup .modal-content -->
+                        </div> <!-- tutup .modal-dialog -->
                     </div> <!-- tutup .modal -->
                     <div class="row">
                     <div class="flex-col half">
@@ -744,8 +811,8 @@ function showStep2(type) {
   step2.style.display = 'block';
   const submitBtn = document.querySelector('#bruderForm button[type="submit"]');
   if (submitBtn) {
-    submitBtn.classList.remove('btn-primary', 'btn-danger');
-    submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
+    submitBtn.classList.remove('btn-primary', '');
+    submitBtn.classList.add(type === 'in' ? 'btn-primary' : '');
   }
 
   // 🔽 Sembunyikan/tampilkan field sesuai jenis transaksi

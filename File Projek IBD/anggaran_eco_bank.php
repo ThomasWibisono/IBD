@@ -270,6 +270,31 @@ foreach ($banks as $b) {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
     }
+    #bankForm .form-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+
+    #bankForm .form-group label {
+        width: 180px; /* lebar label tetap */
+        font-weight: 500;
+        font-size: 14px;
+        color: #004b8d;
+        text-align: right; /* label rata kanan */
+        display: block;
+    }
+
+    #bankForm .form-group input,
+    #bankForm .form-group select {
+        flex: 1;
+        max-width: 250px;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+    }
 
     /* Judul */
     h1, h2 {
@@ -603,38 +628,36 @@ foreach ($banks as $b) {
             <main>
                 <h1>KOMUNITAS FIC CANDI<br>LAPORAN BANK HARIAN<br>BULAN JANUARI 2025</h1>
                 <div class="card">
-                    <form method="post">
-                        <form id="bankForm" method="POST" action="simpan_bank.php">
+                    <form id="bankForm" method="POST" action="simpan_bank.php">
                         <div class="form-group">
-                            <label>Nama Bank:</label>
-                            <input type="text" name="nama_bank" class="form-control" required>
+                            <label for="nama_bank">Nama Bank:</label>
+                            <input type="text" name="nama_bank" id="nama_bank" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="no_rek_bank">No Rekening:</label>
+                            <input type="text" name="no_rek_bank" id="no_rek_bank" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label>No Rekening:</label>
-                            <input type="text" name="no_rek_bank" class="form-control" required>
+                            <label for="atas_nama_bank">Atas Nama:</label>
+                            <input type="text" name="atas_nama_bank" id="atas_nama_bank" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Atas Nama:</label>
-                            <input type="text" name="atas_nama_bank" class="form-control" required>
+                            <label for="nominal_penerimaan">Nominal Saldo Awal:</label>
+                            <input type="number" step="0.01" name="nominal_penerimaan" id="nominal_penerimaan" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Nominal Saldo Awal:</label>
-                            <input type="number" step="0.01" name="nominal_penerimaan" class="form-control" required>
+                            <label for="tgl_transaksi">Tanggal Transaksi:</label>
+                            <input type="date" name="tgl_transaksi" id="tgl_transaksi" class="form-control" value="<?= date('Y-m-d') ?>" required>
                         </div>
 
-                        <div class="form-group">
-                            <label>Tanggal Transaksi:</label>
-                            <input type="date" name="tgl_transaksi" class="form-control" value="<?= date('Y-m-d') ?>" required>
-                        </div>
                         <div class="table-header">
-                        <button type="submit" class="btn-simpan">Simpan</button>
+                            <button type="submit" class="btn-simpan">Simpan</button>
                         </div>
-                        </form>
                     </form>
-
+                    <form method="post">
                         <table>
                             <thead>
                                 <tr>
@@ -650,59 +673,53 @@ foreach ($banks as $b) {
                             </thead>
                             <tbody id="tableBody">
                                 <tbody id="tableBody">
+                        <!-- SALDO AWAL -->
+                        <tr>
+                            <td></td>
+                            <td style="text-align:left; font-weight:bold;">Saldo Awal</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td align="right"><?= number_format($total_in, 2, ',', '.') ?></td>
+                            <td align="right"><?= number_format($total_out, 2, ',', '.') ?></td>
+                            <td></td>
+                        </tr>
+                        <!-- LOOP DATA BANK -->
+                        <?php if (!empty($banks)): ?>
+                            <?php foreach ($banks as $b): ?>
+                            <tr>
+                                <td><?= htmlspecialchars(date('d/m/Y', strtotime($b['tgl_transaksi']))) ?></td>
+                                <td><?= htmlspecialchars($b['ID_pos']) ?></td>
+                                <td><?= htmlspecialchars($b['kode_perkiraan']) ?></td>
+                                <td><?= htmlspecialchars($b['akun_perkiraan']) ?></td>
+                                <td><?= htmlspecialchars($b['keterangan_bank']) ?></td>
+                                <td align="right"><?= number_format($b['nominal_penerimaan'], 2, ',', '.') ?></td>
+                                <td align="right"><?= number_format($b['nominal_pengeluaran'], 2, ',', '.') ?></td>
+                                <td>
+                                    <button 
+                        onclick="if (confirm('Yakin ingin hapus transaksi ini?')) { 
+                            window.location.href='hapus_bank.php?id=<?= $b['ID_tabel_bank'] ?>'; 
+                        }"
+                        class="btn-delete">
+                        Hapus
+                            </button>
+                        </td>
+                            </tr>
+                                <?php endforeach; ?>
+                                <?php else: ?>
+                                <tr>
+                                <td colspan="8" align="center">Belum ada data</td>
+                                </tr>
+                                    <?php endif; ?>
 
-    <!-- SALDO AWAL -->
-    <tr>
-        <td></td>
-        <td style="text-align:left; font-weight:bold;">Saldo Awal</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td align="right"><?= number_format($total_in, 2, ',', '.') ?></td>
-        <td align="right"><?= number_format($total_out, 2, ',', '.') ?></td>
-        <td></td>
-    </tr>
-
-    <!-- LOOP DATA BANK -->
-    <?php if (!empty($banks)): ?>
-        <?php foreach ($banks as $b): ?>
-        <tr>
-            <td><?= htmlspecialchars(date('d/m/Y', strtotime($b['tgl_transaksi']))) ?></td>
-            <td><?= htmlspecialchars($b['ID_pos']) ?></td>
-            <td><?= htmlspecialchars($b['kode_perkiraan']) ?></td>
-            <td><?= htmlspecialchars($b['akun_perkiraan']) ?></td>
-            <td><?= htmlspecialchars($b['keterangan_bank']) ?></td>
-            <td align="right"><?= number_format($b['nominal_penerimaan'], 2, ',', '.') ?></td>
-            <td align="right"><?= number_format($b['nominal_pengeluaran'], 2, ',', '.') ?></td>
-            <td>
-                <button 
-    onclick="if (confirm('Yakin ingin hapus transaksi ini?')) { 
-        window.location.href='hapus_bank.php?id=<?= $b['ID_tabel_bank'] ?>'; 
-    }"
-    class="btn-delete">
-    Hapus
-</button>
-
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    <?php else: ?>
-    <tr>
-        <td colspan="8" align="center">Belum ada data</td>
-    </tr>
-    <?php endif; ?>
-
-    <!-- BARIS TAMBAH + -->
-    <tr id="fixedRow">
-        <td>
-            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
-        </td>
-        <td colspan="7"></td>
-    </tr>
-
-</tbody>
-
-                                
+                                    <!-- BARIS TAMBAH + -->
+                                    <tr id="fixedRow">
+                                    <td>
+                                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
+                                </td>
+                            <td colspan="7"></td>
+                        </tr>
+                        </tbody>                                                    
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -730,84 +747,83 @@ foreach ($banks as $b) {
                             </tfoot>
                         </table>
                     </form>
-                
-                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="addModalLabel">Tambah Transaksi</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup">X</button>
-                            </div>
-                            <div class="modal-body">
-                            <!-- STEP 1: pilih jenis -->
-                            <div id="step1">
-                                <p>Pilih jenis transaksi:</p>
-                                <div class="d-flex gap-2">
-                                <button id="btnIncome" class="btn btn-warning flex-fill">Pemasukkan</button>
-                                <button id="btnExpense" class="btn btn-danger flex-fill">Pengeluaran</button>
+                    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">Tambah Transaksi</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup">X</button>
                                 </div>
-                            </div>
-
-                            <!-- STEP 2: form transaksi (tersembunyi awalnya) -->
-                            <div id="step2" style="display:none;">
-                                <form id="txForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-                                <!-- action flag -->
-                                <input type="hidden" name="action" value="save_transaction">
-                                <input type="hidden" name="type" id="txType" value="in"> <!-- in / out -->
-
-                                <div class="mb-2">
-                                    <label class="form-label">Tanggal</label>
-                                    <input type="date" name="tgl_transaksi" class="form-control" required value="<?= date('Y-m-d') ?>">
-                                </div>
-
-                                <div class="mb-2">
-                                    <label class="form-label">Pilih POS</label>
-                                    <select name="ID_pos" id="ID_pos_select" class="form-select" required>
-                                    <option value="">-- Pilih POS --</option>
-                                    <?php foreach ($perkiraan as $p): ?>
-                                        <option value="<?= htmlspecialchars($p['ID_pos']) ?>" data-kode="<?= htmlspecialchars($p['kode']) ?>" data-akun="<?= htmlspecialchars($p['akun']) ?>">
-                                        <?= htmlspecialchars($p['ID_pos']) ?> - <?= htmlspecialchars($p['kode']) ?> - <?= htmlspecialchars($p['akun']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea name="keterangan_bank" class="form-control" rows="2" placeholder="Tulis keterangan..."></textarea>
-                                </div>
-
-                                <div class="mb-2">
-                                    <label class="form-label">Nominal</label>
-                                    <input type="number" name="nominal" id="nominalInput" class="form-control" min="0" step="1" placeholder="Masukkan angka tanpa desimal" required>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
-                                    <div>
-                                    <button type="submit" id="btnSaveTx" class="btn btn-primary">Simpan</button>
+                                <div class="modal-body">
+                                <!-- STEP 1: pilih jenis -->
+                                <div id="step1">
+                                    <p>Pilih jenis transaksi:</p>
+                                    <div class="d-flex gap-2">
+                                    <button id="btnIncome" class="btn btn-warning flex-fill">Pemasukkan</button>
+                                    <button id="btnExpense" class="btn btn-danger flex-fill">Pengeluaran</button>
                                     </div>
                                 </div>
-                                </form>
-                            </div> 
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="flex-col half">
-                        <label>Pemimpin Komunitas:</label>
-                        <input type="file" name="pemimpin_ttd" accept="image/*" onchange="previewImage(this, 'pemimpinPreview')"><br>
-                        <img id="pemimpinPreview" class="preview-img" style="display:none"><br>
-                        <input type="text" name="pemimpin_nama" placeholder="Nama Pemimpin">
-                    </div>
 
-                    <!-- Bendahara -->
-                    <div class="flex-col half">
-                        <label>Bendahara Komunitas:</label>
-                        <input type="file" name="bendahara_ttd" accept="image/*" onchange="previewImage(this, 'bendaharaPreview')"><br>
-                        <img id="bendaharaPreview" class="preview-img" style="display:none"><br>
-                        <input type="text" name="bendahara_nama" placeholder="Nama Bendahara">
+                                <!-- STEP 2: form transaksi (tersembunyi awalnya) -->
+                                <div id="step2" style="display:none;">
+                                    <form id="txForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+                                    <!-- action flag -->
+                                    <input type="hidden" name="action" value="save_transaction">
+                                    <input type="hidden" name="type" id="txType" value="in"> <!-- in / out -->
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal</label>
+                                        <input type="date" name="tgl_transaksi" class="form-control" required value="<?= date('Y-m-d') ?>">
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Pilih POS</label>
+                                        <select name="ID_pos" id="ID_pos_select" class="form-select" required>
+                                        <option value="">-- Pilih POS --</option>
+                                        <?php foreach ($perkiraan as $p): ?>
+                                            <option value="<?= htmlspecialchars($p['ID_pos']) ?>" data-kode="<?= htmlspecialchars($p['kode']) ?>" data-akun="<?= htmlspecialchars($p['akun']) ?>">
+                                            <?= htmlspecialchars($p['ID_pos']) ?> - <?= htmlspecialchars($p['kode']) ?> - <?= htmlspecialchars($p['akun']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Keterangan</label>
+                                        <textarea name="keterangan_bank" class="form-control" rows="2" placeholder="Tulis keterangan..."></textarea>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Nominal</label>
+                                        <input type="number" name="nominal" id="nominalInput" class="form-control" min="0" step="1" placeholder="Masukkan angka tanpa desimal" required>
+                                    </div>
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
+                                            <div>
+                                            <button type="submit" id="btnSaveTx" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                        </div> 
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <div class="row">
+                            <div class="flex-col half">
+                                <label>Pemimpin Komunitas:</label>
+                                <input type="file" name="pemimpin_ttd" accept="image/*" onchange="previewImage(this, 'pemimpinPreview')"><br>
+                                <img id="pemimpinPreview" class="preview-img" style="display:none"><br>
+                                <input type="text" name="pemimpin_nama" placeholder="Nama Pemimpin">
+                            </div>
+                        <!-- Bendahara -->
+                            <div class="flex-col half">
+                                <label>Bendahara Komunitas:</label>
+                                <input type="file" name="bendahara_ttd" accept="image/*" onchange="previewImage(this, 'bendaharaPreview')"><br>
+                                <img id="bendaharaPreview" class="preview-img" style="display:none"><br>
+                                <input type="text" name="bendahara_nama" placeholder="Nama Bendahara">
+                            </div>
+                        </div>
                     </div>
-                </div>
                 </div>
             </main>
         </div>
