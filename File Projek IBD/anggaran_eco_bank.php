@@ -95,6 +95,7 @@ foreach ($banks as $b) {
 <meta charset="UTF-8">
 <title>BANK</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style.css">
 <style>
     /* ===== Global Reset ===== */
     * {
@@ -595,6 +596,22 @@ foreach ($banks as $b) {
         border-radius: 4px;
         cursor: pointer;
     }
+        footer {
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 </head>
 <body>
@@ -827,7 +844,11 @@ foreach ($banks as $b) {
                 </div>
             </main>
         </div>
+        <footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
     </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
