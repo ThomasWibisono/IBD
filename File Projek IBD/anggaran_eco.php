@@ -351,7 +351,22 @@ try {
         display: flex;         
         min-height: 100vh;     
     }
+footer {
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
 
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
     /* Kolom tabel */
     th:nth-child(1), td:nth-child(1) { width: 8%; }   
     th:nth-child(2), td:nth-child(2) { width: 12%; }  
@@ -696,6 +711,9 @@ try {
                     </form>
                 </div>
             </main>
+    <footer>
+        © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+    </footer> 
         </div>
     </div>
     <script>

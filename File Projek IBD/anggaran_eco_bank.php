@@ -844,9 +844,9 @@ foreach ($banks as $b) {
                 </div>
             </main>
         </div>
-        <footer>
-    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
-</footer>
+    <footer>
+        © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+    </footer>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
