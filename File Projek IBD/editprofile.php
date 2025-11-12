@@ -242,6 +242,23 @@ try {
             object-fit: cover;
             border: 2px solid #1e90ff;
         }
+        footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
     </style>
 </head>
 <body>
@@ -307,6 +324,9 @@ try {
         </form>
     </div>
 </main>
+<footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
 <script>
 function toggleDropdown() {
     document.getElementById("dropdownMenu").classList.toggle("show");

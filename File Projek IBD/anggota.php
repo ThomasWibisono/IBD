@@ -193,6 +193,22 @@ try {
             color: #0077ff;
             text-decoration: none; /* 🔹 Tambahan agar teks di kartu juga tidak bergaris */
         }
+        footer {
+            text-align: center;
+            color: #004fa3;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        /* ===== Responsive ===== */
+        @media(max-width: 768px) {
+            nav {
+                gap: 10px;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -231,7 +247,9 @@ try {
             <?php endforeach; ?>
         </div>
     </main>
-
+<footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer> 
     <script>
         const searchInput = document.getElementById('searchInput');
         const anggotaGrid = document.getElementById('anggotaGrid');

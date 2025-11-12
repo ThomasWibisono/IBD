@@ -550,6 +550,23 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
         border-radius: 4px;
         cursor: pointer;
     }
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 </head>
 <body>
@@ -731,6 +748,9 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 </div>
             </main>
+<footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
         </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

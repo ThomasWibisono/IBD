@@ -29,9 +29,7 @@ try {
 <meta charset="UTF-8">
 <title>Dashboard Econom</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<!-- Font Quicksand -->
 <style>
-/* ===== Global Reset ===== */
     * {
         margin: 0;
         padding: 0;
@@ -43,8 +41,6 @@ try {
         background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
         color: #333;
     }
-
-    /* ===== Header / Navbar ===== */
     header {
         background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
         box-shadow: 0 6px 15px rgba(0,0,0,0.15);
@@ -213,68 +209,68 @@ try {
 </style>
 </head>
 <body>
-<header>
-    <img src="foto/logo.png" alt="Logo" class="logo">
-    <nav>
-        <a href="dashboard_eco.php" class="active">Home</a>
-        <a href="anggota.php">Anggota</a>
-        <?php if ($_SESSION['status'] === 'econom'): ?>
-            <a href="anggaran_eco.php">Anggaran</a>
-        <?php else: ?>
-            <a href="#" onclick="alert('Anggaran hanya bisa diakses oleh Ekonom!'); return false;">Anggaran</a>
-        <?php endif; ?>
-    </nav>
-    <div class="profile-wrapper" onclick="toggleDropdown()">
-        <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
-        <div class="dropdown" id="dropdownMenu">
-            <a href="editprofile.php">Edit Profile</a>
-            <a href="logout.php">Logout</a>
+    <header>
+        <img src="foto/logo.png" alt="Logo" class="logo">
+        <nav>
+            <a href="dashboard_eco.php" class="active">Home</a>
+            <a href="anggota.php">Anggota</a>
+            <?php if ($_SESSION['status'] === 'econom'): ?>
+                <a href="anggaran_eco.php">Anggaran</a>
+            <?php else: ?>
+                <a href="#" onclick="alert('Anggaran hanya bisa diakses oleh Ekonom!'); return false;">Anggaran</a>
+            <?php endif; ?>
+        </nav>
+        <div class="profile-wrapper" onclick="toggleDropdown()">
+            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+            <div class="dropdown" id="dropdownMenu">
+                <a href="editprofile.php">Edit Profile</a>
+                <a href="logout.php">Logout</a>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<main>
-    <p class="welcome">Selamat Datang, Br. <?= htmlspecialchars($nama) ?> 👋</p>
-    <div class="banner">
-        <img src="foto/fic2.jpeg" alt="Banner">
-    </div>
-
-    <div class="cards">
-        <!-- Kolom Kiri -->
-        <div class="card glass left">
-            <h2><b>HALO FIC</b></h2>
-            <p>
-                adalah platform khusus bagi para Bruder FIC untuk mengakses data pribadi, unit kerja, dan informasi internal komunitas
-                secara mudah, aman, dan efisien.
-            </p>
+    <main>
+        <p class="welcome">Selamat Datang, Br. <?= htmlspecialchars($nama) ?> 👋</p>
+        <div class="banner">
+            <img src="foto/fic2.jpeg" alt="Banner">
         </div>
 
-        <!-- Kolom Kanan -->
-        <div class="card glass right">
-            <h3>📋 Informasi Bruder</h3>
-            <p><b>Unit Kerja:</b> <?= htmlspecialchars($user['unit_kerja']) ?></p>
-            <p><b>Alamat:</b> <?= htmlspecialchars($user['alamat']) ?></p>
-            <p><b>No. Telepon:</b> <?= htmlspecialchars($user['no_telp']) ?></p>
-            <p><b>Email:</b> <?= htmlspecialchars($user['email']) ?></p>
+        <div class="cards">
+            <!-- Kolom Kiri -->
+            <div class="card glass left">
+                <h2><b>HALO FIC</b></h2>
+                <p>
+                    adalah platform khusus bagi para Bruder FIC untuk mengakses data pribadi, unit kerja, dan informasi internal komunitas
+                    secara mudah, aman, dan efisien.
+                </p>
+            </div>
+
+            <!-- Kolom Kanan -->
+            <div class="card glass right">
+                <h3>📋 Informasi Bruder</h3>
+                <p><b>Unit Kerja:</b> <?= htmlspecialchars($user['unit_kerja']) ?></p>
+                <p><b>Alamat:</b> <?= htmlspecialchars($user['alamat']) ?></p>
+                <p><b>No. Telepon:</b> <?= htmlspecialchars($user['no_telp']) ?></p>
+                <p><b>Email:</b> <?= htmlspecialchars($user['email']) ?></p>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<footer>
-    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
-</footer>
+    <footer>
+        © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+    </footer>
 
-<script>
-    function toggleDropdown() {
-        let menu = document.getElementById("dropdownMenu");
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-    window.onclick = function(event) {
-        if (!event.target.closest('.profile-wrapper')) {
-            document.getElementById("dropdownMenu").style.display = "none";
+    <script>
+        function toggleDropdown() {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
         }
-    }
-</script>
+        window.onclick = function(event) {
+            if (!event.target.closest('.profile-wrapper')) {
+                document.getElementById("dropdownMenu").style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>

@@ -279,28 +279,44 @@ try {
     th:nth-child(4), td:nth-child(4) { width: 20%; }  
     th:nth-child(5), td:nth-child(5) { width: 20%; }  
     table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* kolom fix */
-}
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* kolom fix */
+    }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 6px;
-    text-align: center;
-    font-size: 13px;
-    word-wrap: break-word;
-    vertical-align: middle;
-}
+    th, td {
+        border: 1px solid #ccc;
+        padding: 6px;
+        text-align: center;
+        font-size: 13px;
+        word-wrap: break-word;
+        vertical-align: middle;
+    }
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
 
-/* Atur lebar kolom */
-th:nth-child(1), td:nth-child(1) { width: 5%; }   /* Pos */
-th:nth-child(2), td:nth-child(2) { width: 30%; text-align:left; } /* Nama Perkiraan */
-th:nth-child(3), td:nth-child(3) { width: 15%; }  /* Realisasi Bulan ini */
-th:nth-child(4), td:nth-child(4) { width: 15%; }  /* Realisasi Semua */
-th:nth-child(5), td:nth-child(5) { width: 15%; }  /* Anggaran */
-th:nth-child(6), td:nth-child(6) { width: 10%; }  /* Saldo */
-th:nth-child(7), td:nth-child(7) { width: 10%; }  /* % */
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
+    /* Atur lebar kolom */
+    th:nth-child(1), td:nth-child(1) { width: 5%; }   /* Pos */
+    th:nth-child(2), td:nth-child(2) { width: 30%; text-align:left; } /* Nama Perkiraan */
+    th:nth-child(3), td:nth-child(3) { width: 15%; }  /* Realisasi Bulan ini */
+    th:nth-child(4), td:nth-child(4) { width: 15%; }  /* Realisasi Semua */
+    th:nth-child(5), td:nth-child(5) { width: 15%; }  /* Anggaran */
+    th:nth-child(6), td:nth-child(6) { width: 10%; }  /* Saldo */
+    th:nth-child(7), td:nth-child(7) { width: 10%; }  /* % */
 
 </style>
 </head>
@@ -336,127 +352,127 @@ th:nth-child(7), td:nth-child(7) { width: 10%; }  /* % */
             <main>
                 <h1>KOMUNITAS FIC CANDI<br>EVALUASI KEUANGAN<br>BULAN JANUARI 2025</h1>
                 <div class="card">
-<?php
-    $id_anggaran = 1; 
-    $bulan = 1; // Januari
-    $tahun = 2025;
+                <?php
+                    $id_anggaran = 1; 
+                    $bulan = 1; // Januari
+                    $tahun = 2025;
 
-    // Ambil anggaran
-    $anggaranStmt = $pdo->prepare("SELECT * FROM 1_data WHERE id_anggaran = ?");
-    $anggaranStmt->execute([$id_anggaran]);
-    $anggaran = $anggaranStmt->fetch(PDO::FETCH_ASSOC);
+                    // Ambil anggaran
+                    $anggaranStmt = $pdo->prepare("SELECT * FROM 1_data WHERE id_anggaran = ?");
+                    $anggaranStmt->execute([$id_anggaran]);
+                    $anggaran = $anggaranStmt->fetch(PDO::FETCH_ASSOC);
 
-    // Ambil data realisasi per pos
-    $stmt = $pdo->prepare("
-        SELECT p.ID_pos, p.akun,
-               COALESCE(SUM(CASE WHEN MONTH(lu.tgl_transaksi)=? AND YEAR(lu.tgl_transaksi)=? THEN lu.nominal_pemasukan - lu.nominal_pengeluaran END),0) AS realisasi_bulan,
-               COALESCE(SUM(lu.nominal_pemasukan - lu.nominal_pengeluaran),0) AS realisasi_total
-        FROM 2_perkiraan p
-        LEFT JOIN 6_lu_komunitas lu ON p.ID_pos = lu.id_pos
-        GROUP BY p.ID_pos, p.akun
-        ORDER BY FIELD(p.ID_pos,'C','D','E','F','G','H','I',
-                                  '1','2','3','4','5','6','7','8','9','10',
-                                  '11','12','13','14','15','16','17','18','19','20',
-                                  '21','22','23','24','25','26','27','28','29','30',
-                                  '31','32','33','34','35','36','37','38')
-    ");
-    $stmt->execute([$bulan,$tahun]);
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // Ambil data realisasi per pos
+                    $stmt = $pdo->prepare("
+                        SELECT p.ID_pos, p.akun,
+                            COALESCE(SUM(CASE WHEN MONTH(lu.tgl_transaksi)=? AND YEAR(lu.tgl_transaksi)=? THEN lu.nominal_pemasukan - lu.nominal_pengeluaran END),0) AS realisasi_bulan,
+                            COALESCE(SUM(lu.nominal_pemasukan - lu.nominal_pengeluaran),0) AS realisasi_total
+                        FROM 2_perkiraan p
+                        LEFT JOIN 6_lu_komunitas lu ON p.ID_pos = lu.id_pos
+                        GROUP BY p.ID_pos, p.akun
+                        ORDER BY FIELD(p.ID_pos,'C','D','E','F','G','H','I',
+                                                '1','2','3','4','5','6','7','8','9','10',
+                                                '11','12','13','14','15','16','17','18','19','20',
+                                                '21','22','23','24','25','26','27','28','29','30',
+                                                '31','32','33','34','35','36','37','38')
+                    ");
+                    $stmt->execute([$bulan,$tahun]);
+                    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Hitung jumlah bruder
-    $bruderCount = $pdo->query("SELECT COUNT(*) FROM data_bruder")->fetchColumn();
+                    // Hitung jumlah bruder
+                    $bruderCount = $pdo->query("SELECT COUNT(*) FROM data_bruder")->fetchColumn();
 
-    // fungsi ambil anggaran dari kolom pos_XX
-    function getAnggaran($id, $anggaran) {
-        $col = "pos_".$id;
-        return isset($anggaran[$col]) ? $anggaran[$col] : 0;
-    }
+                    // fungsi ambil anggaran dari kolom pos_XX
+                    function getAnggaran($id, $anggaran) {
+                        $col = "pos_".$id;
+                        return isset($anggaran[$col]) ? $anggaran[$col] : 0;
+                    }
 
-    // pisahkan penerimaan & pengeluaran
-    $penerimaan = array_filter($rows, fn($r) => in_array($r['ID_pos'], ['C','D','E','F','G','H','I']));
-    $pengeluaran = array_filter($rows, fn($r) => !in_array($r['ID_pos'], ['C','D','E','F','G','H','I']));
+                    // pisahkan penerimaan & pengeluaran
+                    $penerimaan = array_filter($rows, fn($r) => in_array($r['ID_pos'], ['C','D','E','F','G','H','I']));
+                    $pengeluaran = array_filter($rows, fn($r) => !in_array($r['ID_pos'], ['C','D','E','F','G','H','I']));
 
-    // total penerimaan & pengeluaran
-    $total_penerimaan = $total_pengeluaran = 0;
-?>
+                    // total penerimaan & pengeluaran
+                    $total_penerimaan = $total_pengeluaran = 0;
+                ?>
 
-<table>
-  <tr>
-    <th>Pos</th>
-    <th>Nama Perkiraan</th>
-    <th>Realisasi Bulan ini</th>
-    <th>Realisasi Semua</th>
-    <th>Anggaran</th>
-    <th>Saldo</th>
-    <th>%</th>
-  </tr>
+                <table>
+                <tr>
+                    <th>Pos</th>
+                    <th>Nama Perkiraan</th>
+                    <th>Realisasi Bulan ini</th>
+                    <th>Realisasi Semua</th>
+                    <th>Anggaran</th>
+                    <th>Saldo</th>
+                    <th>%</th>
+                </tr>
 
-  <!-- Bagian Penerimaan -->
-  <?php foreach($penerimaan as $r): 
-        $id = $r['ID_pos'];
-        $realisasi_bulan = $r['realisasi_bulan'];
-        $realisasi_total = $r['realisasi_total'];
-        $ang = getAnggaran($id, $anggaran);
-        $saldo = $realisasi_total - $ang;
-        $persen = $ang > 0 ? round(($realisasi_total / $ang) * 100,2) : 0;
-        $total_penerimaan += $realisasi_total;
-  ?>
-  <tr>
-    <td><?= $id ?></td>
-    <td style="text-align:left;"><?= $r['akun'] ?></td>
-    <td><?= number_format($realisasi_bulan,0,',','.') ?></td>
-    <td><?= number_format($realisasi_total,0,',','.') ?></td>
-    <td><?= number_format($ang,0,',','.') ?></td>
-    <td><?= number_format($saldo,0,',','.') ?></td>
-    <td><?= $persen ?>%</td>
-  </tr>
-  <?php endforeach; ?>
+                <!-- Bagian Penerimaan -->
+                <?php foreach($penerimaan as $r): 
+                        $id = $r['ID_pos'];
+                        $realisasi_bulan = $r['realisasi_bulan'];
+                        $realisasi_total = $r['realisasi_total'];
+                        $ang = getAnggaran($id, $anggaran);
+                        $saldo = $realisasi_total - $ang;
+                        $persen = $ang > 0 ? round(($realisasi_total / $ang) * 100,2) : 0;
+                        $total_penerimaan += $realisasi_total;
+                ?>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td style="text-align:left;"><?= $r['akun'] ?></td>
+                    <td><?= number_format($realisasi_bulan,0,',','.') ?></td>
+                    <td><?= number_format($realisasi_total,0,',','.') ?></td>
+                    <td><?= number_format($ang,0,',','.') ?></td>
+                    <td><?= number_format($saldo,0,',','.') ?></td>
+                    <td><?= $persen ?>%</td>
+                </tr>
+                <?php endforeach; ?>
 
-  <tr style="font-weight:bold; background:#f0f0f0;">
-    <td colspan="2">JUMLAH PENERIMAAN</td>
-    <td colspan="5"><?= number_format($total_penerimaan,0,',','.') ?></td>
-  </tr>
+                <tr style="font-weight:bold; background:#f0f0f0;">
+                    <td colspan="2">JUMLAH PENERIMAAN</td>
+                    <td colspan="5"><?= number_format($total_penerimaan,0,',','.') ?></td>
+                </tr>
 
-  <!-- Bagian Pengeluaran -->
-  <?php foreach($pengeluaran as $r): 
-        $id = $r['ID_pos'];
-        $realisasi_bulan = $r['realisasi_bulan'];
-        $realisasi_total = $r['realisasi_total'];
-        $ang = getAnggaran($id, $anggaran);
-        $saldo = $realisasi_total - $ang;
-        $persen = $ang > 0 ? round(($realisasi_total / $ang) * 100,2) : 0;
-        $total_pengeluaran += $realisasi_total;
-  ?>
-  <tr>
-    <td><?= $id ?></td>
-    <td style="text-align:left;"><?= $r['akun'] ?></td>
-    <td><?= number_format($realisasi_bulan,0,',','.') ?></td>
-    <td><?= number_format($realisasi_total,0,',','.') ?></td>
-    <td><?= number_format($ang,0,',','.') ?></td>
-    <td><?= number_format($saldo,0,',','.') ?></td>
-    <td><?= $persen ?> %</td>
-  </tr>
-  <?php endforeach; ?>
+                <!-- Bagian Pengeluaran -->
+                <?php foreach($pengeluaran as $r): 
+                        $id = $r['ID_pos'];
+                        $realisasi_bulan = $r['realisasi_bulan'];
+                        $realisasi_total = $r['realisasi_total'];
+                        $ang = getAnggaran($id, $anggaran);
+                        $saldo = $realisasi_total - $ang;
+                        $persen = $ang > 0 ? round(($realisasi_total / $ang) * 100,2) : 0;
+                        $total_pengeluaran += $realisasi_total;
+                ?>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td style="text-align:left;"><?= $r['akun'] ?></td>
+                    <td><?= number_format($realisasi_bulan,0,',','.') ?></td>
+                    <td><?= number_format($realisasi_total,0,',','.') ?></td>
+                    <td><?= number_format($ang,0,',','.') ?></td>
+                    <td><?= number_format($saldo,0,',','.') ?></td>
+                    <td><?= $persen ?> %</td>
+                </tr>
+                <?php endforeach; ?>
 
-  <tr style="font-weight:bold; background:#f0f0f0;">
-    <td colspan="2">JUMLAH PENGELUARAN</td>
-    <td colspan="5"><?= number_format($total_pengeluaran,0,',','.') ?></td>
-  </tr>
-</table>
+                <tr style="font-weight:bold; background:#f0f0f0;">
+                    <td colspan="2">JUMLAH PENGELUARAN</td>
+                    <td colspan="5"><?= number_format($total_pengeluaran,0,',','.') ?></td>
+                </tr>
+                </table>
 
-<br>
-<!-- Bagian Jumlah Bruder -->
-<table>
-  <tr><td>Jumlah Anggota Komunitas</td><td><?= $bruderCount ?></td></tr>
-  <tr><td>Jumlah s.d Bulan Lalu</td><td>-</td></tr>
-  <tr><td>Penambahan/Pengurangan bln ini</td><td>-</td></tr>
-  <tr><td>Jumlah s.d Bulan ini</td><td><?= $bruderCount ?></td></tr>
-</table>
-</div>
-
-  
+                <br>
+                <!-- Bagian Jumlah Bruder -->
+                <table>
+                <tr><td>Jumlah Anggota Komunitas</td><td><?= $bruderCount ?></td></tr>
+                <tr><td>Jumlah s.d Bulan Lalu</td><td>-</td></tr>
+                <tr><td>Penambahan/Pengurangan bln ini</td><td>-</td></tr>
+                <tr><td>Jumlah s.d Bulan ini</td><td><?= $bruderCount ?></td></tr>
+                </table>
                 </div>
             </main>
+<footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
         </div>
     </div>
     <script>

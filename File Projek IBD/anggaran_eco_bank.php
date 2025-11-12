@@ -596,7 +596,7 @@ foreach ($banks as $b) {
         border-radius: 4px;
         cursor: pointer;
     }
-        footer {
+    footer {
         text-align: center;
         color: #004fa3;
         opacity: 0.9;

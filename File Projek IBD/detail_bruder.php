@@ -212,6 +212,23 @@ try {
     .detail-card p {
         margin: 8px 0;
     }
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 </head>
 <body>
@@ -240,5 +257,8 @@ try {
         <p><strong>Tahun Kaul Kekal:</strong> <?= htmlspecialchars($bruder['tahun_kaul_kekal']) ?></p>
         <p><strong>Riwayat Tugas:</strong> <?= htmlspecialchars($bruder['riwayat_tugas']) ?></p>
     </div>
+    <footer>
+        © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+    </footer>
 </body>
 </html>

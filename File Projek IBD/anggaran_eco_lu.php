@@ -272,7 +272,23 @@ try {
         display: flex;         
         min-height: 100vh;     
     }
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
 
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
     /* Kolom tabel */
     th:nth-child(1), td:nth-child(1) { width: 8%; }   
     th:nth-child(2), td:nth-child(2) { width: 12%; }  
@@ -298,103 +314,105 @@ try {
                 </div>
             </div>
         </header>
-    <div class="container">
-        <div class="sidebar">
-            <a href="anggaran_eco.php">Data</a>
-            <a href="anggaran_eco_perkiraan.php">Perkiraan</a>
-            <a href="anggaran_eco_kas.php">Kas Harian</a>
-            <a href="anggaran_eco_bank.php">Bank</a>
-            <a href="anggaran_eco_bruder.php">Bruder</a>
-            <a href="anggaran_eco_lu.php" class="active">LU Komunitas</a>
-            <a href="anggaran_eco_evaluasi.php">Evaluasi</a>
-            <a href="anggaran_eco_opname.php">Kas Opname</a>
-        </div>
-        <div class="main">
-            <main>
-                <h1>KOMUNITAS FIC CANDI<br>LAPORAN KEUANGAN<br>BULAN JANUARI 2025</h1>
-                <div class="card">
-                        <?php
-// Query gabungan data laporan
-$query = "
-    SELECT 
-        p.kode AS kode_perkiraan,
-        p.akun AS nama_perkiraan,
-        COALESCE(SUM(l.nominal_pemasukan), 0) AS penerimaan,
-        COALESCE(SUM(l.nominal_pengeluaran), 0) AS pengeluaran
-    FROM 2_perkiraan p
-    LEFT JOIN 6_lu_komunitas l ON p.ID_pos = l.id_pos
-    GROUP BY p.ID_pos, p.kode, p.akun
-    ORDER BY CAST(p.kode AS UNSIGNED)
-";
-$stmt = $pdo->query($query);
-$dataLaporan = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        <div class="container">
+            <div class="sidebar">
+                <a href="anggaran_eco.php">Data</a>
+                <a href="anggaran_eco_perkiraan.php">Perkiraan</a>
+                <a href="anggaran_eco_kas.php">Kas Harian</a>
+                <a href="anggaran_eco_bank.php">Bank</a>
+                <a href="anggaran_eco_bruder.php">Bruder</a>
+                <a href="anggaran_eco_lu.php" class="active">LU Komunitas</a>
+                <a href="anggaran_eco_evaluasi.php">Evaluasi</a>
+                <a href="anggaran_eco_opname.php">Kas Opname</a>
+            </div>
+            <div class="main">
+                <main>
+                    <h1>KOMUNITAS FIC CANDI<br>LAPORAN KEUANGAN<br>BULAN JANUARI 2025</h1>
+                    <div class="card">
+                <?php
+    // Query gabungan data laporan
+                $query = "
+                    SELECT 
+                        p.kode AS kode_perkiraan,
+                        p.akun AS nama_perkiraan,
+                        COALESCE(SUM(l.nominal_pemasukan), 0) AS penerimaan,
+                        COALESCE(SUM(l.nominal_pengeluaran), 0) AS pengeluaran
+                    FROM 2_perkiraan p
+                    LEFT JOIN 6_lu_komunitas l ON p.ID_pos = l.id_pos
+                    GROUP BY p.ID_pos, p.kode, p.akun
+                    ORDER BY CAST(p.kode AS UNSIGNED)
+                ";
+                $stmt = $pdo->query($query);
+                $dataLaporan = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Ambil nama pemimpin & bendahara komunitas
-$stmt2 = $pdo->query("SELECT nama_pemimpinlokal, nama_bendaharakomunitas FROM 1_data WHERE nama_kota='Semarang' LIMIT 1");
-$kom = $stmt2->fetch(PDO::FETCH_ASSOC);
-?>
-<table>
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Kode Perkiraan</th>
-            <th>Nama Perkiraan</th>
-            <th>Penerimaan</th>
-            <th>Pengeluaran</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
-        $no = 1; 
-        $total_penerimaan = 0; 
-        $total_pengeluaran = 0; 
-        foreach ($dataLaporan as $row): 
-            $total_penerimaan += $row['penerimaan'];
-            $total_pengeluaran += $row['pengeluaran'];
-        ?>
-        <tr>
-            <td><?= $no++ ?></td>
-            <td><?= htmlspecialchars($row['kode_perkiraan']) ?></td>
-            <td><?= htmlspecialchars($row['nama_perkiraan']) ?></td>
-            <td><?= number_format($row['penerimaan'], 0, ',', '.') ?></td>
-            <td><?= number_format($row['pengeluaran'], 0, ',', '.') ?></td>
-        </tr>
-        <?php endforeach; ?>
-                <!-- Total baris -->
-        <tr style="font-weight:bold; background:#f9f9f9;">
-            <td colspan="3">Jumlah</td>
-            <td><?= number_format($total_penerimaan, 0, ',', '.') ?></td>
-            <td><?= number_format($total_pengeluaran, 0, ',', '.') ?></td>
-        </tr>
-        <tr style="font-weight:bold; background:#fff;">
-            <td colspan="3">Saldo Kas dan Bank</td>
-            <td><?= number_format(0, 0, ',', '.') ?></td>
-            <td><?= number_format($total_penerimaan - $total_pengeluaran, 0, ',', '.') ?></td>
-        </tr>
-        <tr style="font-weight:bold; background:#f1f1f1;">
-            <td colspan="3">Jumlah Semua</td>
-            <td><?= number_format($total_penerimaan, 0, ',', '.') ?></td>
-            <td><?= number_format($total_penerimaan, 0, ',', '.') ?></td>
-        </tr>
+                // Ambil nama pemimpin & bendahara komunitas
+                $stmt2 = $pdo->query("SELECT nama_pemimpinlokal, nama_bendaharakomunitas FROM 1_data WHERE nama_kota='Semarang' LIMIT 1");
+                $kom = $stmt2->fetch(PDO::FETCH_ASSOC);
+                ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Perkiraan</th>
+                            <th>Nama Perkiraan</th>
+                            <th>Penerimaan</th>
+                            <th>Pengeluaran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $no = 1; 
+                        $total_penerimaan = 0; 
+                        $total_pengeluaran = 0; 
+                        foreach ($dataLaporan as $row): 
+                            $total_penerimaan += $row['penerimaan'];
+                            $total_pengeluaran += $row['pengeluaran'];
+                        ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= htmlspecialchars($row['kode_perkiraan']) ?></td>
+                            <td><?= htmlspecialchars($row['nama_perkiraan']) ?></td>
+                            <td><?= number_format($row['penerimaan'], 0, ',', '.') ?></td>
+                            <td><?= number_format($row['pengeluaran'], 0, ',', '.') ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                                <!-- Total baris -->
+                        <tr style="font-weight:bold; background:#f9f9f9;">
+                            <td colspan="3">Jumlah</td>
+                            <td><?= number_format($total_penerimaan, 0, ',', '.') ?></td>
+                            <td><?= number_format($total_pengeluaran, 0, ',', '.') ?></td>
+                        </tr>
+                        <tr style="font-weight:bold; background:#fff;">
+                            <td colspan="3">Saldo Kas dan Bank</td>
+                            <td><?= number_format(0, 0, ',', '.') ?></td>
+                            <td><?= number_format($total_penerimaan - $total_pengeluaran, 0, ',', '.') ?></td>
+                        </tr>
+                        <tr style="font-weight:bold; background:#f1f1f1;">
+                            <td colspan="3">Jumlah Semua</td>
+                            <td><?= number_format($total_penerimaan, 0, ',', '.') ?></td>
+                            <td><?= number_format($total_penerimaan, 0, ',', '.') ?></td>
+                        </tr>
 
-    </tbody>
-</table>
+                    </tbody>
+                </table>
 
-<div style="margin-top:40px; display:flex; justify-content:space-between;">
-    <div>
-        Mengetahui:<br>
-        Pemimpin Komunitas<br><br><br>
-        <strong><?= htmlspecialchars($kom['nama_pemimpinlokal'] ?? '-') ?></strong>
-    </div>
-    <div>
-        Semarang, 31 Januari 2025<br>
-        Bendahara Komunitas<br><br><br>
-        <strong><?= htmlspecialchars($kom['nama_bendaharakomunitas'] ?? '-') ?></strong>
-    </div>
-</div>
-
+                <div style="margin-top:40px; display:flex; justify-content:space-between;">
+                    <div>
+                        Mengetahui:<br>
+                        Pemimpin Komunitas<br><br><br>
+                        <strong><?= htmlspecialchars($kom['nama_pemimpinlokal'] ?? '-') ?></strong>
+                    </div>
+                    <div>
+                        Semarang, 31 Januari 2025<br>
+                        Bendahara Komunitas<br><br><br>
+                        <strong><?= htmlspecialchars($kom['nama_bendaharakomunitas'] ?? '-') ?></strong>
+                    </div>
+                </div>
                 </div>
             </main>
+<footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
         </div>
     </div>
     <script>

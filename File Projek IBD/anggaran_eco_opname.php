@@ -315,7 +315,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         display: flex;         
         min-height: 100vh;     
     }
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
 
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
     /* Kolom tabel */
     th:nth-child(1), td:nth-child(1) { width: 8%; }   
     th:nth-child(2), td:nth-child(2) { width: 12%; }  
@@ -372,31 +388,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <select name="tempat"><option>Candi</option><option>Jakarta</option><option>Semarang</option></select>
                         </p>
                         <p>
-  yang terletak di 
-  <input type="text" name="lokasi" style="width:40%;">
-</p>
+                        yang terletak di 
+                        <input type="text" name="lokasi" style="width:40%;">
+                        </p>
 
-<!-- Saldo Kas -->
-<div class="row" style="display: flex; justify-content: center; gap: 60px; margin-top: 10px; flex-wrap: wrap;">
+                        <!-- Saldo Kas -->
+                        <div class="row" style="display: flex; justify-content: center; gap: 60px; margin-top: 10px; flex-wrap: wrap;">
 
-  <!-- Kolom kiri -->
-  <div style="display: flex; flex-direction: column; text-align: left;">
-    <label>Saldo Kas Menurut Catatan (Rp)</label>
-    <input type="number" id="saldo_catatan" name="saldo_catatan" style="width: 220px; margin-bottom: 10px;">
-    
-    <label>Kas Kecil (Rp)</label>
-    <input type="number" id="kas_kecil" name="kas_kecil" style="width: 220px;">
-  </div>
+                        <!-- Kolom kiri -->
+                        <div style="display: flex; flex-direction: column; text-align: left;">
+                            <label>Saldo Kas Menurut Catatan (Rp)</label>
+                            <input type="number" id="saldo_catatan" name="saldo_catatan" style="width: 220px; margin-bottom: 10px;">
+                            
+                            <label>Kas Kecil (Rp)</label>
+                            <input type="number" id="kas_kecil" name="kas_kecil" style="width: 220px;">
+                        </div>
 
-  <!-- Kolom kanan -->
-  <div style="display: flex; flex-direction: column; text-align: left;">
-    <label>Saldo Kas di Bendahara (Rp)</label>
-    <input type="text" id="saldo_bendahara" name="saldo_bendahara" readonly style="width: 220px;">
-  </div>
+                        <!-- Kolom kanan -->
+                        <div style="display: flex; flex-direction: column; text-align: left;">
+                            <label>Saldo Kas di Bendahara (Rp)</label>
+                            <input type="text" id="saldo_bendahara" name="saldo_bendahara" readonly style="width: 220px;">
+                        </div>
 
-</div>
-
-
+                        </div>
                         <!-- Uang Kertas -->
                         <h4>Uang Kertas</h4>
                         <table>
@@ -434,39 +448,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="text" id="selisih" name="selisih" readonly>
                             </div>
                         </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 40px; width: 100%;">
+                            
+                            <!-- Pemimpin Komunitas (pojok kiri) -->
+                            <div style="width: 45%; text-align: left;">
+                                <label style="font-weight: bold;">Pemimpin Komunitas:</label><br>
+                                <input type="file" name="pemimpin_ttd" accept="image/*" onchange="previewImage(this, 'pemimpinPreview')"><br>
+                                <img id="pemimpinPreview" style="display:none; margin-top: 8px; width: 120px; border: 1px solid #ccc; border-radius: 8px;"><br>
+                                <input type="text" name="pemimpin_nama" placeholder="Nama Pemimpin" style="width: 100%; max-width: 260px; margin-top: 6px;">
+                            </div>
 
-                        <!-- Tanda Tangan Pemimpin dan Bendahara -->
-<!-- Tanda Tangan Pemimpin dan Bendahara -->
-<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 40px; width: 100%;">
-    
-    <!-- Pemimpin Komunitas (pojok kiri) -->
-    <div style="width: 45%; text-align: left;">
-        <label style="font-weight: bold;">Pemimpin Komunitas:</label><br>
-        <input type="file" name="pemimpin_ttd" accept="image/*" onchange="previewImage(this, 'pemimpinPreview')"><br>
-        <img id="pemimpinPreview" style="display:none; margin-top: 8px; width: 120px; border: 1px solid #ccc; border-radius: 8px;"><br>
-        <input type="text" name="pemimpin_nama" placeholder="Nama Pemimpin" style="width: 100%; max-width: 260px; margin-top: 6px;">
-    </div>
+                            <!-- Bendahara Komunitas (pojok kanan tapi teks tetap rata kiri) -->
+                            <div style="width: 45%; text-align: left; margin-left: auto;">
+                                <div style="margin-left: auto; width: fit-content;">
+                                    <label style="font-weight: bold;">Bendahara Komunitas:</label><br>
+                                    <input type="file" name="bendahara_ttd" accept="image/*" onchange="previewImage(this, 'bendaharaPreview')"><br>
+                                    <img id="bendaharaPreview" style="display:none; margin-top: 8px; width: 120px; border: 1px solid #ccc; border-radius: 8px;"><br>
+                                    <input type="text" name="bendahara_nama" placeholder="Nama Bendahara" style="width: 100%; max-width: 260px; margin-top: 6px;">
+                                </div>
+                            </div>
 
-    <!-- Bendahara Komunitas (pojok kanan tapi teks tetap rata kiri) -->
-    <div style="width: 45%; text-align: left; margin-left: auto;">
-        <div style="margin-left: auto; width: fit-content;">
-            <label style="font-weight: bold;">Bendahara Komunitas:</label><br>
-            <input type="file" name="bendahara_ttd" accept="image/*" onchange="previewImage(this, 'bendaharaPreview')"><br>
-            <img id="bendaharaPreview" style="display:none; margin-top: 8px; width: 120px; border: 1px solid #ccc; border-radius: 8px;"><br>
-            <input type="text" name="bendahara_nama" placeholder="Nama Bendahara" style="width: 100%; max-width: 260px; margin-top: 6px;">
-        </div>
-    </div>
-
-</div>
-
-
-
+                        </div>
                         <div style="text-align:center;margin-top:20px">
                             <button type="submit" class="btn">Simpan</button>
                         </div>
                     </form>
                 </div>
             </main>
+<footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
         </div>
     </div>
 <script>

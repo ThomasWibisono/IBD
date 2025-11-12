@@ -305,7 +305,23 @@ function tampilTabel($pdo, $kategori) {
         display: flex;         
         min-height: 100vh;     
     }
+footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
 
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
+        nav {
+            gap: 10px;
+        }
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
     /* Kolom tabel */
     th:nth-child(1), td:nth-child(1) { width: 8%; }   
     th:nth-child(2), td:nth-child(2) { width: 12%; }  
@@ -352,6 +368,9 @@ function tampilTabel($pdo, $kategori) {
                     ?>
                 </div>
             </main>
+            <footer>
+    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+</footer>
         </div>
     </div>
 
