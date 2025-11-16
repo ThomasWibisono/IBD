@@ -145,27 +145,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .dropdown {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        display: none;
-        flex-direction: column;
-        min-width: 180px;
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      min-width: 180px;
     }
 
     .dropdown a {
-        padding: 12px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-        transition: background 0.3s;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      font-size: 14px;
+      transition: background 0.3s;
     }
 
     .dropdown a:hover {
-        background: #e0f3ff;
+      background: #e0f3ff;
     }
 
     /* ===== Main Section ===== */
@@ -212,30 +213,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         flex: 1;
     }
 
-    /* Dropdown */
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        min-width: 260px;
-        padding: 0 10px;
-    }
-    .dropdown a {
-        display: block;
-        padding: 10px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    .dropdown a:hover {
-        background: #f4f4f4;
-    }
-
     /* Card */
     .card {
         background: rgba(255, 255, 255, 0.95);
@@ -243,6 +220,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         border-radius: 20px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
+    }
+
+    .card label {
+        width: 180px; 
+        font-weight: 500;
+        font-size: 14px;
+        color: #004b8d;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .row-line {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 20px;
+    }
+
+    /* FORM GROUP HORIZONTAL (label kiri, input kanan) */
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }   
+
+    /* FORM GROUP VERTICAL (judul di atas input) */
+    .form-group-vertical {
+        padding-top: 9px;
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+    }
+
+    /* INPUT & SELECT */
+    input, select {
+        padding: 8px 12px;
+        border: 1px solid #b8d4ff;
+        border-radius: 8px;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    /* BARIS KALIMAT */
+    .sentence-line .form-group-vertical{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+
+    .short-input {
+        width: 180px;
     }
 
     /* Judul */
@@ -352,8 +386,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="profile-wrapper" onclick="toggleDropdown()">
             <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
-                <a href="logout.php">Logout</a>
-                <a href="editprofile.php">Edit Profile</a>
+            <a href="editprofile.php">Edit Profile</a>
+            <a href="logout.php">Logout</a>
             </div>
         </div>
     </header>
@@ -373,43 +407,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1>BERITA ACARA PERHITUNGAN KAS</h1>
                 <div class="card">
                     <form method="post" enctype="multipart/form-data">
-                        <!-- Hari Tanggal Waktu -->
-                        <div class="row">
-                            <label>Hari</label>
-                            <select name="hari"><option>Senin</option><option>Selasa</option><option>Rabu</option>
-                                <option>Kamis</option><option>Jumat</option><option>Sabtu</option><option>Minggu</option></select>
-                            <label>Tanggal</label>
-                            <input type="date" name="tanggal">
-                            <label>Waktu</label>
-                            <input type="time" name="waktu">
+                        <div class="row-line">
+                            <div class="form-group">
+                                <label>Hari</label>
+                                <select name="hari">
+                                    <option>Senin</option><option>Selasa</option><option>Rabu</option>
+                                    <option>Kamis</option><option>Jumat</option><option>Sabtu</option><option>Minggu</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal</label>
+                                <input type="date" name="tanggal">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Waktu</label>
+                                <input type="time" name="waktu">
+                            </div>
                         </div>
 
-                        <p>Telah diadakan perhitungan saldo kas harian milik Bruderan FIC 
-                        <select name="tempat"><option>Candi</option><option>Jakarta</option><option>Semarang</option></select>
-                        </p>
-                        <p>
-                        yang terletak di 
-                        <input type="text" name="lokasi" style="width:40%;">
-                        </p>
+                        <!-- BARIS 2: Kalimat + Tempat + Lokasi -->
+                        <div class="sentence-line">
+                            <span>Telah diadakan perhitungan saldo kas harian milik Bruderan FIC</span>
 
-                        <!-- Saldo Kas -->
-                        <div class="row" style="display: flex; justify-content: center; gap: 60px; margin-top: 10px; flex-wrap: wrap;">
+                            <select name="tempat" class="short-input">
+                                <option>Candi</option><option>Jakarta</option><option>Semarang</option>
+                            </select>
 
-                        <!-- Kolom kiri -->
-                        <div style="display: flex; flex-direction: column; text-align: left;">
-                            <label>Saldo Kas Menurut Catatan (Rp)</label>
-                            <input type="number" id="saldo_catatan" name="saldo_catatan" style="width: 220px; margin-bottom: 10px;">
-                            
-                            <label>Kas Kecil (Rp)</label>
-                            <input type="number" id="kas_kecil" name="kas_kecil" style="width: 220px;">
+                            <span>yang terletak di</span>
+
+                            <input type="text" name="lokasi" class="short-input">
                         </div>
 
-                        <!-- Kolom kanan -->
-                        <div style="display: flex; flex-direction: column; text-align: left;">
-                            <label>Saldo Kas di Bendahara (Rp)</label>
-                            <input type="text" id="saldo_bendahara" name="saldo_bendahara" readonly style="width: 220px;">
-                        </div>
+                        <!-- BARIS 3: Saldo Kas Catatan - Saldo Bendahara - Kas Kecil -->
+                        <div class="row-line">
+                            <div class="form-group-vertical">
+                                <label>Saldo Kas Menurut Catatan (Rp)</label>
+                                <input type="number" name="saldo_catatan">
+                            </div>
 
+                            <div class="form-group-vertical">
+                                <label>Saldo Kas di Bendahara (Rp)</label>
+                                <input type="number" name="saldo_bendahara" readonly>
+                            </div>
+
+                            <div class="form-group-vertical">
+                                <label>Kas Kecil (Rp)</label>
+                                <input type="number" name="kas_kecil">
+                            </div>
                         </div>
                         <!-- Uang Kertas -->
                         <h4>Uang Kertas</h4>
@@ -452,7 +498,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             
                             <!-- Pemimpin Komunitas (pojok kiri) -->
                             <div style="width: 45%; text-align: left;">
-                                <label style="font-weight: bold;">Pemimpin Komunitas:</label><br>
+                                <label style="font-weight: bold;">Pemimpin Komunitas</label><br>
                                 <input type="file" name="pemimpin_ttd" accept="image/*" onchange="previewImage(this, 'pemimpinPreview')"><br>
                                 <img id="pemimpinPreview" style="display:none; margin-top: 8px; width: 120px; border: 1px solid #ccc; border-radius: 8px;"><br>
                                 <input type="text" name="pemimpin_nama" placeholder="Nama Pemimpin" style="width: 100%; max-width: 260px; margin-top: 6px;">
@@ -461,7 +507,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <!-- Bendahara Komunitas (pojok kanan tapi teks tetap rata kiri) -->
                             <div style="width: 45%; text-align: left; margin-left: auto;">
                                 <div style="margin-left: auto; width: fit-content;">
-                                    <label style="font-weight: bold;">Bendahara Komunitas:</label><br>
+                                    <label style="font-weight: bold;">Bendahara Komunitas</label><br>
                                     <input type="file" name="bendahara_ttd" accept="image/*" onchange="previewImage(this, 'bendaharaPreview')"><br>
                                     <img id="bendaharaPreview" style="display:none; margin-top: 8px; width: 120px; border: 1px solid #ccc; border-radius: 8px;"><br>
                                     <input type="text" name="bendahara_nama" placeholder="Nama Bendahara" style="width: 100%; max-width: 260px; margin-top: 6px;">
@@ -510,14 +556,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     document.getElementById('kas_kecil').addEventListener('input',calcAll);
     document.querySelectorAll('.kqty,.lqty').forEach(i=>i.addEventListener('input',calcAll));
     function toggleDropdown() {
-        let menu = document.getElementById("dropdownMenu");
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-    window.onclick = function(event) {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+        }
+        window.onclick = function (event) {
         if (!event.target.closest('.profile-wrapper')) {
             document.getElementById("dropdownMenu").style.display = "none";
         }
-    }
+        }
 
 
     function previewImage(input, previewId) {

@@ -76,101 +76,102 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <title>KAS</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-    /* ===== Global Reset ===== */
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
-        color: #333;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
+      color: #333;
     }
 
     /* ===== Header / Navbar ===== */
     header {
-        background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        padding: 12px 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        border-radius: 25px;
-        margin: 20px auto;
-        width: 90%;
+      background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      padding: 12px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-radius: 25px;
+      margin: 20px auto;
+      width: 90%;
     }
 
     .logo {
-        height: 60px;
+      height: 60px;
     }
 
     nav {
-        display: flex;
-        gap: 25px;
+      display: flex;
+      gap: 25px;
     }
 
     nav a {
-        color: #0077ff;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 10px 22px;
-        border-radius: 20px;
-        transition: all 0.3s ease;
+      color: #0077ff;
+      font-weight: 600;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      padding: 10px 22px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
     }
 
     nav a.active {
-        background: white;
-        color: #0077ff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: white;
+      color: #0077ff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     nav a:hover {
-        background: rgba(255,255,255,0.8);
-        color: #004fa3;
+      background: rgba(255, 255, 255, 0.8);
+      color: #004fa3;
     }
 
     /* ===== Profil & Dropdown ===== */
     .profile-wrapper {
-        position: relative;
-        cursor: pointer;
+      position: relative;
+      cursor: pointer;
     }
 
     .profile-pic {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #0077ff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0077ff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
     .dropdown {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        display: none;
-        flex-direction: column;
-        min-width: 180px;
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      min-width: 180px;
     }
 
     .dropdown a {
-        padding: 12px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-        transition: background 0.3s;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      font-size: 14px;
+      transition: background 0.3s;
     }
 
     .dropdown a:hover {
-        background: #e0f3ff;
+      background: #e0f3ff;
     }
 
     /* ===== Main Section ===== */
@@ -217,31 +218,6 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
     .main {
         flex: 1;
     }
-
-    /* Dropdown */
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        min-width: 260px;
-        padding: 0 10px;
-    }
-    .dropdown a {
-        display: block;
-        padding: 10px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    .dropdown a:hover {
-        background: #f4f4f4;
-    }
-
     /* Card */
     .card {
         background: rgba(255, 255, 255, 0.95);
@@ -249,6 +225,31 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
         border-radius: 20px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
+    }
+    #bankForm .form-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+
+    #bankForm .form-group label {
+        width: 180px; /* lebar label tetap */
+        font-weight: 500;
+        font-size: 14px;
+        color: #004b8d;
+        text-align: left;
+        display: block;
+    }
+
+    #bankForm .form-group input,
+    #bankForm .form-group select {
+        flex: 1;
+        max-width: 250px;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
     }
 
     /* Judul */
@@ -371,7 +372,17 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
     .btn-close:hover {
         color: #e74c3c;
     }
-
+    .custom-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10;
+    }
     /* ====== STEP 1 ====== */
     #step1 p {
         margin-bottom: 10px;
@@ -581,8 +592,8 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="profile-wrapper" onclick="toggleDropdown()">
             <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
-                <a href="logout.php">Logout</a>
                 <a href="editprofile.php">Edit Profile</a>
+                <a href="logout.php">Logout</a>
             </div>
         </div>
     </header>
@@ -635,19 +646,18 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
                             </tr>
                             <?php foreach ($transaksi as $t): ?>
-<tr data-id="<?= htmlspecialchars($t['ID_kas_harian']) ?>">
-    <td><?= htmlspecialchars($t['tgl_kas_harian']) ?></td>
-    <td><?= htmlspecialchars($t['ID_pos']) ?></td>
-    <td><?= htmlspecialchars($t['kode'] ?? '') ?></td>
-    <td><?= htmlspecialchars($t['akun'] ?? '') ?></td>
-    <td><?= htmlspecialchars($t['keterangan_kas']) ?></td>
-    <td></td>
-    <td><?= $t['nominal'] >= 0 ? number_format($t['nominal'], 2, ',', '.') : '' ?></td>
-    <td><?= $t['nominal'] < 0 ? number_format(abs($t['nominal']), 2, ',', '.') : '' ?></td>
-    <td><button class="btn-delete">Hapus</button></td>
-</tr>
-<?php endforeach; ?>
-
+                            <tr data-id="<?= htmlspecialchars($t['ID_kas_harian']) ?>">
+                                <td><?= htmlspecialchars($t['tgl_kas_harian']) ?></td>
+                                <td><?= htmlspecialchars($t['ID_pos']) ?></td>
+                                <td><?= htmlspecialchars($t['kode'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($t['akun'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($t['keterangan_kas']) ?></td>
+                                <td></td>
+                                <td><?= $t['nominal'] >= 0 ? number_format($t['nominal'], 2, ',', '.') : '' ?></td>
+                                <td><?= $t['nominal'] < 0 ? number_format(abs($t['nominal']), 2, ',', '.') : '' ?></td>
+                                <td><button class="btn-delete">Hapus</button></td>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                         <tfoot>
                         <tr>
@@ -669,67 +679,80 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </tr>
                          </tfoot>
                         </table>                
-                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
+                    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" ria-label="Tutup">X</button>
                             <div class="modal-header">
-                            <h5 class="modal-title" id="addModalLabel">Tambah Transaksi</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup">X</button>
+                                <h5 class="modal-title" id="addModalLabel">Tambah Transaksi</h5>
                             </div>
                             <div class="modal-body">
-                            <!-- STEP 1: pilih jenis -->
-                            <div id="step1">
+                                <!-- STEP 1 -->
+                                <div id="step1">
                                 <p>Pilih jenis transaksi:</p>
-                                <div class="d-flex gap-2">
-                                <button id="btnIncome" class="btn btn-warning flex-fill">Pemasukkan</button>
-                                <button id="btnExpense" class="btn btn-danger flex-fill">Pengeluaran</button>
-                                </div>
-                            </div>
-
-                            <!-- STEP 2: form transaksi (tersembunyi awalnya) -->
-                            <div id="step2" style="display:none;">
-                                <form id="txForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-                                <!-- action flag -->
-                                <input type="hidden" name="action" value="save_transaction">
-                                <input type="hidden" name="type" id="txType" value="in"> <!-- in / out -->
-
-                                <div class="mb-2">
-                                    <label class="form-label">Tanggal</label>
-                                    <input type="date" name="tgl_transaksi" class="form-control" required value="<?= date('Y-m-d') ?>">
-                                </div>
-
-                                <div class="mb-2">
-                                    <label class="form-label">Pilih POS</label>
-                                    <select name="ID_pos" id="ID_pos_select" class="form-select" required>
-                                    <option value="">-- Pilih POS --</option>
-                                    <?php foreach ($perkiraan as $p): ?>
-                                        <option value="<?= htmlspecialchars($p['ID_pos']) ?>" data-kode="<?= htmlspecialchars($p['kode']) ?>" data-akun="<?= htmlspecialchars($p['akun']) ?>">
-                                        <?= htmlspecialchars($p['ID_pos']) ?> - <?= htmlspecialchars($p['kode']) ?> - <?= htmlspecialchars($p['akun']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea name="keterangan_bank" class="form-control" rows="2" placeholder="Tulis keterangan..."></textarea>
-                                </div>
-
-                                <div class="mb-2">
-                                    <label class="form-label">Nominal</label>
-                                    <input type="number" name="nominal" id="nominalInput" class="form-control" min="0" step="1" placeholder="Masukkan angka tanpa desimal" required>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
-                                    <div>
-                                    <button type="submit" id="btnSaveTx" class="btn btn-primary">Simpan</button>
+                                    <div class="d-flex gap-2">
+                                        <button id="btnIncome" class="btn btn-warning flex-fill">Tanggal Penerimaan</button>
+                                        <button id="btnExpense" class="flex-fill">Tanggal Pengeluaran</button>
                                     </div>
                                 </div>
+
+                                <!-- STEP 2 -->
+                                <div id="step2" style="display:none;">
+                                <form id="bruderForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+                                    <input type="hidden" name="action" value="save_transaction">
+                                    <input type="hidden" name="type" id="txType" value="in">
+                                    <div class="mb-2">
+                                        <label class="form-label">Pilih POS</label>
+                                        <select name="ID_pos" id="ID_pos_select" class="form-select" required>
+                                        <option value="">-- Pilih POS --</option>
+                                        <?php foreach ($perkiraan as $p): ?>
+                                        <option value="<?= htmlspecialchars($p['ID_pos']) ?>"
+                                            data-kode="<?= htmlspecialchars($p['kode']) ?>" data-akun="<?= htmlspecialchars($p['akun']) ?>">
+                                            <?= htmlspecialchars($p['ID_pos']) ?> -
+                                            <?= htmlspecialchars($p['kode']) ?> -
+                                            <?= htmlspecialchars($p['akun']) ?>
+                                        </option>
+                                        <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Datang Komunitas</label>
+                                        <input type="date" name="tgl_datang_komunitas" id="tgl_datang_komunitas" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Pulang Komunitas</label>
+                                        <input type="date" name="tgl_pulang_komunitas" id="tgl_pulang_komunitas" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Pergi Luar Kota</label>
+                                        <input type="date" name="tgl_pergi_luarkota" id="tgl_pergi_luarkota" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Tanggal Pulang Luar Kota</label>
+                                        <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarKota" class="form-control">
+                                    </div>
+
+                                    <div class="mb-2">
+                                    <label class="form-label">Jumlah Hari</label>
+                                    <input type="number" name="jumlah_hari" id="jumlah_hari" class="form-control" readonly>
+                                    </div>
+
+                                    <div class="mb-2">
+                                    <label class="form-label">Keterangan</label>
+                                    <textarea name="keterangan_pp" class="form-control" rows="2" placeholder="Tulis keterangan..."></textarea>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                    <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </form>
-                            </div> 
-                        </div>
-                        </div>
-                    </div>
-                </div>
+                                </div>
+
+                            </div>
+                            </div> <!-- tutup .modal-content -->
+                        </div> <!-- tutup .modal-dialog -->
+                    </div> <!-- tutup .modal -->
                 <div class="row">
                     <div class="flex-col half">
                         <label>Pemimpin Komunitas:</label>
@@ -755,120 +778,95 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // === HANDLE STEP BUTTONS ===
-  const step1 = document.getElementById('step1');
-  const step2 = document.getElementById('step2');
-  const btnIncome = document.getElementById('btnIncome');
-  const btnExpense = document.getElementById('btnExpense');
-  const txType = document.getElementById('txType');
-  const backBtn = document.getElementById('backBtn');
-  const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
-
-  btnIncome.addEventListener('click', () => {
-    txType.value = 'in';
-    showStep2('in');
-  });
-
-  btnExpense.addEventListener('click', () => {
-    txType.value = 'out';
-    showStep2('out');
-  });
-
-  function showStep2(type) {
-    step1.style.display = 'none';
-    step2.style.display = 'block';
-    const submitBtn = document.querySelector('#txForm button[type="submit"]');
-    submitBtn.classList.remove('btn-primary', 'btn-danger');
-    submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
-  }
-
-  backBtn.addEventListener('click', () => {
-    step2.style.display = 'none';
-    step1.style.display = 'block';
-  });
-
-  document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
-    step2.style.display = 'none';
-    step1.style.display = 'block';
-    document.getElementById('txForm')?.reset();
-    txType.value = 'in';
-  });
-
-  // === DROPDOWN PROFILE HANDLER ===
-  window.toggleDropdown = function() {
-    let menu = document.getElementById("dropdownMenu");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
-  }
-
-  window.onclick = function(event) {
-    if (!event.target.closest('.profile-wrapper')) {
-      document.getElementById("dropdownMenu").style.display = "none";
-    }
-  };
-
-  // === CEGAH ENTER DI FORM AGAR TAK SUBMIT ===
-  document.querySelectorAll('form').forEach(f => {
-    f.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        e.target.blur();
-      }
-    });
-  });
-
-  // === HANDLE DELETE BUTTON (event delegation) ===
-  document.addEventListener('click', function (e) {
-    console.log('klik terdeteksi:', e.target);
-
-    if (e.target.classList.contains('btn-delete')) {
-      console.log('tombol hapus diklik!');
-      const row = e.target.closest('tr');
-
-      // pastikan baris + tidak bisa dihapus
-      if (row.querySelector('.btn-plus')) {
-        alert('Baris ini tidak bisa dihapus.');
-        return;
-      }
-
-      if (confirm('Yakin ingin menghapus baris ini?')) {
-        row.remove();
-      }
-    }
-  });
-});
-// === HAPUS DATA DARI DATABASE & TABEL ===
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('btn-delete')) {
-    const row = e.target.closest('tr');
-    const id = row.dataset.id;
-
-    if (!id) {
-      alert('ID transaksi tidak ditemukan.');
-      return;
-    }
-
-    if (confirm('Yakin mau hapus data ini?')) {
-      fetch('hapus_transaksi.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'id=' + encodeURIComponent(id)
-      })
-      .then(res => res.text())
-      .then(result => {
-        console.log('Response:', result);
-        if (result.trim() === 'success') {
-          row.remove();
-          alert('✅ Data berhasil dihapus.');
-        } else {
-          alert('❌ Gagal menghapus data: ' + result);
+    function toggleDropdown() {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         }
-      })
-      .catch(err => alert('Terjadi kesalahan: ' + err));
-    }
-  }
-});
+        window.onclick = function (event) {
+        if (!event.target.closest('.profile-wrapper')) {
+            document.getElementById("dropdownMenu").style.display = "none";
+        }
+        }
+    document.addEventListener('DOMContentLoaded', function() {
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const btnIncome = document.getElementById('btnIncome');
+    const btnExpense = document.getElementById('btnExpense');
+    const txType = document.getElementById('txType');
+    const backBtn = document.getElementById('backBtn');
+    const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
 
+    btnIncome.addEventListener('click', () => {
+        txType.value = 'in';
+        showStep2('in');
+    });
+
+    btnExpense.addEventListener('click', () => {
+        txType.value = 'out';
+        showStep2('out');
+    });
+
+    function showStep2(type) {
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+        const submitBtn = document.querySelector('#txForm button[type="submit"]');
+        submitBtn.classList.remove('btn-primary', 'btn-danger');
+        submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
+    }
+
+    backBtn.addEventListener('click', () => {
+        step2.style.display = 'none';
+        step1.style.display = 'block';
+    });
+
+    document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
+        step2.style.display = 'none';
+        step1.style.display = 'block';
+        document.getElementById('txForm')?.reset();
+        txType.value = 'in';
+    });
+
+    // === CEGAH ENTER DI FORM AGAR TAK SUBMIT ===
+    document.querySelectorAll('form').forEach(f => {
+        f.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            e.target.blur();
+        }
+        });
+    });
+    });
+    // === HAPUS DATA DARI DATABASE & TABEL ===
+    document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('btn-delete')) {
+        const row = e.target.closest('tr');
+        const id = row.dataset.id;
+
+        if (!id) {
+        alert('ID transaksi tidak ditemukan.');
+        return;
+        }
+
+        if (confirm('Yakin mau hapus data ini?')) {
+        fetch('hapus_transaksi.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'id=' + encodeURIComponent(id)
+        })
+        .then(res => res.text())
+        .then(result => {
+            console.log('Response:', result);
+            if (result.trim() === 'success') {
+            row.remove();
+            alert('✅ Data berhasil dihapus.');
+            } else {
+            alert('❌ Gagal menghapus data: ' + result);
+            }
+        })
+        .catch(err => alert('Terjadi kesalahan: ' + err));
+        }
+    }
+    });
 </script>
 </body>
 </html>

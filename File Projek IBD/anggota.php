@@ -31,185 +31,185 @@ try {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Daftar Anggota</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
-            color: #333;
-        }
-        /* ===== Header / Navbar ===== */
-        header {
-            background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            padding: 12px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-radius: 25px;
-            margin: 20px auto;
-            width: 90%;
-        }
-        .logo {
-            height: 60px;
-        }
+<meta charset="UTF-8">
+<title>Daftar Anggota</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
+        color: #333;
+    }
+    /* ===== Header / Navbar ===== */
+    header {
+        background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        padding: 12px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-radius: 25px;
+        margin: 20px auto;
+        width: 90%;
+    }
+    .logo {
+        height: 60px;
+    }
+    nav {
+        display: flex;
+        gap: 25px;
+    }
+    nav a {
+        color: #0077ff;
+        font-weight: 600;
+        text-decoration: none; /* 🔹 Menghapus underline */
+        padding: 10px 22px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    nav a.active {
+        background: white;
+        color: #0077ff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    nav a:hover {
+        background: rgba(255,255,255,0.8);
+        color: #004fa3;
+    }
+    /* ===== Profil & Dropdown ===== */
+    .profile-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
+    .profile-pic {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #0077ff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .dropdown {
+        position: absolute;
+        top: 65px;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        display: none;
+        flex-direction: column;
+        min-width: 180px;
+    }
+    .dropdown a {
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none; /* 🔹 Menghapus underline */
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+    .dropdown a:hover {
+        background: #e0f3ff;
+    }
+
+    /* ===== Main Section ===== */
+    main {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+    .search-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    #searchInput {
+        width: 350px;
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        background: white;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    .btn-simpan {
+        background: linear-gradient(to right, #007bff, #00c3ff);
+        border: none;
+        border-radius: 30px;
+        padding: 10px 25px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        transition: background 0.3s;
+    }
+    .btn-simpan:hover {
+        background: linear-gradient(to right, #00c3ff, #007bff);
+    }
+    .btn-simpan a {
+        color: white;
+        text-decoration: none; /* 🔹 Menghapus underline */
+    }
+
+    /* ===== Grid Cards ===== */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 25px;
+    }
+    .card {
+        background: white;
+        border-radius: 20px;
+        padding: 25px 20px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none; /* 🔹 Menghapus underline */
+    }
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .card img {
+        width: 95px;
+        height: 95px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 3px solid #00bfff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+    .card p {
+        font-weight: 600;
+        font-size: 16px;
+        color: #0077ff;
+        text-decoration: none; /* 🔹 Tambahan agar teks di kartu juga tidak bergaris */
+    }
+    footer {
+        text-align: center;
+        color: #004fa3;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width: 768px) {
         nav {
-            display: flex;
-            gap: 25px;
+            gap: 10px;
         }
-        nav a {
-            color: #0077ff;
-            font-weight: 600;
-            text-decoration: none; /* 🔹 Menghapus underline */
-            padding: 10px 22px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
+        .cards {
+            grid-template-columns: 1fr;
         }
-        nav a.active {
-            background: white;
-            color: #0077ff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        nav a:hover {
-            background: rgba(255,255,255,0.8);
-            color: #004fa3;
-        }
-        /* ===== Profil & Dropdown ===== */
-        .profile-wrapper {
-            position: relative;
-            cursor: pointer;
-        }
-        .profile-pic {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #0077ff;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-        .dropdown {
-            position: absolute;
-            top: 65px;
-            right: 0;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 10px;
-            display: none;
-            flex-direction: column;
-            min-width: 180px;
-        }
-        .dropdown a {
-            padding: 12px 20px;
-            color: #333;
-            text-decoration: none; /* 🔹 Menghapus underline */
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-        .dropdown a:hover {
-            background: #e0f3ff;
-        }
-
-        /* ===== Main Section ===== */
-        main {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .search-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        #searchInput {
-            width: 350px;
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-            background: white;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        }
-        .btn-simpan {
-            background: linear-gradient(to right, #007bff, #00c3ff);
-            border: none;
-            border-radius: 30px;
-            padding: 10px 25px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            transition: background 0.3s;
-        }
-        .btn-simpan:hover {
-            background: linear-gradient(to right, #00c3ff, #007bff);
-        }
-        .btn-simpan a {
-            color: white;
-            text-decoration: none; /* 🔹 Menghapus underline */
-        }
-
-        /* ===== Grid Cards ===== */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
-        }
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px 20px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none; /* 🔹 Menghapus underline */
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        .card img {
-            width: 95px;
-            height: 95px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-            border: 3px solid #00bfff;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-        }
-        .card p {
-            font-weight: 600;
-            font-size: 16px;
-            color: #0077ff;
-            text-decoration: none; /* 🔹 Tambahan agar teks di kartu juga tidak bergaris */
-        }
-        footer {
-            text-align: center;
-            color: #004fa3;
-            opacity: 0.9;
-            font-size: 14px;
-        }
-
-        /* ===== Responsive ===== */
-        @media(max-width: 768px) {
-            nav {
-                gap: 10px;
-            }
-            .cards {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <header>
@@ -224,7 +224,7 @@ try {
             <?php endif; ?>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
-            <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Foto Bruder" class="profile-pic">
+            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
                 <a href="editprofile.php">Edit Profile</a>
                 <a href="logout.php">Logout</a>
@@ -247,9 +247,9 @@ try {
             <?php endforeach; ?>
         </div>
     </main>
-<footer>
-    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
-</footer> 
+    <footer>
+        © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+    </footer> 
     <script>
         const searchInput = document.getElementById('searchInput');
         const anggotaGrid = document.getElementById('anggotaGrid');

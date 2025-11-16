@@ -27,7 +27,7 @@ try {
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Econom</title>
+<title>Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
     * {
@@ -111,15 +111,13 @@ try {
         flex-direction: column;
         min-width: 180px;
     }
-
     .dropdown a {
         padding: 12px 20px;
         color: #333;
-        text-decoration: none;
+        text-decoration: none; /* 🔹 Menghapus underline */
         font-size: 14px;
         transition: background 0.3s;
     }
-
     .dropdown a:hover {
         background: #e0f3ff;
     }
@@ -263,12 +261,12 @@ try {
     <script>
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         }
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-wrapper')) {
-                document.getElementById("dropdownMenu").style.display = "none";
-            }
+        window.onclick = function (event) {
+        if (!event.target.closest('.profile-wrapper')) {
+            document.getElementById("dropdownMenu").style.display = "none";
+        }
         }
     </script>
 

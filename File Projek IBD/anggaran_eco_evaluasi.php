@@ -30,99 +30,101 @@ try {
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
-        color: #333;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
+      color: #333;
     }
 
     /* ===== Header / Navbar ===== */
     header {
-        background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        padding: 12px 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        border-radius: 25px;
-        margin: 20px auto;
-        width: 90%;
+      background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      padding: 12px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-radius: 25px;
+      margin: 20px auto;
+      width: 90%;
     }
 
     .logo {
-        height: 60px;
+      height: 60px;
     }
 
     nav {
-        display: flex;
-        gap: 25px;
+      display: flex;
+      gap: 25px;
     }
 
     nav a {
-        color: #0077ff;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 10px 22px;
-        border-radius: 20px;
-        transition: all 0.3s ease;
+      color: #0077ff;
+      font-weight: 600;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      padding: 10px 22px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
     }
 
     nav a.active {
-        background: white;
-        color: #0077ff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: white;
+      color: #0077ff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     nav a:hover {
-        background: rgba(255,255,255,0.8);
-        color: #004fa3;
+      background: rgba(255, 255, 255, 0.8);
+      color: #004fa3;
     }
 
     /* ===== Profil & Dropdown ===== */
     .profile-wrapper {
-        position: relative;
-        cursor: pointer;
+      position: relative;
+      cursor: pointer;
     }
 
     .profile-pic {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #0077ff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0077ff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
     .dropdown {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        display: none;
-        flex-direction: column;
-        min-width: 180px;
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      min-width: 180px;
     }
 
     .dropdown a {
-        padding: 12px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-        transition: background 0.3s;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      font-size: 14px;
+      transition: background 0.3s;
     }
 
     .dropdown a:hover {
-        background: #e0f3ff;
+      background: #e0f3ff;
     }
 
     /* ===== Main Section ===== */
@@ -132,7 +134,8 @@ try {
         margin: auto;
         text-align: center;
     }
-/* Sidebar */
+
+    /* Sidebar */
     .sidebar {
         width: 220px;
         background: linear-gradient(180deg, #4facfe, #00f2fe); /* biru muda lembut */
@@ -167,29 +170,6 @@ try {
     /* Main content */
     .main {
         flex: 1;
-    }
-    /* Dropdown */
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        min-width: 260px;
-        padding: 0 10px;
-    }
-    .dropdown a {
-        display: block;
-        padding: 10px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    .dropdown a:hover {
-        background: #f4f4f4;
     }
 
     /* Card */
@@ -332,8 +312,8 @@ try {
         <div class="profile-wrapper" onclick="toggleDropdown()">
             <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
-                <a href="logout.php">Logout</a>
-                <a href="editprofile.php">Edit Profile</a>
+            <a href="editprofile.php">Edit Profile</a>
+            <a href="logout.php">Logout</a>
             </div>
         </div>
     </header>
@@ -478,12 +458,12 @@ try {
     <script>
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         }
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-wrapper')) {
-                document.getElementById("dropdownMenu").style.display = "none";
-            }
+        window.onclick = function (event) {
+        if (!event.target.closest('.profile-wrapper')) {
+            document.getElementById("dropdownMenu").style.display = "none";
+        }
         }
     </script>
 </body>

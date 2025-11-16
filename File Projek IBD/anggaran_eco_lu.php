@@ -102,27 +102,28 @@ try {
     }
 
     .dropdown {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        display: none;
-        flex-direction: column;
-        min-width: 180px;
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      min-width: 180px;
     }
 
     .dropdown a {
-        padding: 12px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-        transition: background 0.3s;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      font-size: 14px;
+      transition: background 0.3s;
     }
 
     .dropdown a:hover {
-        background: #e0f3ff;
+      background: #e0f3ff;
     }
 
     /* ===== Main Section ===== */
@@ -167,30 +168,6 @@ try {
     /* Main content */
     .main {
         flex: 1;
-    }
-
-    /* Dropdown */
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        min-width: 260px;
-        padding: 0 10px;
-    }
-    .dropdown a {
-        display: block;
-        padding: 10px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    .dropdown a:hover {
-        background: #f4f4f4;
     }
 
     /* Card */
@@ -309,8 +286,8 @@ try {
             <div class="profile-wrapper" onclick="toggleDropdown()">
                 <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
                 <div class="dropdown" id="dropdownMenu">
-                    <a href="logout.php">Logout</a>
-                    <a href="editprofile.php">Edit Profile</a>
+                <a href="editprofile.php">Edit Profile</a>
+                <a href="logout.php">Logout</a>
                 </div>
             </div>
         </header>
@@ -418,12 +395,12 @@ try {
     <script>
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         }
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-wrapper')) {
-                document.getElementById("dropdownMenu").style.display = "none";
-            }
+        window.onclick = function (event) {
+        if (!event.target.closest('.profile-wrapper')) {
+            document.getElementById("dropdownMenu").style.display = "none";
+        }
         }
     </script>
 </body>

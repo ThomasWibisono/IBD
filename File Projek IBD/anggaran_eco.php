@@ -144,27 +144,28 @@ try {
     }
 
     .dropdown {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        display: none;
-        flex-direction: column;
-        min-width: 180px;
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      min-width: 180px;
     }
 
     .dropdown a {
-        padding: 12px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-        transition: background 0.3s;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      font-size: 14px;
+      transition: background 0.3s;
     }
 
     .dropdown a:hover {
-        background: #e0f3ff;
+      background: #e0f3ff;
     }
 
     /* ===== Main Section ===== */
@@ -212,30 +213,6 @@ try {
         flex: 1;
     }
 
-    /* Dropdown */
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        min-width: 260px;
-        padding: 0 10px;
-    }
-    .dropdown a {
-        display: block;
-        padding: 10px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    .dropdown a:hover {
-        background: #f4f4f4;
-    }
-
     /* Card */
     .card {
         background: rgba(255, 255, 255, 0.95);
@@ -244,41 +221,30 @@ try {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
     }
-    /* ===== Form Sejajar Rapi ===== */
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px; /* jarak antar baris */
-    }
-
-    form .form-row {
+    #bankForm .form-group {
         display: flex;
         align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
     }
 
-    form .form-row label {
-        width: 180px; /* lebar label tetap */
+    #bankForm .form-group label {
+        width: 180px; 
         font-weight: 500;
         font-size: 14px;
         color: #004b8d;
+        text-align: left;
+        display: block;
     }
 
-    form .form-row input,
-    form .form-row select {
-    flex: 1; /* input mengisi sisa ruang */
-    max-width: 250px; /* tapi tidak terlalu panjang */
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
-    transition: all 0.3s ease;
-    }
-
-    form .form-row input:focus,
-    form .form-row select:focus {
-    border-color: #0077ff;
-    box-shadow: 0 0 6px rgba(0, 119, 255, 0.3);
+    #bankForm .form-group input,
+    #bankForm .form-group select {
+        flex: 1;
+        max-width: 250px;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
     }
 
     /* Judul */
@@ -351,7 +317,7 @@ try {
         display: flex;         
         min-height: 100vh;     
     }
-footer {
+    footer {
         text-align: center;
         color: #004fa3;
         opacity: 0.9;
@@ -384,12 +350,13 @@ footer {
             <a href="anggaran_eco.php" class="active" >Anggaran</a>
         </nav>
         <div class="profile-wrapper" onclick="toggleDropdown()">
-            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+            <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Foto Bruder" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
-                <a href="logout.php">Logout</a>
                 <a href="editprofile.php">Edit Profile</a>
+                <a href="logout.php">Logout</a>
             </div>
         </div>
+    </header>
     </header>
     <div class="container">
         <div class="sidebar">
@@ -406,16 +373,16 @@ footer {
             <main>
                 <h1>ANGGARAN PENDAPATAN DAN BELANJA <br>KOMUNITAS FIC CANDI<br>TAHUN 2025</h1>
                 <div class="card">
-                    <form method="post">
-                        <div class="form-row">
+                    <form id="bankForm" method="post">
+                        <div class="form-group">
                             <label>Pemimpin Lokal:</label>
                             <input type="text" name="nama_pemimpinlokal" required>
                         </div>
-                        <div class="form-row">
+                        <div class="form-group">
                             <label>Bendahara Komunitas:</label>
                             <input type="text" name="nama_bendaharakomunitas" required>
                         </div>
-                        <div class="form-row">
+                        <div class="form-group">
                             <label>Kota:</label>
                             <select name="nama_kota">
                             <option value="Jakarta">Jakarta</option>
@@ -719,12 +686,12 @@ footer {
     <script>
         function toggleDropdown() {
             let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         }
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-wrapper')) {
-                document.getElementById("dropdownMenu").style.display = "none";
-            }
+        window.onclick = function (event) {
+        if (!event.target.closest('.profile-wrapper')) {
+            document.getElementById("dropdownMenu").style.display = "none";
+        }
         }
         function hitungTotal(className, idOutput) {
             let inputs = document.querySelectorAll("." + className);

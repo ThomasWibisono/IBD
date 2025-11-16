@@ -68,101 +68,102 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <title>BRUDER</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-    /* ===== Global Reset ===== */
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
-        color: #333;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #9be2ff, #c4f1ff);
+      color: #333;
     }
 
     /* ===== Header / Navbar ===== */
     header {
-        background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        padding: 12px 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        border-radius: 25px;
-        margin: 20px auto;
-        width: 90%;
+      background: linear-gradient(145deg, #b3e5ff, #d9f6ff);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      padding: 12px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-radius: 25px;
+      margin: 20px auto;
+      width: 90%;
     }
 
     .logo {
-        height: 60px;
+      height: 60px;
     }
 
     nav {
-        display: flex;
-        gap: 25px;
+      display: flex;
+      gap: 25px;
     }
 
     nav a {
-        color: #0077ff;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 10px 22px;
-        border-radius: 20px;
-        transition: all 0.3s ease;
+      color: #0077ff;
+      font-weight: 600;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      padding: 10px 22px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
     }
 
     nav a.active {
-        background: white;
-        color: #0077ff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: white;
+      color: #0077ff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     nav a:hover {
-        background: rgba(255,255,255,0.8);
-        color: #004fa3;
+      background: rgba(255, 255, 255, 0.8);
+      color: #004fa3;
     }
 
     /* ===== Profil & Dropdown ===== */
     .profile-wrapper {
-        position: relative;
-        cursor: pointer;
+      position: relative;
+      cursor: pointer;
     }
 
     .profile-pic {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #0077ff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0077ff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
     .dropdown {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        display: none;
-        flex-direction: column;
-        min-width: 180px;
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      min-width: 180px;
     }
 
     .dropdown a {
-        padding: 12px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-        transition: background 0.3s;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      /* 🔹 Menghapus underline */
+      font-size: 14px;
+      transition: background 0.3s;
     }
 
     .dropdown a:hover {
-        background: #e0f3ff;
+      background: #e0f3ff;
     }
 
     /* ===== Main Section ===== */
@@ -209,31 +210,6 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
     .main {
         flex: 1;
     }
-
-    /* Dropdown */
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        min-width: 260px;
-        padding: 0 10px;
-    }
-    .dropdown a {
-        display: block;
-        padding: 10px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    .dropdown a:hover {
-        background: #f4f4f4;
-    }
-
     /* Card */
     .card {
         background: rgba(255, 255, 255, 0.95);
@@ -242,6 +218,31 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
     }
+    #bankForm .form-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+
+    #bankForm .form-group label {
+        width: 180px; /* lebar label tetap */
+        font-weight: 500;
+        font-size: 14px;
+        color: #004b8d;
+        text-align: left;
+        display: block;
+    }
+
+    #bankForm .form-group input,
+    #bankForm .form-group select {
+        flex: 1;
+        max-width: 250px;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+    }
 
     /* Judul */
     h1, h2 {
@@ -249,45 +250,7 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
         margin: 20px 0;
         color: #003366;
     }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      /* jarak antar baris */
-    }
 
-    form .form-row {
-      display: flex;
-      align-items: center;
-    }
-
-    form .form-row label {
-      width: 180px;
-      /* lebar label tetap */
-      font-weight: 500;
-      font-size: 14px;
-      color: #004b8d;
-    }
-
-    form .form-row input,
-    form .form-row select {
-      flex: 1;
-      /* input mengisi sisa ruang */
-      max-width: 250px;
-      /* tapi tidak terlalu panjang */
-      padding: 8px 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-
-    form .form-row input:focus,
-    form .form-row select:focus {
-      border-color: #0077ff;
-      box-shadow: 0 0 6px rgba(0, 119, 255, 0.3);
-    }
     /* Table */
     .table-header {
         display: flex;
@@ -621,8 +584,8 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="profile-wrapper" onclick="toggleDropdown()">
             <img src="foto/<?= htmlspecialchars($foto) ?>" alt="Profile" class="profile-pic">
             <div class="dropdown" id="dropdownMenu">
+            <a href="editprofile.php">Edit Profile</a>
                 <a href="logout.php">Logout</a>
-                <a href="editprofile.php">Edit Profile</a>
             </div>
         </div>
     </header>
@@ -641,16 +604,16 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <main>
                 <h1>KOMUNITAS FIC CANDI<br>PERUBAHAN JUMLAH BRUDER<br>BULAN JANUARI 2025</h1>
                 <div class="card">
-                    <form method="post">
-                    <div class="form-row">
+                    <form id="bankForm" method="post">
+                    <div class="form-group">
                         <label>Pemimpin Lokal:</label>
                         <input type="text" name="nama_pemimpinlokal" required>
                     </div>
-                    <div class="form-row">
+                    <div class="form-group">
                         <label>Bendahara Komunitas:</label>
                         <input type="text" name="nama_bendaharakomunitas" required>
                     </div>
-                    <div class="form-row">
+                    <div class="form-group">
                         <label>Kota:</label>
                         <select name="nama_kota">
                         <option value="Jakarta">Jakarta</option>
@@ -711,7 +674,6 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </tr>
                         </tbody>
                     </table>
-                    <!-- ✅ Modal Pindahan yang benar-benar lengkap -->
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -723,10 +685,10 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- STEP 1 -->
                                 <div id="step1">
                                 <p>Pilih jenis transaksi:</p>
-                                <div class="d-flex gap-2">
-                                    <button id="btnIncome" class="btn btn-warning flex-fill">Tanggal Penambahan</button>
-                                    <button id="btnExpense" class="flex-fill">Tanggal Pengurangan</button>
-                                </div>
+                                    <div class="d-flex gap-2">
+                                        <button id="btnIncome" class="btn btn-warning flex-fill">Tanggal Penambahan</button>
+                                        <button id="btnExpense" class="flex-fill">Tanggal Pengurangan</button>
+                                    </div>
                                 </div>
 
                                 <!-- STEP 2 -->
@@ -1011,14 +973,14 @@ newRow.querySelector(".btn-delete").addEventListener("click", function() {
 
 // ==================== Dropdown Profile ====================
 function toggleDropdown() {
-  let menu = document.getElementById("dropdownMenu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-window.onclick = function(event) {
-  if (!event.target.closest('.profile-wrapper')) {
-    document.getElementById("dropdownMenu").style.display = "none";
-  }
-}
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+        }
+        window.onclick = function (event) {
+        if (!event.target.closest('.profile-wrapper')) {
+            document.getElementById("dropdownMenu").style.display = "none";
+        }
+        }
 // ==================== Hapus Data Bruder ====================
 function aktifkanTombolHapus() {
   const tombolHapus = document.querySelectorAll('.btn-delete');

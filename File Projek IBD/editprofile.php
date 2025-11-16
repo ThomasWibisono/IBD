@@ -262,21 +262,25 @@ try {
     </style>
 </head>
 <body>
-<header>
-    <img src="foto/logo.png" alt="Logo" class="logo">
-    <nav>
-        <a href="dashboard_eco.php" class="active">Home</a>
-        <a href="anggota.php">Anggota</a>
-        <a href="anggaran_eco.php">Anggaran</a>
-    </nav>
-    <div class="profile-wrapper" onclick="toggleDropdown()">
-        <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
-        <div class="dropdown" id="dropdownMenu">
-            <a href="editprofile.php">Edit Profile</a>
-            <a href="logout.php">Logout</a>
+ <header>
+        <img src="foto/logo.png" alt="Logo" class="logo">
+        <nav>
+            <a href="dashboard_eco.php">Home</a>
+            <a href="anggota.php">Anggota</a>
+            <?php if ($_SESSION['status'] === 'econom'): ?>
+                <a href="anggaran_eco.php">Anggaran</a>
+            <?php else: ?>
+                <a href="#" onclick="alert('Anggaran hanya bisa diakses oleh Ekonom!'); return false;">Anggaran</a>
+            <?php endif; ?>
+        </nav>
+        <div class="profile-wrapper" onclick="toggleDropdown()">
+            <img src="foto/<?= htmlspecialchars($user['foto']) ?>" alt="Foto Bruder" class="profile-pic">
+            <div class="dropdown" id="dropdownMenu">
+                <a href="editprofile.php">Edit Profile</a>
+                <a href="logout.php">Logout</a>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 <main>
     <div class="container">
         <h2>Edit Profil Bruder</h2>
