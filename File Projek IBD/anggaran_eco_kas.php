@@ -117,7 +117,6 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
       color: #0077ff;
       font-weight: 600;
       text-decoration: none;
-      /* 🔹 Menghapus underline */
       padding: 10px 22px;
       border-radius: 20px;
       transition: all 0.3s ease;
@@ -165,7 +164,6 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
       padding: 12px 20px;
       color: #333;
       text-decoration: none;
-      /* 🔹 Menghapus underline */
       font-size: 14px;
       transition: background 0.3s;
     }
@@ -698,53 +696,43 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                 <!-- STEP 2 -->
                                 <div id="step2" style="display:none;">
-                                <form id="bruderForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+                                <form id="txForm" method="POST" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
                                     <input type="hidden" name="action" value="save_transaction">
                                     <input type="hidden" name="type" id="txType" value="in">
                                     <div class="mb-2">
-                                        <label class="form-label">Pilih POS</label>
-                                        <select name="ID_pos" id="ID_pos_select" class="form-select" required>
-                                        <option value="">-- Pilih POS --</option>
-                                        <?php foreach ($perkiraan as $p): ?>
-                                        <option value="<?= htmlspecialchars($p['ID_pos']) ?>"
-                                            data-kode="<?= htmlspecialchars($p['kode']) ?>" data-akun="<?= htmlspecialchars($p['akun']) ?>">
-                                            <?= htmlspecialchars($p['ID_pos']) ?> -
-                                            <?= htmlspecialchars($p['kode']) ?> -
-                                            <?= htmlspecialchars($p['akun']) ?>
-                                        </option>
-                                        <?php endforeach; ?>
-                                        </select>
+                                        <label class="form-label">Tanggal</label>
+                                        <input type="date" name="tgl_transaksi" class="form-control" required value="<?= date('Y-m-d') ?>">
                                     </div>
                                     <div class="mb-2">
-                                        <label class="form-label">Tanggal Datang Komunitas</label>
-                                        <input type="date" name="tgl_datang_komunitas" id="tgl_datang_komunitas" class="form-control">
+                                    <label style="display:block;">Pilih POS</label>
+                                    <select name="ID_pos" id="ID_pos_select" class="form-select" style="display:block;" required>
+                                    <option value="">-- Pilih POS --</option>
+                                    <?php foreach ($perkiraan as $p): ?>
+                                    <option value="<?= htmlspecialchars($p['ID_pos']) ?>"
+                                        data-kode="<?= htmlspecialchars($p['kode']) ?>" data-akun="<?= htmlspecialchars($p['akun']) ?>">
+                                        <?= htmlspecialchars($p['ID_pos']) ?> -
+                                        <?= htmlspecialchars($p['kode']) ?> -
+                                        <?= htmlspecialchars($p['akun']) ?>
+                                    </option>
+                                    <?php endforeach; ?>
+                                    </select>
                                     </div>
                                     <div class="mb-2">
-                                        <label class="form-label">Tanggal Pulang Komunitas</label>
-                                        <input type="date" name="tgl_pulang_komunitas" id="tgl_pulang_komunitas" class="form-control">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label">Tanggal Pergi Luar Kota</label>
-                                        <input type="date" name="tgl_pergi_luarkota" id="tgl_pergi_luarkota" class="form-control">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label">Tanggal Pulang Luar Kota</label>
-                                        <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarKota" class="form-control">
+                                        <label class="form-label">Keterangan</label>
+                                        <textarea name="keterangan_bank" class="form-control" rows="2"
+                                        placeholder="Tulis keterangan..."></textarea>
                                     </div>
 
                                     <div class="mb-2">
-                                    <label class="form-label">Jumlah Hari</label>
-                                    <input type="number" name="jumlah_hari" id="jumlah_hari" class="form-control" readonly>
+                                        <label class="form-label">Nominal</label>
+                                        <input type="number" name="nominal" id="nominalInput" class="form-control" min="0" step="1"
+                                        placeholder="Masukkan angka tanpa desimal" required>
                                     </div>
-
-                                    <div class="mb-2">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea name="keterangan_pp" class="form-control" rows="2" placeholder="Tulis keterangan..."></textarea>
-                                    </div>
-
                                     <div class="d-flex justify-content-between">
-                                    <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" id="backBtn" class="btn btn-secondary">Kembali</button>
+                                        <div>
+                                        <button type="submit" id="btnSaveTx" class="btn btn-primary">Simpan</button>
+                                        </div>
                                     </div>
                                 </form>
                                 </div>
@@ -771,102 +759,86 @@ $perkiraan = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 </div>
             </main>
-<footer>
-    © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
-</footer>
+            <footer>
+                © <?= date('Y') ?> Komunitas Bruder FIC — All Rights Reserved.
+            </footer>
         </div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function toggleDropdown() {
-            let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-        }
-        window.onclick = function (event) {
-        if (!event.target.closest('.profile-wrapper')) {
-            document.getElementById("dropdownMenu").style.display = "none";
-        }
-        }
-    document.addEventListener('DOMContentLoaded', function() {
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    const btnIncome = document.getElementById('btnIncome');
-    const btnExpense = document.getElementById('btnExpense');
-    const txType = document.getElementById('txType');
-    const backBtn = document.getElementById('backBtn');
-    const addModal = new bootstrap.Modal(document.getElementById('addModal'), { keyboard: true });
-
-    btnIncome.addEventListener('click', () => {
-        txType.value = 'in';
-        showStep2('in');
-    });
-
-    btnExpense.addEventListener('click', () => {
-        txType.value = 'out';
-        showStep2('out');
-    });
-
-    function showStep2(type) {
-        step1.style.display = 'none';
-        step2.style.display = 'block';
-        const submitBtn = document.querySelector('#txForm button[type="submit"]');
-        submitBtn.classList.remove('btn-primary', 'btn-danger');
-        submitBtn.classList.add(type === 'in' ? 'btn-primary' : 'btn-danger');
-    }
-
-    backBtn.addEventListener('click', () => {
-        step2.style.display = 'none';
-        step1.style.display = 'block';
-    });
-
-    document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
-        step2.style.display = 'none';
-        step1.style.display = 'block';
-        document.getElementById('txForm')?.reset();
-        txType.value = 'in';
-    });
-
-    // === CEGAH ENTER DI FORM AGAR TAK SUBMIT ===
-    document.querySelectorAll('form').forEach(f => {
-        f.addEventListener('keydown', e => {
-        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-            e.preventDefault();
-            e.target.blur();
-        }
-        });
-    });
-    });
-    // === HAPUS DATA DARI DATABASE & TABEL ===
-    document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('btn-delete')) {
-        const row = e.target.closest('tr');
-        const id = row.dataset.id;
-
-        if (!id) {
-        alert('ID transaksi tidak ditemukan.');
-        return;
-        }
-
-        if (confirm('Yakin mau hapus data ini?')) {
-        fetch('hapus_transaksi.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'id=' + encodeURIComponent(id)
-        })
-        .then(res => res.text())
-        .then(result => {
-            console.log('Response:', result);
-            if (result.trim() === 'success') {
-            row.remove();
-            alert('✅ Data berhasil dihapus.');
-            } else {
-            alert('❌ Gagal menghapus data: ' + result);
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleDropdown() {
+                let menu = document.getElementById("dropdownMenu");
+                menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
             }
-        })
-        .catch(err => alert('Terjadi kesalahan: ' + err));
-        }
-    }
-    });
-</script>
+            window.onclick = function (event) {
+            if (!event.target.closest('.profile-wrapper')) {
+                document.getElementById("dropdownMenu").style.display = "none";
+            }
+            }
+        document.addEventListener('DOMContentLoaded', function () {
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const btnIncome = document.getElementById('btnIncome');
+        const btnExpense = document.getElementById('btnExpense');
+        const txType = document.getElementById('txType');
+        const backBtn = document.getElementById('backBtn');
+
+        // Pilih jenis transaksi: pemasukan
+        btnIncome.addEventListener('click', () => {
+            txType.value = 'in';
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+        });
+
+        // Pilih jenis transaksi: pengeluaran
+        btnExpense.addEventListener('click', () => {
+            txType.value = 'out';
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+        });
+
+        // Tombol kembali
+        backBtn.addEventListener('click', () => {
+            step2.style.display = 'none';
+            step1.style.display = 'block';
+        });
+
+        // Reset modal saat ditutup
+        document.getElementById('addModal').addEventListener('hidden.bs.modal', function () {
+            step2.style.display = 'none';
+            step1.style.display = 'block';
+            document.getElementById('txForm').reset();
+            txType.value = '';
+        });
+
+        // Hapus data
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('btn-delete')) {
+                const row = e.target.closest('tr');
+                const id = row.dataset.id;
+
+                if (!id) return alert('ID transaksi tidak ditemukan.');
+
+                if (confirm('Yakin mau hapus data ini?')) {
+                    fetch('hapus_transaksi.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: 'id=' + encodeURIComponent(id)
+                        })
+                        .then(res => res.text())
+                        .then(result => {
+                            if (result.trim() === 'success') {
+                                row.remove();
+                                alert('✅ Data berhasil dihapus.');
+                            } else {
+                            alert('❌ Gagal menghapus data: ' + result);
+                            }
+                        })
+                    .catch(err => alert('Terjadi kesalahan: ' + err));
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

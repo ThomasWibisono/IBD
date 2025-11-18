@@ -109,7 +109,6 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
       color: #0077ff;
       font-weight: 600;
       text-decoration: none;
-      /* 🔹 Menghapus underline */
       padding: 10px 22px;
       border-radius: 20px;
       transition: all 0.3s ease;
@@ -157,7 +156,6 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
       padding: 12px 20px;
       color: #333;
       text-decoration: none;
-      /* 🔹 Menghapus underline */
       font-size: 14px;
       transition: background 0.3s;
     }
@@ -605,30 +603,30 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <h1>KOMUNITAS FIC CANDI<br>PERUBAHAN JUMLAH BRUDER<br>BULAN JANUARI 2025</h1>
                 <div class="card">
                     <form id="bankForm" method="post">
-                    <div class="form-group">
-                        <label>Pemimpin Lokal:</label>
-                        <input type="text" name="nama_pemimpinlokal" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Bendahara Komunitas:</label>
-                        <input type="text" name="nama_bendaharakomunitas" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Kota:</label>
-                        <select name="nama_kota">
-                        <option value="Jakarta">Jakarta</option>
-                        <option value="Bandung">Bandung</option>
-                        <option value="Yogyakarta">Yogyakarta</option>
-                        <option value="Semarang">Semarang</option>
-                        </select>
-                    </div>
-                    <div class="table-header">
-                        <button type="submit" class="btn-simpan">Simpan</button>
-                    </div>
-                    <h2>PERSERTUJUAN BUDGET</h2>
-                        <table cellpadding="5" cellspacing="0">
-                        <thead>
-                            <tr>
+                        <div class="form-group">
+                            <label>Pemimpin Lokal:</label>
+                            <input type="text" name="nama_pemimpinlokal" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Bendahara Komunitas:</label>
+                            <input type="text" name="nama_bendaharakomunitas" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kota:</label>
+                            <select name="nama_kota">
+                            <option value="Jakarta">Jakarta</option>
+                            <option value="Bandung">Bandung</option>
+                            <option value="Yogyakarta">Yogyakarta</option>
+                            <option value="Semarang">Semarang</option>
+                            </select>
+                        </div>
+                        <div class="table-header">
+                            <button type="submit" class="btn-simpan">Simpan</button>
+                        </div>
+                        <h2>PERSERTUJUAN BUDGET</h2>
+                            <table cellpadding="5" cellspacing="0">
+                            <thead>
+                                <tr>
                                 <th rowspan="2">No</th>
                                 <th rowspan="2">Nama</th>
                                 <th colspan="2">Tgl Penambahan</th>
@@ -636,44 +634,44 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <th rowspan="2">Jumlah</th>
                                 <th rowspan="2">Keterangan</th>
                                 <th rowspan="2">Aksi</th>
-                            </tr>
-                            <tr>
-                                <th>Datang</th>
-                                <th>Pergi</th>
-                                <th>Pergi</th>
-                                <th>Pulang</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bruderTableBody">
-                            <?php if (!empty($data_bruder_tabel)): ?>
-                                <?php foreach ($data_bruder_tabel as $index => $row): ?>
+                                </tr>
                                 <tr>
-                                    <td><?= $index + 1 ?></td>
-                                    <td><?= htmlspecialchars($row['nama_bruder']) ?></td>
-                                    <td><?= $row['tgl_datang_komunitas'] ?: '-' ?></td>
-                                    <td><?= $row['tgl_pulang_komunitas'] ?: '-' ?></td>
-                                    <td><?= $row['tgl_pergi_luarkota'] ?: '-' ?></td>
-                                    <td><?= $row['tgl_pulang_luarKota'] ?: '-' ?></td>
-                                    <td><?= $row['jumlah_hari'] ?></td>
-                                    <td><?= htmlspecialchars($row['keterangan_pp']) ?></td>
-                                    <td>
-                                     <button class="btn-delete" data-id="<?= $row['ID_pp'] ?>">Hapus</button>
-                                    </td>
-                        </tr>
-                        <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr><td colspan="9">Belum ada data Bruder</td></tr>
-                        <?php endif; ?>
-
-                        <!-- Baris tambah data -->
-                        <tr id="addRow">
-                            <td><button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button></td>
-                            <td></td>
-                            <td colspan="6"></td>
-                            <td><button class="btn-delete">Hapus</button></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                    <th>Datang</th>
+                                    <th>Pergi</th>
+                                    <th>Pergi</th>
+                                    <th>Pulang</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bruderTableBody">
+                                <?php if (!empty($data_bruder_tabel)): ?>
+                                    <?php foreach ($data_bruder_tabel as $index => $row): ?>
+                                    <tr>
+                                        <td><?= $index + 1 ?></td>
+                                        <td><?= htmlspecialchars($row['nama_bruder']) ?></td>
+                                        <td><?= $row['tgl_datang_komunitas'] ?: '-' ?></td>
+                                        <td><?= $row['tgl_pulang_komunitas'] ?: '-' ?></td>
+                                        <td><?= $row['tgl_pergi_luarkota'] ?: '-' ?></td>
+                                        <td><?= $row['tgl_pulang_luarKota'] ?: '-' ?></td>
+                                        <td><?= $row['jumlah_hari'] ?></td>
+                                        <td><?= htmlspecialchars($row['keterangan_pp']) ?></td>
+                                        <td>
+                                        <button class="btn-delete" data-id="<?= $row['ID_pp'] ?>">Hapus</button>
+                                        </td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr><td colspan="9">Belum ada data Bruder</td></tr>
+                            <?php endif; ?>
+                            <!-- Baris tambah data -->
+                            <tr id="addRow">
+                                <td><button class="btn-plus" data-bs-toggle="modal" data-bs-target="#addModal">+</button></td>
+                                <td></td>
+                                <td colspan="6"></td>
+                                <td><button class="btn-delete">Hapus</button></td>
+                            </tr>
+                            </tbody>
+                            </table>
+                    </form>
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -949,14 +947,14 @@ document.getElementById("bruderForm").addEventListener("submit", function(e) {
     tbody.insertBefore(newRow, addRow);
 
     // tambahkan event hapus untuk baris baru
-newRow.querySelector(".btn-delete").addEventListener("click", function() {
-  if (confirm("Yakin ingin menghapus baris ini (belum tersimpan)?")) {
-    tbody.removeChild(newRow);
-    Array.from(tbody.querySelectorAll("tr")).forEach((tr, idx) => {
-      if (tr.id !== "addRow") tr.cells[0].textContent = idx + 1;
+    newRow.querySelector(".btn-delete").addEventListener("click", function() {
+    if (confirm("Yakin ingin menghapus baris ini?")) {
+        tbody.removeChild(newRow);
+        Array.from(tbody.querySelectorAll("tr")).forEach((tr, idx) => {
+        if (tr.id !== "addRow") tr.cells[0].textContent = idx + 1;
+        });
+    }
     });
-  }
-});
     // tutup modal
     const modalEl = document.getElementById("addModal");
     const modal = bootstrap.Modal.getInstance(modalEl);
