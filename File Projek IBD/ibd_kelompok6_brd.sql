@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2025 at 11:55 PM
+-- Generation Time: Dec 04, 2025 at 05:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -175,7 +175,10 @@ INSERT INTO `1_data` (`id_anggaran`, `nama_pemimpinlokal`, `nama_bendaharakomuni
 (2, '', '', '', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
 (3, '', '', '', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
 (4, 'uy', 'tr', 'Jakarta', 0.00, 525.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
-(5, 'uy', 'tr', 'Jakarta', 0.00, 525.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00);
+(5, 'uy', 'tr', 'Jakarta', 0.00, 525.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
+(6, 'frith', 'thomas', 'Jakarta', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
+(7, 'frith', 'thomas', 'Jakarta', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
+(8, 'a', 'a', 'Jakarta', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00);
 
 --
 -- Triggers `1_data`
@@ -312,11 +315,7 @@ CREATE TABLE `3_kas_harian` (
 --
 
 INSERT INTO `3_kas_harian` (`ID_kas_harian`, `tgl_kas_harian`, `ID_pos`, `keterangan_kas`, `ID_bruder`, `nominal`) VALUES
-(21, '2025-09-01', 'A', 'Saldo Awal', 1, 30000000.00),
-(23, '2025-01-05', '5', 'Transport harian ke pasar', 1, 100000.00),
-(24, '2025-01-06', '11', 'Bayar listrik bulan Januari', 2, 750000.00),
-(25, '2025-01-07', '12', 'Bayar air PDAM', 3, 500000.00),
-(27, '2025-10-25', '15', 'sumbangan', 1, 1000000.00);
+(21, '2025-09-01', 'A', 'Saldo Awal', 1, 30000000.00);
 
 --
 -- Triggers `3_kas_harian`
@@ -347,63 +346,33 @@ CREATE TRIGGER `trg_kas_harian_au` AFTER UPDATE ON `3_kas_harian` FOR EACH ROW B
 END
 $$
 DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `trg_kas_harian_riwayat_delete` AFTER DELETE ON `3_kas_harian` FOR EACH ROW BEGIN
-    DECLARE v_nama_pengguna VARCHAR(100);
-
-    -- ambil nama dari login_bruder sesuai ID_bruder yang sedang login
-    SELECT nama_bruder INTO v_nama_pengguna
-    FROM login_bruder
-    WHERE ID_bruder = OLD.ID_bruder;
-
-    -- simpan data yang dihapus ke tabel riwayat
-    INSERT INTO `3_kas_harian_riwayat` (
-        ID_kas_harian,
-        tgl_kas_harian,
-        ID_pos,
-        keterangan_kas,
-        ID_bruder,
-        nominal,
-        nama_pengguna
-    )
-    VALUES (
-        OLD.ID_kas_harian,
-        OLD.tgl_kas_harian,
-        OLD.ID_pos,
-        OLD.keterangan_kas,
-        OLD.ID_bruder,
-        OLD.nominal,
-        v_nama_pengguna
-    );
-END
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `3_kas_harian_riwayat`
+-- Table structure for table `3_kas_harian_deleted`
 --
 
-CREATE TABLE `3_kas_harian_riwayat` (
-  `ID_riwayat` int(11) NOT NULL,
-  `ID_kas_harian` int(11) DEFAULT NULL,
-  `tgl_kas_harian` date DEFAULT NULL,
-  `ID_pos` varchar(5) DEFAULT NULL,
+CREATE TABLE `3_kas_harian_deleted` (
+  `ID_deleted` int(11) NOT NULL,
+  `ID_kas_harian` int(11) NOT NULL,
+  `tgl_kas_harian` date NOT NULL,
+  `ID_pos` varchar(5) NOT NULL,
   `keterangan_kas` text DEFAULT NULL,
   `ID_bruder` int(11) DEFAULT NULL,
   `nominal` decimal(15,2) DEFAULT NULL,
-  `tanggal_penghapusan` datetime DEFAULT current_timestamp(),
-  `nama_pengguna` varchar(100) DEFAULT NULL
+  `deleted_at` datetime DEFAULT current_timestamp(),
+  `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `3_kas_harian_riwayat`
+-- Dumping data for table `3_kas_harian_deleted`
 --
 
-INSERT INTO `3_kas_harian_riwayat` (`ID_riwayat`, `ID_kas_harian`, `tgl_kas_harian`, `ID_pos`, `keterangan_kas`, `ID_bruder`, `nominal`, `tanggal_penghapusan`, `nama_pengguna`) VALUES
-(1, 26, '2025-10-25', '24', 'administrasi', 1, 100000.00, '2025-10-25 07:12:02', 'Thomas'),
-(2, 28, '2025-10-28', '11', 'biaya listrik', 1, 1000000.00, '2025-10-29 04:06:40', 'Thomas');
+INSERT INTO `3_kas_harian_deleted` (`ID_deleted`, `ID_kas_harian`, `tgl_kas_harian`, `ID_pos`, `keterangan_kas`, `ID_bruder`, `nominal`, `deleted_at`, `deleted_by`) VALUES
+(1, 24, '2025-01-06', '11', 'Bayar listrik bulan Januari', 2, 750000.00, '2025-11-18 14:28:11', 1),
+(2, 27, '2025-11-18', 'A', 'BRUDER', 1, 150.00, '2025-11-18 15:40:53', 1),
+(3, 26, '2025-11-18', '1', 'bakso\r\n', 1, -150000.00, '2025-12-03 08:28:47', 1);
 
 -- --------------------------------------------------------
 
@@ -412,10 +381,7 @@ INSERT INTO `3_kas_harian_riwayat` (`ID_riwayat`, `ID_kas_harian`, `tgl_kas_hari
 --
 
 CREATE TABLE `4_bank` (
-  `ID_tabel_bank` varchar(10) NOT NULL,
-  `nama_bank` varchar(100) NOT NULL,
-  `no_rek_bank` varchar(50) NOT NULL,
-  `atas_nama_bank` varchar(100) NOT NULL,
+  `ID_tabel_bank` int(11) NOT NULL,
   `tgl_transaksi` date NOT NULL,
   `ID_pos` varchar(5) NOT NULL,
   `keterangan_bank` text DEFAULT NULL,
@@ -427,11 +393,8 @@ CREATE TABLE `4_bank` (
 -- Dumping data for table `4_bank`
 --
 
-INSERT INTO `4_bank` (`ID_tabel_bank`, `nama_bank`, `no_rek_bank`, `atas_nama_bank`, `tgl_transaksi`, `ID_pos`, `keterangan_bank`, `nominal_penerimaan`, `nominal_pengeluaran`) VALUES
-('28-1', 'Bank BRI', '4567891230', 'Agustinus Suparno', '2025-01-07', '28', 'Kas kecil komunitas', 0.00, 2000000.00),
-('B36f144e21', '', '', '', '2025-10-28', '24', 'bi admin', 100000.00, 0.00),
-('C1', 'Bank BCA', '1234567890', 'Agustinus Suparno', '2025-01-06', 'C', 'Gaji Bruder masuk', 3000000.00, 0.00),
-('I1', 'Bank BCA', '1234567890', 'Agustinus Suparno', '2025-01-05', 'I', 'Transfer dari DP', 5000000.00, 0.00);
+INSERT INTO `4_bank` (`ID_tabel_bank`, `tgl_transaksi`, `ID_pos`, `keterangan_bank`, `nominal_penerimaan`, `nominal_pengeluaran`) VALUES
+(1, '2025-11-18', 'B', 'ghh', 0.00, 0.00);
 
 --
 -- Triggers `4_bank`
@@ -463,72 +426,25 @@ CREATE TRIGGER `trg_bank_au` AFTER UPDATE ON `4_bank` FOR EACH ROW BEGIN
 END
 $$
 DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `trg_bank_riwayat_delete` AFTER DELETE ON `4_bank` FOR EACH ROW BEGIN
-    DECLARE v_nama_pengguna VARCHAR(100);
-
-    SELECT nama_bruder INTO v_nama_pengguna
-    FROM login_bruder
-    WHERE ID_bruder = (SELECT ID_bruder FROM login_bruder WHERE ID_bruder = 1);
-
-    INSERT INTO `4_bank_riwayat` (
-        ID_tabel_bank,
-        nama_bank,
-        no_rek_bank,
-        atas_nama_bank,
-        tgl_transaksi,
-        ID_pos,
-        keterangan_bank,
-        nominal_penerimaan,
-        nominal_pengeluaran,
-        nama_pengguna
-    )
-    VALUES (
-        OLD.ID_tabel_bank,
-        OLD.nama_bank,
-        OLD.no_rek_bank,
-        OLD.atas_nama_bank,
-        OLD.tgl_transaksi,
-        OLD.ID_pos,
-        OLD.keterangan_bank,
-        OLD.nominal_penerimaan,
-        OLD.nominal_pengeluaran,
-        v_nama_pengguna
-    );
-END
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `4_bank_riwayat`
+-- Table structure for table `4_bank_deleted`
 --
 
-CREATE TABLE `4_bank_riwayat` (
-  `ID_riwayat` int(11) NOT NULL,
-  `ID_tabel_bank` varchar(10) DEFAULT NULL,
-  `nama_bank` varchar(100) DEFAULT NULL,
-  `no_rek_bank` varchar(50) DEFAULT NULL,
-  `atas_nama_bank` varchar(100) DEFAULT NULL,
-  `tgl_transaksi` date DEFAULT NULL,
-  `ID_pos` varchar(5) DEFAULT NULL,
+CREATE TABLE `4_bank_deleted` (
+  `ID_tabel_bank` varchar(10) NOT NULL,
+  `nama_bank` varchar(100) NOT NULL,
+  `no_rek_bank` varchar(50) NOT NULL,
+  `atas_nama_bank` varchar(100) NOT NULL,
+  `tgl_transaksi` date NOT NULL,
+  `ID_pos` varchar(5) NOT NULL,
   `keterangan_bank` text DEFAULT NULL,
-  `nominal_penerimaan` decimal(15,2) DEFAULT NULL,
-  `nominal_pengeluaran` decimal(15,2) DEFAULT NULL,
-  `tanggal_penghapusan` datetime DEFAULT current_timestamp(),
-  `nama_pengguna` varchar(100) DEFAULT NULL
+  `nominal_penerimaan` decimal(15,2) DEFAULT 0.00,
+  `nominal_pengeluaran` decimal(15,2) DEFAULT 0.00,
+  `deleted_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `4_bank_riwayat`
---
-
-INSERT INTO `4_bank_riwayat` (`ID_riwayat`, `ID_tabel_bank`, `nama_bank`, `no_rek_bank`, `atas_nama_bank`, `tgl_transaksi`, `ID_pos`, `keterangan_bank`, `nominal_penerimaan`, `nominal_pengeluaran`, `tanggal_penghapusan`, `nama_pengguna`) VALUES
-(1, 'B001', 'Mandiri', '1850001474409', 'Agustinus Suparno', '2025-09-04', 'I', 'Terima kiriman dari bendahara DP', 22000000.00, 0.00, '2025-10-29 04:13:08', 'Thomas'),
-(2, 'B32f085d9e', '', '', '', '2025-10-28', '24', 'membayar administrasi', 1000000.00, 0.00, '2025-10-29 04:17:52', 'Thomas'),
-(3, 'B36098d9d7', '', '', '', '2025-10-28', '24', 'bi admin', 100000.00, 0.00, '2025-10-29 04:31:47', 'Thomas'),
-(4, 'B36ae3d78c', '', '', '', '2025-10-28', '24', 'bi admin', 100000.00, 0.00, '2025-10-29 04:33:42', 'Thomas');
 
 -- --------------------------------------------------------
 
@@ -552,26 +468,13 @@ CREATE TABLE `5_bruder` (
 --
 
 INSERT INTO `5_bruder` (`ID_pp`, `ID_bruder`, `tgl_datang_komunitas`, `tgl_pulang_komunitas`, `tgl_pergi_luarkota`, `tgl_pulang_luarKota`, `jumlah_hari`, `keterangan_pp`) VALUES
-(5, 3, '2025-10-29', '2025-10-31', NULL, NULL, 2, 'Retret'),
-(6, 3, '2025-10-29', '2025-10-31', NULL, NULL, 2, 'Tugas Luar'),
-(7, 3, '2025-10-22', '2025-10-29', NULL, NULL, 7, 'Tugas');
+(4, 2, '2025-11-11', '2025-11-13', NULL, NULL, 2, 'd'),
+(5, 1, '2025-11-11', '2025-11-18', NULL, NULL, 7, 'Komunitas Magelang'),
+(6, 2, '2025-05-05', '2025-05-07', NULL, NULL, 2, 'pergi');
 
 --
 -- Triggers `5_bruder`
 --
-DELIMITER $$
-CREATE TRIGGER `trg_5_bruder_delete` AFTER DELETE ON `5_bruder` FOR EACH ROW BEGIN
-  INSERT INTO `5_bruder_riwayat`
-  (`ID_bruder`, `tgl_datang_komunitas`, `tgl_pulang_komunitas`,
-   `tgl_pergi_luarkota`, `tgl_pulang_luarKota`,
-   `jumlah_hari`, `keterangan_pp`, `tanggal_penghapusan`, `nama_pengguna`)
-  VALUES
-  (OLD.ID_bruder, OLD.tgl_datang_komunitas, OLD.tgl_pulang_komunitas,
-   OLD.tgl_pergi_luarkota, OLD.tgl_pulang_luarKota,
-   OLD.jumlah_hari, OLD.keterangan_pp, NOW(), @pengguna);
-END
-$$
-DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `trg_hitungan_hari_bruder` BEFORE INSERT ON `5_bruder` FOR EACH ROW BEGIN
     -- Jika punya data datang & pulang komunitas
@@ -594,32 +497,27 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `5_bruder_riwayat`
+-- Table structure for table `5_bruder_deleted`
 --
 
-CREATE TABLE `5_bruder_riwayat` (
-  `ID_riwayat` int(11) NOT NULL,
+CREATE TABLE `5_bruder_deleted` (
+  `ID_pp` int(11) NOT NULL,
   `ID_bruder` int(11) DEFAULT NULL,
   `tgl_datang_komunitas` date DEFAULT NULL,
   `tgl_pulang_komunitas` date DEFAULT NULL,
   `tgl_pergi_luarkota` date DEFAULT NULL,
-  `tgl_pulang_luarKota` date DEFAULT NULL,
+  `tgl_pulang_luarkota` date DEFAULT NULL,
   `jumlah_hari` int(11) DEFAULT NULL,
-  `keterangan_pp` text DEFAULT NULL,
-  `tanggal_penghapusan` datetime DEFAULT current_timestamp(),
-  `nama_pengguna` varchar(100) DEFAULT NULL
+  `keterangan_pp` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `5_bruder_riwayat`
+-- Dumping data for table `5_bruder_deleted`
 --
 
-INSERT INTO `5_bruder_riwayat` (`ID_riwayat`, `ID_bruder`, `tgl_datang_komunitas`, `tgl_pulang_komunitas`, `tgl_pergi_luarkota`, `tgl_pulang_luarKota`, `jumlah_hari`, `keterangan_pp`, `tanggal_penghapusan`, `nama_pengguna`) VALUES
-(1, 1, '2025-01-01', '2025-01-15', NULL, NULL, 14, 'Komunitas Magelang', '2025-10-29 04:51:32', NULL),
-(2, 1, '2025-10-29', '2025-10-31', NULL, NULL, 2, 'retret', '2025-10-29 04:51:32', NULL),
-(3, 3, '2025-10-29', '2025-10-31', NULL, NULL, 2, 'Tugas Luar', '2025-10-29 04:59:50', NULL),
-(4, 3, '2025-05-15', '2025-05-20', NULL, NULL, 5, 'Tugas', '2025-10-29 05:01:16', NULL),
-(5, 3, '2025-10-29', '2025-10-31', NULL, NULL, 2, 'mkn', '2025-10-29 05:44:44', 'Thomas');
+INSERT INTO `5_bruder_deleted` (`ID_pp`, `ID_bruder`, `tgl_datang_komunitas`, `tgl_pulang_komunitas`, `tgl_pergi_luarkota`, `tgl_pulang_luarkota`, `jumlah_hari`, `keterangan_pp`) VALUES
+(1, 1, '2025-01-01', '2025-01-15', NULL, NULL, 14, 'Komunitas Magelang'),
+(2, 2, NULL, NULL, '2025-11-03', NULL, 3, 'dfg');
 
 -- --------------------------------------------------------
 
@@ -641,13 +539,7 @@ CREATE TABLE `6_lu_komunitas` (
 --
 
 INSERT INTO `6_lu_komunitas` (`id_lu`, `id_anggaran`, `id_pos`, `tgl_transaksi`, `nominal_pemasukan`, `nominal_pengeluaran`) VALUES
-(1, 0, 'A', '2025-01-01', 30000000.00, 0.00),
-(5, 0, '5', '2025-01-01', 100000.00, 0.00),
-(7, 0, '12', '2025-01-01', 500000.00, 0.00),
-(9, 0, 'C', '2025-01-01', 3000000.00, 0.00),
-(10, 0, '28', '2025-01-01', 0.00, 2000000.00),
-(12, 0, '15', NULL, 1000000.00, 0.00),
-(17, 0, '24', NULL, 100000.00, 0.00);
+(20, 0, 'B', NULL, 0.00, 0.00);
 
 -- --------------------------------------------------------
 
@@ -699,7 +591,8 @@ INSERT INTO `8_kas_opname` (`id`, `hari`, `tanggal`, `waktu`, `tempat`, `lokasi`
 (1, 'Rabu', '2025-10-01', '10:20:00', 'Candi', 'Go', 1200000.00, 150000.00, 1.35, 1.09, 260.00, 'lel', 0x313735393238393135325f70656d696d70696e5f74686f6d2e6a7067, 'lol', 0x313735393238393135325f62656e6461686172615f6b68696d2e6a7067, '2025-10-01 03:25:52'),
 (2, 'Rabu', '2025-10-01', '10:20:00', 'Candi', 'Go', 1200000.00, 150000.00, 1.35, 1.09, 260.00, 'lel', 0x313735393238393337375f70656d696d70696e5f74686f6d2e6a7067, 'lol', 0x313735393238393337375f62656e6461686172615f6b68696d2e6a7067, '2025-10-01 03:29:37'),
 (3, 'Rabu', '2025-10-01', '10:20:00', 'Candi', 'Go', 1200000.00, 150000.00, 1.35, 1.09, 260.00, 'lel', 0x313735393238393439375f70656d696d70696e5f74686f6d2e6a7067, 'lol', 0x313735393238393439375f62656e6461686172615f6b68696d2e6a7067, '2025-10-01 03:31:37'),
-(4, 'Senin', '0000-00-00', '00:00:00', 'Candi', '', 0.00, 0.00, 0.00, 0.00, 0.00, '', 0x313735393238393537365f70656d696d70696e5f6669632e706e67, '', NULL, '2025-10-01 03:32:56');
+(4, 'Senin', '0000-00-00', '00:00:00', 'Candi', '', 0.00, 0.00, 0.00, 0.00, 0.00, '', 0x313735393238393537365f70656d696d70696e5f6669632e706e67, '', NULL, '2025-10-01 03:32:56'),
+(5, 'Senin', '0000-00-00', '00:00:00', 'Candi', '', 0.00, 0.00, 0.00, 0.00, 0.00, '', NULL, '', NULL, '2025-12-03 01:25:27');
 
 -- --------------------------------------------------------
 
@@ -790,10 +683,10 @@ ALTER TABLE `3_kas_harian`
   ADD KEY `3_kas_harian_fk_bruder` (`ID_bruder`);
 
 --
--- Indexes for table `3_kas_harian_riwayat`
+-- Indexes for table `3_kas_harian_deleted`
 --
-ALTER TABLE `3_kas_harian_riwayat`
-  ADD PRIMARY KEY (`ID_riwayat`);
+ALTER TABLE `3_kas_harian_deleted`
+  ADD PRIMARY KEY (`ID_deleted`);
 
 --
 -- Indexes for table `4_bank`
@@ -803,10 +696,10 @@ ALTER TABLE `4_bank`
   ADD KEY `4_bank_fk_perkiraan` (`ID_pos`);
 
 --
--- Indexes for table `4_bank_riwayat`
+-- Indexes for table `4_bank_deleted`
 --
-ALTER TABLE `4_bank_riwayat`
-  ADD PRIMARY KEY (`ID_riwayat`);
+ALTER TABLE `4_bank_deleted`
+  ADD PRIMARY KEY (`ID_tabel_bank`);
 
 --
 -- Indexes for table `5_bruder`
@@ -816,10 +709,11 @@ ALTER TABLE `5_bruder`
   ADD KEY `ID_bruder` (`ID_bruder`);
 
 --
--- Indexes for table `5_bruder_riwayat`
+-- Indexes for table `5_bruder_deleted`
 --
-ALTER TABLE `5_bruder_riwayat`
-  ADD PRIMARY KEY (`ID_riwayat`);
+ALTER TABLE `5_bruder_deleted`
+  ADD PRIMARY KEY (`ID_pp`),
+  ADD KEY `ID_bruder` (`ID_bruder`);
 
 --
 -- Indexes for table `6_lu_komunitas`
@@ -867,43 +761,43 @@ ALTER TABLE `tabel_komunitas`
 -- AUTO_INCREMENT for table `1_data`
 --
 ALTER TABLE `1_data`
-  MODIFY `id_anggaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_anggaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `3_kas_harian`
 --
 ALTER TABLE `3_kas_harian`
-  MODIFY `ID_kas_harian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID_kas_harian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `3_kas_harian_riwayat`
+-- AUTO_INCREMENT for table `3_kas_harian_deleted`
 --
-ALTER TABLE `3_kas_harian_riwayat`
-  MODIFY `ID_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `3_kas_harian_deleted`
+  MODIFY `ID_deleted` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `4_bank_riwayat`
+-- AUTO_INCREMENT for table `4_bank`
 --
-ALTER TABLE `4_bank_riwayat`
-  MODIFY `ID_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `4_bank`
+  MODIFY `ID_tabel_bank` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `5_bruder`
 --
 ALTER TABLE `5_bruder`
-  MODIFY `ID_pp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_pp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `5_bruder_riwayat`
+-- AUTO_INCREMENT for table `5_bruder_deleted`
 --
-ALTER TABLE `5_bruder_riwayat`
-  MODIFY `ID_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `5_bruder_deleted`
+  MODIFY `ID_pp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `6_lu_komunitas`
 --
 ALTER TABLE `6_lu_komunitas`
-  MODIFY `id_lu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_lu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `7_evaluasi`
@@ -915,13 +809,13 @@ ALTER TABLE `7_evaluasi`
 -- AUTO_INCREMENT for table `8_kas_opname`
 --
 ALTER TABLE `8_kas_opname`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `data_bruder`
 --
 ALTER TABLE `data_bruder`
-  MODIFY `ID_bruder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_bruder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
