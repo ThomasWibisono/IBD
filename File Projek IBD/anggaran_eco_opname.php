@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("
         INSERT INTO `8_kas_opname`
         (hari, tanggal, waktu, tempat, lokasi, saldo_catatan, kas_kecil, saldo_bendahara, jumlah_hasil, selisih, pemimpin_nama, pemimpin_ttd, bendahara_nama, bendahara_ttd)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)6
     ");
     $stmt->execute([
         $hari, $tanggal, $waktu, $tempat, $lokasi, $saldo_catatan, $kas_kecil, $saldo_bendahara, $jumlah_hasil, $selisih,
