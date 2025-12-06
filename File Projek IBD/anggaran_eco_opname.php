@@ -527,57 +527,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 <script>
-    function toggleDropdown(){
-        let m=document.getElementById("dropdownMenu");
-        m.style.display=(m.style.display==="block")?"none":"block";
-    }
-    window.onclick=function(e){
-        if(!e.target.closest('.profile-wrapper')){
-            document.getElementById("dropdownMenu").style.display="none";
-        }
-    }
-    function fmt(n){return new Intl.NumberFormat('id-ID').format(n);}
-    function calcAll(){
-        let s=parseFloat(document.getElementById('saldo_catatan').value)||0;
-        let k=parseFloat(document.getElementById('kas_kecil').value)||0;
-        let sb=s+k;document.getElementById('saldo_bendahara').value=fmt(sb);
-        let total_k=0;document.querySelectorAll('.kqty').forEach(el=>{
-            let d=parseInt(el.dataset.denom);let q=parseInt(el.value)||0;let sub=d*q;
-            el.closest('tr').querySelector('.ktot').innerText=fmt(sub);total_k+=sub;});
-        document.getElementById('total_kertas').innerText=fmt(total_k);
-        let total_l=0;document.querySelectorAll('.lqty').forEach(el=>{
-            let d=parseInt(el.dataset.denom);let q=parseInt(el.value)||0;let sub=d*q;
-            el.closest('tr').querySelector('.ltot').innerText=fmt(sub);total_l+=sub;});
-        document.getElementById('total_logam').innerText=fmt(total_l);
-        let jumlah=total_k+total_l;document.getElementById('jumlah_hasil').value=fmt(jumlah);
-        document.getElementById('selisih').value=fmt(sb-jumlah);
-    }
-    document.getElementById('saldo_catatan').addEventListener('input',calcAll);
-    document.getElementById('kas_kecil').addEventListener('input',calcAll);
-    document.querySelectorAll('.kqty,.lqty').forEach(i=>i.addEventListener('input',calcAll));
-    function toggleDropdown() {
-            let menu = document.getElementById("dropdownMenu");
-            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-        }
-        window.onclick = function (event) {
-        if (!event.target.closest('.profile-wrapper')) {
-            document.getElementById("dropdownMenu").style.display = "none";
-        }
-        }
+function fmt(n){
+    return new Intl.NumberFormat('id-ID').format(n);
+}
 
+function calcAll(){
 
-    function previewImage(input, previewId) {
-        const file = input.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = e => {
-                const img = document.getElementById(previewId);
-                img.src = e.target.result;
-                img.style.display = "block";
-            };
-            reader.readAsDataURL(file);
-        }
-    }
+    // ===== Ambil Input Saldo Catatan & Kas Kecil =====
+    let saldoCatatan = parseFloat(document.querySelector("input[name='saldo_catatan']").value) || 0;
+    let kasKecil = parseFloat(document.querySelector("input[name='kas_kecil']").value) || 0;
+
+    // ===== Hitung Saldo Bendahara =====
+    let saldoBendahara = saldoCatatan + kasKecil;
+    document.querySelector("input[name='saldo_bendahara']").value = fmt(saldoBendahara);
+
+    // ===== Hitung Total Uang Kertas =====
+    let totalKertas = 0;
+    document.querySelectorAll('.kqty').forEach(el => {
+        let d = parseInt(el.dataset.denom);
+        let q = parseInt(el.value) || 0;
+        let sub = d * q;
+
+        el.closest('tr').querySelector('.ktot').innerText = fmt(sub);
+        totalKertas += sub;
+    });
+    document.getElementById('total_kertas').innerText = fmt(totalKertas);
+
+    // ===== Hitung Total Uang Logam =====
+    let totalLogam = 0;
+    document.querySelectorAll('.lqty').forEach(el => {
+        let d = parseInt(el.dataset.denom);
+        let q = parseInt(el.value) || 0;
+        let sub = d * q;
+
+        el.closest('tr').querySelector('.ltot').innerText = fmt(sub);
+        totalLogam += sub;
+    });
+    document.getElementById('total_logam').innerText = fmt(totalLogam);
+
+    // ===== Jumlah Hasil =====
+    let totalOpname = totalKertas + totalLogam;
+    document.getElementById('jumlah_hasil').value = fmt(totalOpname);
+
+    // ===== Selisih Opname =====
+    let selisih = saldoBendahara - totalOpname;
+    document.getElementById('selisih').value = fmt(selisih);
+}
+
+// === EVENT LISTENERS ===
+document.querySelector("input[name='saldo_catatan']").addEventListener('input', calcAll);
+document.querySelector("input[name='kas_kecil']").addEventListener('input', calcAll);
+
+document.querySelectorAll('.kqty').forEach(i => i.addEventListener('input', calcAll));
+document.querySelectorAll('.lqty').forEach(i => i.addEventListener('input', calcAll));
+
 </script>
+
 </body>
 </html>

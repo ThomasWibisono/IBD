@@ -394,7 +394,10 @@ try {
                         $realisasi_total = $r['realisasi_total'];
                         $ang = getAnggaran($id, $anggaran);
                         $saldo = $realisasi_total - $ang;
-                        $persen = $ang > 0 ? round(($realisasi_total / $ang) * 100,2) : 0;
+                        $persen = ($ang > 0 && $realisasi_total > 0)
+    ? round(($realisasi_total / $ang) * 100, 2)
+    : 0;
+
                         $total_penerimaan += $realisasi_total;
                 ?>
                 <tr>
@@ -420,7 +423,10 @@ try {
                         $realisasi_total = $r['realisasi_total'];
                         $ang = getAnggaran($id, $anggaran);
                         $saldo = $realisasi_total - $ang;
-                        $persen = $ang > 0 ? round(($realisasi_total / $ang) * 100,2) : 0;
+                        $persen = ($ang > 0 && $realisasi_total > 0)
+    ? round(($realisasi_total / $ang) * 100, 2)
+    : 0;
+
                         $total_pengeluaran += $realisasi_total;
                 ?>
                 <tr>

@@ -1,11 +1,30 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
+    header("Location: login.php");
+    exit;
+}
 try {
     // 1. Koneksi database
     $pdo = new PDO("mysql:host=localhost;dbname=ibd_kelompok6_brd", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // ambil daftar bruder untuk dropdown
+    $data_bruder = $pdo->query("SELECT ID_bruder, nama_bruder FROM data_bruder ORDER BY nama_bruder")->fetchAll(PDO::FETCH_ASSOC);
+
+    // ambil foto login
+    $stmt = $pdo->prepare("
+        SELECT db.foto
+        FROM login_bruder lb
+        LEFT JOIN data_bruder db ON lb.ID_bruder = db.ID_bruder
+        WHERE lb.ID_bruder = ?
+    ");
+    $stmt->execute([$_SESSION['ID_bruder']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
+
+    
     // 2. Handle POST insert transaksi
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'save_transaction') {
         $tgl_transaksi = $_POST['tgl_transaksi'] ?? null;
@@ -842,13 +861,17 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('txForm').addEventListener('submit', function (e) {
         const type = txType.value;
         const nominalInput = document.getElementById('nominalInput');
-        if (type === 'in') {
+        
+        /* if (type === 'in') {
             nominalInput.setAttribute('name', 'nominal_penerimaan');
             nominalInput.value = Math.abs(nominalInput.value);
         } else {
             nominalInput.setAttribute('name', 'nominal_pengeluaran');
             nominalInput.value = Math.abs(nominalInput.value);
         }
+        */
+
+        nominalInput.value = Math.abs(nominalInput.value);
     });
 
     // ==== Hapus data bank ====
