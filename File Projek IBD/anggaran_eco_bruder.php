@@ -27,14 +27,14 @@ try {
     // simpan form
     if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST["action"] === "save_bruder") {
         $stmt = $pdo->prepare("INSERT INTO `5_bruder`
-            (ID_bruder, tgl_datang_komunitas, tgl_pulang_komunitas, tgl_pergi_luarkota, tgl_pulang_luarKota, jumlah_hari, keterangan_pp)
+            (ID_bruder, tgl_datang_komunitas, tgl_pulang_komunitas, tgl_pergi_luarkota, tgl_pulang_luarkota, jumlah_hari, keterangan_pp)
             VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $_POST['ID_bruder'],
             $_POST['tgl_datang_komunitas'] ?: null,
             $_POST['tgl_pulang_komunitas'] ?: null,
             $_POST['tgl_pergi_luarkota'] ?: null,
-            $_POST['tgl_pulang_luarKota'] ?: null,
+            $_POST['tgl_pulang_luarkota'] ?: null,
             $_POST['jumlah_hari'] ?: null,
             $_POST['keterangan_pp'] ?: null
         ]);
@@ -47,7 +47,7 @@ $stmt = $pdo->query("
         b.tgl_datang_komunitas,
         b.tgl_pulang_komunitas,
         b.tgl_pergi_luarkota,
-        b.tgl_pulang_luarKota,
+        b.tgl_pulang_luarkota,
         b.jumlah_hari,
         b.keterangan_pp
     FROM `5_bruder` b
@@ -651,7 +651,7 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td><?= $row['tgl_datang_komunitas'] ?: '-' ?></td>
                                         <td><?= $row['tgl_pulang_komunitas'] ?: '-' ?></td>
                                         <td><?= $row['tgl_pergi_luarkota'] ?: '-' ?></td>
-                                        <td><?= $row['tgl_pulang_luarKota'] ?: '-' ?></td>
+                                        <td><?= $row['tgl_pulang_luarkota'] ?: '-' ?></td>
                                         <td><?= $row['jumlah_hari'] ?></td>
                                         <td><?= htmlspecialchars($row['keterangan_pp']) ?></td>
                                         <td>
@@ -720,7 +720,7 @@ $data_bruder_tabel = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">Tanggal Pulang Luar Kota</label>
-                                        <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarKota" class="form-control">
+                                        <input type="date" name="tgl_pulang_luarKota" id="tgl_pulang_luarkota" class="form-control">
                                     </div>
 
                                     <div class="mb-2">
@@ -799,7 +799,7 @@ function showStep2(type) {
   const datang = document.querySelector('.mb-2 [name="tgl_datang_komunitas"]').closest('.mb-2');
   const pulangKom = document.querySelector('.mb-2 [name="tgl_pulang_komunitas"]').closest('.mb-2');
   const pergi = document.querySelector('.mb-2 [name="tgl_pergi_luarkota"]').closest('.mb-2');
-  const pulangLuar = document.querySelector('.mb-2 [name="tgl_pulang_luarKota"]').closest('.mb-2');
+  const pulangLuar = document.querySelector('.mb-2 [name="tgl_pulang_luarkota"]').closest('.mb-2');
 
   if (type === 'in') {
     datang.style.display = 'flex';
@@ -836,7 +836,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const datang = document.getElementById("tgl_datang_komunitas");
     const pulangKom = document.getElementById("tgl_pulang_komunitas");
     const pergi = document.getElementById("tgl_pergi_luarkota");
-    const pulangLuar = document.getElementById("tgl_pulang_luarKota");
+    const pulangLuar = document.getElementById("tgl_pulang_luarkota");
 
     function aturTampilanTanggal() {
         if (txType.value === "in") {
@@ -919,7 +919,7 @@ document.getElementById("bruderForm").addEventListener("submit", function(e) {
     const tglDatang = document.getElementById("tgl_datang_komunitas").value || "-";
     const tglPulangKom = document.getElementById("tgl_pulang_komunitas").value || "-";
     const tglPergi = document.getElementById("tgl_pergi_luarkota").value || "-";
-    const tglPulangLuar = document.getElementById("tgl_pulang_luarKota").value || "-";
+    const tglPulangLuar = document.getElementById("tgl_pulang_luarkota").value || "-";
     const jumlah = document.getElementById("jumlah_hari").value || "-";
     const ket = document.querySelector("textarea[name='keterangan_pp']").value || "-";
 

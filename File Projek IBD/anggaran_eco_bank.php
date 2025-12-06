@@ -1,19 +1,16 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['ID_bruder']) || $_SESSION['status'] !== 'econom') {
     header("Location: login.php");
     exit;
 }
+
 try {
     // 1. Koneksi database
     $pdo = new PDO("mysql:host=localhost;dbname=ibd_kelompok6_brd", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // ambil daftar bruder untuk dropdown
-    $data_bruder = $pdo->query("SELECT ID_bruder, nama_bruder FROM data_bruder ORDER BY nama_bruder")->fetchAll(PDO::FETCH_ASSOC);
-
-    // ambil foto login
+    $nama = $_SESSION['nama_bruder'];
     $stmt = $pdo->prepare("
         SELECT db.foto
         FROM login_bruder lb
@@ -23,7 +20,6 @@ try {
     $stmt->execute([$_SESSION['ID_bruder']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     $foto = !empty($user['foto']) ? $user['foto'] : 'default.png';
-
     
     // 2. Handle POST insert transaksi
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'save_transaction') {
@@ -702,24 +698,24 @@ try {
                                 </tr>
                             </tbody>                                                    
                             <tfoot>
-                            <tr>
-                                <td colspan="5" style="text-align:center; font-weight:bold;">JUMLAH SEMUA</td>
-                                <td><?= number_format($total_in,2,',','.') ?></td>
-                                <td><?= number_format($total_out,2,',','.') ?></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" style="text-align:center; font-weight:bold;">JUMLAH</td>
-                                <td><?= number_format($total_in,2,',','.') ?></td>
-                                <td><?= number_format($total_out,2,',','.') ?></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" style="text-align:center; font-weight:bold;">SALDO</td>
-                                <td colspan="2"><?= number_format($total_in - $total_out,2,',','.') ?></td>
-                                <td></td>
-                            </tr>
-                         </tfoot>
+                                <tr>
+                                    <td colspan="5" style="text-align:center; font-weight:bold;">JUMLAH SEMUA</td>
+                                    <td><span id="totalInAll"><?= number_format($total_in,2,',','.') ?></span></td>
+                                    <td><span id="totalOutAll"><?= number_format($total_out,2,',','.') ?></span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="text-align:center; font-weight:bold;">JUMLAH</td>
+                                    <td><span id="totalIn"><?= number_format($total_in,2,',','.') ?></span></td>
+                                    <td><span id="totalOut"><?= number_format($total_out,2,',','.') ?></span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="text-align:center; font-weight:bold;">SALDO</td>
+                                    <td colspan="2"><span id="saldoAkhir"><?= number_format($total_in - $total_out,2,',','.') ?></span></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -904,35 +900,36 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ==== Perhitungan total & saldo ====
+// ==== Perhitungan total & saldo ====
     function updateTotals() {
         let totalIn = 0, totalOut = 0;
 
-        tableBody.querySelectorAll('tr').forEach(row => {
+
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
             if (row.id === 'fixedRow') return;
-            const inVal = parseFloat(row.cells[5]?.textContent.replace(/,/g, '')) || 0;
-            const outVal = parseFloat(row.cells[6]?.textContent.replace(/,/g, '')) || 0;
-            totalIn += inVal;
-            totalOut += outVal;
+
+            if (row.cells.length > 6) {
+                const inVal = parseFloat(row.cells[5].textContent.replace(/\./g, '').replace(/,/g, '.')) || 0;
+                const outVal = parseFloat(row.cells[6].textContent.replace(/\./g, '').replace(/,/g, '.')) || 0;
+                totalIn += inVal;
+                totalOut += outVal;
+            }
         });
 
-        const saldoAwalIn = parseFloat(document.getElementById('saldoAwalIn')?.textContent.replace(/,/g, '')) || 0;
-        const saldoAwalOut = parseFloat(document.getElementById('saldoAwalOut')?.textContent.replace(/,/g, '')) || 0;
+        const formatter = new Intl.NumberFormat('id-ID', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
-        const [totalInEl, totalOutEl] = document.querySelectorAll('tfoot tr:nth-child(1) td span');
-        const [saldoInEl, saldoOutEl] = document.querySelectorAll('tfoot tr:nth-child(2) td span');
-        const [akhirInEl, akhirOutEl] = document.querySelectorAll('tfoot tr:nth-child(3) td span');
 
-        totalInEl.textContent = totalIn.toLocaleString();
-        totalOutEl.textContent = totalOut.toLocaleString();
-
-        const saldoIn = totalIn + saldoAwalIn;
-        const saldoOut = totalOut + saldoAwalOut;
-
-        saldoInEl.textContent = saldoIn.toLocaleString();
-        saldoOutEl.textContent = saldoOut.toLocaleString();
-
-        akhirInEl.textContent = (saldoIn - saldoOut).toLocaleString();
-        akhirOutEl.textContent = '';
+        if(document.getElementById('totalInAll')) document.getElementById('totalInAll').textContent = formatter.format(totalIn);
+        if(document.getElementById('totalOutAll')) document.getElementById('totalOutAll').textContent = formatter.format(totalOut);
+        
+        if(document.getElementById('totalIn')) document.getElementById('totalIn').textContent = formatter.format(totalIn);
+        if(document.getElementById('totalOut')) document.getElementById('totalOut').textContent = formatter.format(totalOut);
+        
+        if(document.getElementById('saldoAkhir')) document.getElementById('saldoAkhir').textContent = formatter.format(totalIn - totalOut);
     }
 
     // ==== Cegah Enter submit otomatis ====
